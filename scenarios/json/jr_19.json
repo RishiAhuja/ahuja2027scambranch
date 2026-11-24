@@ -1,0 +1,265 @@
+{
+  "family_id": "jr_19",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Pre-employment medical paid to a \"lab coordinator's\" personal UPI vs. medical at an empanelled lab paid at the counter against a receipt and reimbursed",
+  "summary": "A recruiter from TalentBridge Staffing calls a candidate selected for a warehouse role at SwiftShip Couriers about the mandatory pre-employment medical at Nirmay Diagnostics. In the fraud case, the recruiter tells the candidate to pay the test charge now to a \"lab coordinator's\" personal UPI ID to book the slot, or the offer lapses. In the legitimate case, the recruiter books a slot, tells the candidate to pay at the lab counter against a printed receipt, and explains that SwiftShip reimburses the amount in the first salary. Candidate payment appears in both cases.",
+  "shared_setting": {
+    "organisations": [
+      "TalentBridge Staffing",
+      "Nirmay Diagnostics",
+      "SwiftShip Couriers"
+    ],
+    "pretext": "",
+    "recipient_profile": "a candidate who cleared the interview; details sampled at generation.",
+    "other_facts": [
+      "Role: warehouse associate (loading, sorting), salary [AMOUNT_1] (₹14,000–₹22,000 per month), shifts.",
+      "Test charge in both: [AMOUNT_2] (₹800–₹2,500) for a basic fitness panel.",
+      "Both calls mention \"mandatory\", \"fasting\", \"lab\", \"slot\", and a payment."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_19_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller requires payment for the medical to an individual's handle, over the phone, before a slot is booked, with the offer made conditional on it.",
+      "caller_objective": "Collect the payment; no slot or offer exists.",
+      "stable_facts": [
+        "Payment to [UPI_ID_1], described as \"Nirmay's lab coordinator\".",
+        "No receipt; \"the slot confirmation SMS is your receipt\".",
+        "Offer lapses if the slot is not booked today.",
+        "The caller says reimbursement is \"not applicable\" because the charge is small."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and TalentBridge, congratulates the candidate on clearing the SwiftShip interview",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient thanks them",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says a pre-employment medical at Nirmay Diagnostics is mandatory before joining",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what the test involves",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller describes a basic fitness panel, fasting in the morning, about an hour at the lab",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to book it and what it costs",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the charge [AMOUNT_2] must be paid now to the lab coordinator at [UPI_ID_1] to book the slot, or the offer lapses today",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the candidate to pay [AMOUNT_2] now to [UPI_ID_1], a named individual, to book the medical slot",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the offer lapses if not paid today",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_19_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The candidate pays the lab directly at its counter against a receipt, and the employer reimburses; nobody collects money over the phone.",
+      "caller_objective": "Book the medical slot and explain the reimbursement.",
+      "stable_facts": [
+        "Slot booked by TalentBridge at Nirmay Diagnostics' [CITY] branch; confirmation SMS with the branch address.",
+        "Candidate pays [AMOUNT_2] at the lab counter (cash, card, or the lab's counter QR) and gets a printed receipt.",
+        "SwiftShip reimburses the amount in the first salary on submission of the receipt.",
+        "Candidates who cannot pay upfront can ask TalentBridge to arrange direct billing."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and TalentBridge, congratulates the candidate on clearing the SwiftShip interview",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient thanks them",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says a pre-employment medical at Nirmay Diagnostics is mandatory before joining",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what the test involves",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller describes a basic fitness panel, fasting in the morning, about an hour at the lab",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to book it and what it costs",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the slot is booked for them; they pay [AMOUNT_2] at the lab counter against a receipt, SwiftShip reimburses it in the first salary, and TalentBridge does not collect any money",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Payment only at the lab counter, with a receipt"
+        },
+        {
+          "id": "L-M2",
+          "text": "Employer reimburses the full amount"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller states they do not collect any money"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks for the UPI ID again",
+      "legitimate": "Confirms the slot and asks for the lab address"
+    },
+    "clarifying": {
+      "fraud": "Asks why they cannot pay at the lab",
+      "legitimate": "Asks when the reimbursement arrives and whether a copy of the receipt is enough"
+    },
+    "resistant": {
+      "fraud": "Says they will pay only at the lab in person",
+      "legitimate": "Says they cannot pay upfront this month"
+    },
+    "suspicious": {
+      "fraud": "Asks why a lab payment goes to a personal UPI",
+      "legitimate": "Asks how to be sure the lab is really empanelled"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "candidate pays (cooperative only)",
+      "caller refuses counter payment and candidate declines",
+      "caller lowers the amount and candidate still refuses",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "slot confirmed",
+      "direct billing arranged for a candidate who cannot pay upfront",
+      "slot rescheduled",
+      "caller suggests confirming the booking with the lab's official helpline."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the amount or press the deadline. They must not switch to OTPs, app installs, or bank logins. The legitimate caller must not ask for any payment to themselves or any individual after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role, salary, test description, and test charge identical across cases",
+      "_F payment to [UPI_ID_1] over the phone at turn 7",
+      "_L counter payment with receipt and employer reimbursement"
+    ],
+    "may_vary": [
+      "test components (generic)",
+      "fasting instructions",
+      "lab branch",
+      "caller name",
+      "charge within range"
+    ],
+    "must_not_emit": [
+      "real lab or courier names",
+      "working UPI IDs",
+      "medical advice",
+      "narrator text",
+      "scam\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Candidate payment is present in both cases. Evidence is payment to an individual over the phone before booking, not payment itself.",
+    "A counter QR at the lab (in _L) is not the same as a caller-supplied personal UPI ID.",
+    "Near jr_07 (candidate-paid verification fee). Differentiated by design: jr_07_L has no candidate payment; jr_19_L has a receipted, reimbursed payment to the service provider."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Upfront payment is a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

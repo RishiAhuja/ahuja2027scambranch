@@ -1,0 +1,277 @@
+{
+  "family_id": "bp_15",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "outbound_call",
+  "title": "\"Free card upgrade\" needing CVV and expiry vs. upgrade offer accepted in the app",
+  "summary": "A caller from Kaveri Bank offers the recipient a free upgrade of their credit card to a higher tier with a bigger limit. In the fraud case, the caller says the upgrade must be \"verified\" on the call and asks for the card's expiry date and CVV. In the legitimate case, the caller describes the same offer and tells the recipient to accept it in the Cards section of the Kaveri Bank app if interested. The new card will be posted to the registered address and no card details are needed.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "an upgrade to a premium card with a higher limit of [AMOUNT_1] (₹1,00,000–₹5,00,000) and a first-year annual fee waiver.",
+    "recipient_profile": "an adult Kaveri Bank credit-card holder; profile sampled at generation.",
+    "other_facts": [
+      "Both callers say the offer is \"pre-approved\" and \"limited period\"."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_15_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks for the card's CVV and expiry date on the call. Together with the card number, these allow card-not-present payments; banks never ask customers for them.",
+      "caller_objective": "Obtain the card's expiry date and CVV, and later any OTP, to make purchases.",
+      "stable_facts": [
+        "The caller already quotes the card's last four digits and the recipient's name.",
+        "The caller says the upgrade is \"activated only after verification\" on this call.",
+        "The caller says the old card will be blocked if the upgrade is not verified today."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's cards team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the card ending [ACCT_LAST4] is pre-approved for a free upgrade with a limit of [AMOUNT_1]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (interested, asks about fees)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the first-year fee is waived and the offer must be verified today or the current card will be blocked",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to read out the expiry date and the three-digit CVV on the back of the card",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to read out the card's CVV and expiry date to verify the upgrade",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the current card will be blocked if not verified today",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_15_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller makes an offer and sends the recipient to the official app to accept it. No card detail or code is asked.",
+      "caller_objective": "Get the recipient to accept the upgrade in the app.",
+      "stable_facts": [
+        "The offer is visible in the Cards section of the Kaveri Bank app until the end of the month.",
+        "If accepted, the new card is posted to the registered address and the old card works until the new one is activated.",
+        "The caller says the bank never asks for CVV, expiry, PIN, or OTP on a call."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's cards team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the card ending [ACCT_LAST4] is pre-approved for an upgrade with a limit of [AMOUNT_1]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (interested, asks about fees)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the first-year fee is waived, and the current card keeps working whether or not they accept",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says they can accept in the Cards section of the app, and the bank does not need the CVV, expiry, or any code",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Acceptance happens in the official app, not on the call"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says no CVV, expiry, PIN, or OTP is needed"
+        },
+        {
+          "id": "L-M3",
+          "text": "Current card keeps working; nothing is blocked if the recipient declines"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Turns the card over and starts reading the CVV",
+      "legitimate": "Says they will accept it in the app tonight"
+    },
+    "clarifying": {
+      "fraud": "Asks why the bank needs the CVV when it issued the card",
+      "legitimate": "Asks what the annual fee is after the first year"
+    },
+    "resistant": {
+      "fraud": "Says they do not want the upgrade",
+      "legitimate": "Says they do not want the upgrade"
+    },
+    "suspicious": {
+      "fraud": "Says banks never ask for CVV and asks if this is fraud",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient shares details (cooperative only)",
+      "caller pressures and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will call the number on the card."
+    ],
+    "legitimate": [
+      "recipient plans to accept in the app",
+      "recipient declines and the caller thanks them",
+      "recipient is told to verify by calling the number on the back of the card."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may repeat the request, mention the OTP that \"will come next\", or give up. Asking for an OTP after CVV is part of the same card-credential mechanism and is allowed. The caller must not switch to a link, app install, or payment. The legitimate caller must not ask for any card detail, code, or payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "card last-four, new limit, and fee waiver in both",
+      "CVV and expiry request (_F)",
+      "app acceptance and explicit \"no card details\" (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "card tier name (fictional)",
+      "limit within range",
+      "reward features",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank or card-network names",
+      "real card-number or CVV formats beyond a placeholder",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Pre-approved\", \"limited period\", and \"fee waiver\" appear in both cases. The label depends on the CVV and expiry request.",
+    "The resistant condition is the same in both columns on purpose: declining an offer is neutral.",
+    "Mechanism overlap: bp_01 and bp_14 ask for an OTP; this card asks for CVV. They differ in the credential and in whether an SMS arrives during the call."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Banks and genuine entities never ask for card details, CVV, or OTP (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors cite urgency or attractive offers to get CVV or OTP (C02)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors share a few customer details to gain confidence (C03)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

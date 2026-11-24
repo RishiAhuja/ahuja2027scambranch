@@ -1,0 +1,278 @@
+{
+  "family_id": "bp_17",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "dev",
+  "channel": "outbound_call",
+  "title": "Fee for \"EMI relief\" paid to an agent vs. restructuring explained with a branch application",
+  "summary": "A caller from Kaveri Bank phones a borrower who has missed a loan EMI. In the fraud case, the caller offers to arrange an EMI holiday or restructuring if the recipient pays a \"processing fee\" today to the caller's UPI ID. In the legitimate case, the caller notes the missed EMI and explains that the bank can consider restructuring under its policy on a written application at the branch or through the app. The caller says any charges would appear in the revised terms and asks the recipient to keep paying through the loan account's usual channels.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "one missed EMI of [AMOUNT_1] (₹5,000–₹40,000) because of a temporary income drop.",
+    "recipient_profile": "an adult borrower under some financial stress; profile sampled at generation.",
+    "other_facts": [
+      "Both callers are sympathetic, mention \"restructuring\", and mention a fee or charges."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_17_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller makes loan relief conditional on a payment to a caller-named payee. Loan relief is applied for with the lender, and any charges are part of the lender's own terms, not paid to an agent.",
+      "caller_objective": "Get the recipient to send [AMOUNT_2] (₹2,000–₹15,000) to [UPI_ID_1].",
+      "stable_facts": [
+        "The caller says they belong to a \"loan relief cell\" that can \"stop EMIs for six months\".",
+        "The fee must be paid today \"before the account is sent for recovery\".",
+        "[UPI_ID_1] is presented as the cell's processing ID."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's loan relief cell",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller notes the missed EMI of [AMOUNT_1] and asks whether the recipient is facing difficulty",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient explains the income drop",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says they can pause EMIs for six months, but the file must be processed today or it goes to recovery",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what it costs",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller reads out [UPI_ID_1] and asks the recipient to pay the processing fee [AMOUNT_2] there now",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to pay [AMOUNT_2] to [UPI_ID_1] so the EMI relief can be approved",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller threatens recovery action today if the fee is not paid",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_17_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller explains options, directs the recipient to apply through official channels, and asks for no payment to anyone other than the recipient's own loan account through its usual channels.",
+      "caller_objective": "Understand the recipient's situation and get them to apply formally if they need restructuring.",
+      "stable_facts": [
+        "Restructuring is at the bank's discretion under its own policy (fictional Kaveri Bank process). It needs a written application with income documents at the branch or through the app's service-request section.",
+        "Any revised charges or interest would be set out in the new loan terms and applied to the loan account by the bank.",
+        "Meanwhile the overdue EMI can be paid through the existing auto-debit, the app's loan section, or the branch."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's loan servicing team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller notes the missed EMI of [AMOUNT_1] and asks whether the recipient is facing difficulty",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient explains the income drop",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the bank can consider restructuring, but it needs a written application and the caller cannot approve it on the phone",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what it costs",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says any charges would be stated in the revised terms, nothing is paid to the caller, and the overdue EMI can be paid through the loan account's usual channels",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Relief is applied for in writing at the branch or in the app; the caller cannot approve it on the call"
+        },
+        {
+          "id": "L-M2",
+          "text": "Any charges appear in revised terms from the bank; nothing is paid to the caller"
+        },
+        {
+          "id": "L-M3",
+          "text": "Overdue EMI is paid only into the recipient's own loan account through its usual channels"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens their UPI app and asks the caller to repeat the ID",
+      "legitimate": "Says they will bring income documents to the branch this week"
+    },
+    "clarifying": {
+      "fraud": "Asks why the fee is not added to the loan account",
+      "legitimate": "Asks how long a decision takes and whether their credit score is affected"
+    },
+    "resistant": {
+      "fraud": "Says they will visit the branch and apply there",
+      "legitimate": "Says they will manage and pay the EMI next week"
+    },
+    "suspicious": {
+      "fraud": "Says banks do not take fees to personal IDs and asks for a letter",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller lowers the fee or threatens and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will ask at the branch."
+    ],
+    "legitimate": [
+      "recipient plans to apply",
+      "recipient commits to paying the overdue EMI through the usual channel",
+      "recipient is told to verify by calling the number on their loan statement."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the fee, increase threats, or give up. They must not switch to a different mechanism (for example OTP, link, or app install). The legitimate caller must not ask for any payment outside the loan account's usual channels, or for credentials, after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "missed EMI amount in both",
+      "relief fee to [UPI_ID_1] and same-day recovery threat (_F)",
+      "written application, charges in revised terms, own-loan-account payment (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "loan type",
+      "reason for income drop",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank or lender names",
+      "working UPI handles",
+      "real regulatory scheme names",
+      "abusive recovery language",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Both callers mention fees or charges and a missed EMI. The legitimate caller also asks the recipient to pay the overdue EMI. That payment goes only to the recipient's own loan account through its existing channels and is a deliberate confound, not evidence.",
+    "The fraud caller's recovery threat resembles aggressive but genuine collection calls. The label depends on the payee and the relief-for-fee framing.",
+    "Real-world restructuring rules were not verified. The legitimate card treats restructuring as a fictional Kaveri Bank policy and must not quote regulatory schemes.",
+    "Mechanism overlap with bp_06 (advance fee to an unofficial payee). The pretext differs: new credit versus distress relief."
+  ],
+  "evidence_references": [
+    {
+      "claim": "RBI cautions against entities that collect fees for loan waivers and advises approaching the lender directly (CB29)",
+      "source_ids": [
+        "SB22",
+        "SB23"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Repayments go directly to the lender's account, with no third-party pass-through (CB10)",
+      "source_ids": [
+        "SB02"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Banks never ask for an advance fee (CB09)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Restructuring is decided under the lender's own policy on application",
+      "source_ids": [],
+      "retrieved": "2026-09-25",
+      "status": "VERIFY"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

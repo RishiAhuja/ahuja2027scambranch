@@ -1,0 +1,277 @@
+{
+  "family_id": "bp_06",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "dev",
+  "channel": "outbound_call",
+  "title": "Pre-approved loan with advance fee vs. pre-approved offer with fees in the KFS",
+  "summary": "A caller from Kaveri Bank offers the recipient a pre-approved personal loan. In the fraud case, the caller says the loan will be released only after the recipient pays a processing fee to a UPI ID the caller reads out. In the legitimate case, the caller describes the same offer, says the processing fee is listed in the Key Facts Statement and deducted from the loan amount, and tells the recipient to apply in the Kaveri Bank app or at a branch. Both callers name a processing fee.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "a pre-approved personal loan of [AMOUNT_1] (₹50,000–₹5,00,000) with a processing fee of [AMOUNT_2] (₹1,000–₹10,000).",
+    "recipient_profile": "an adult Kaveri Bank customer with a salary or business income; profile sampled at generation.",
+    "other_facts": [
+      "Both callers say the offer is valid for a limited time and that approval is quick."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_06_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller requires an upfront fee to a caller-specified UPI ID before any disbursal. Genuine lenders deduct processing fees from the sanctioned amount and disburse only into the borrower's own account.",
+      "caller_objective": "Get the recipient to send [AMOUNT_2] to [UPI_ID_1].",
+      "stable_facts": [
+        "[UPI_ID_1] is presented as the \"loan processing desk\" but is not an account in the recipient's own name at Kaveri Bank.",
+        "The caller says the loan amount will reach the account \"within an hour\" of the fee.",
+        "The caller may send a \"sanction letter\" image by message. Its content is not evidence."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's loans team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the recipient has a pre-approved loan of up to [AMOUNT_1] at a low rate",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient shows interest and asks about charges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says there is a one-time processing fee of [AMOUNT_2] and the offer expires today",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to proceed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller reads out [UPI_ID_1] and asks the recipient to pay the fee there first, after which the loan will be credited",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to pay the processing fee [AMOUNT_2] now to [UPI_ID_1] so the loan can be released",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the offer expires today",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_06_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller presents an offer, discloses the fee as part of the loan terms, and sends the recipient to official channels to apply. No payment is requested.",
+      "caller_objective": "Get the recipient to apply for the pre-approved loan through the app or branch.",
+      "stable_facts": [
+        "The offer is visible in the \"Loans\" section of the Kaveri Bank app the recipient already uses.",
+        "The Key Facts Statement shown before acceptance lists the interest rate, annual percentage rate, and the processing fee.",
+        "The fee is deducted from the amount credited. The loan goes only into the recipient's own Kaveri Bank account."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's loans team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the recipient has a pre-approved loan of up to [AMOUNT_1]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient shows interest and asks about charges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says there is a processing fee of [AMOUNT_2] and the offer is open until the end of the month",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to proceed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the fee is deducted from the loan when credited and listed in the Key Facts Statement, and the recipient can apply in the app's Loans section or at a branch",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Caller says the processing fee is deducted from the loan amount, not paid separately"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says all charges are shown in the Key Facts Statement before the recipient accepts"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller says the recipient can apply only in the official app or at a branch, and no payment is taken on the call"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens the UPI app and asks the caller to repeat the ID",
+      "legitimate": "Says they will look at the offer in the app tonight"
+    },
+    "clarifying": {
+      "fraud": "Asks why the fee cannot be taken from the loan itself",
+      "legitimate": "Asks what the interest rate and tenure options are"
+    },
+    "resistant": {
+      "fraud": "Says they will apply at the branch instead",
+      "legitimate": "Says they do not need a loan right now"
+    },
+    "suspicious": {
+      "fraud": "Says banks do not ask for fees to personal IDs and asks for the branch address",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller lowers the fee or pressures and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will check in the bank's app."
+    ],
+    "legitimate": [
+      "recipient agrees to review in the app",
+      "recipient declines the offer",
+      "recipient is told to call the number on their card or passbook to confirm."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may reduce the fee, add a \"last chance\", or give up. They must not switch to a different mechanism (for example asking for OTP, card details, or an app install). The legitimate caller must not ask for any payment, credential, or document by message after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "loan amount and processing fee amount in both",
+      "fee to [UPI_ID_1] before disbursal (_F)",
+      "fee deducted from loan and shown in KFS (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "interest rate figure (fictional)",
+      "tenure",
+      "recipient's income type",
+      "deadline wording",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank or lender names",
+      "real loan-app names",
+      "working UPI handles",
+      "specific real interest rates presented as fact",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Processing fee\", its amount, and a time limit appear in both cases. The label depends on whether the fee must be paid separately to a caller-named payee before disbursal.",
+    "The catalog originally paired the fraud with an officer following up an applied loan. This card uses a pre-approved offer in both cases so the pretext is identical.",
+    "A genuine bank may charge other fees (stamp duty, insurance). They are also deducted or disclosed in the KFS. Generators must not invent a legitimate upfront fee.",
+    "An image of a \"sanction letter\" is not evidence either way."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Processing fee is deducted from the sanctioned amount; banks never ask for an advance fee (CB09)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Loans are disbursed only into the borrower's own bank account (CB10)",
+      "source_ids": [
+        "SB02"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fees not in the KFS cannot be charged without explicit consent (CB11)",
+      "source_ids": [
+        "SB03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

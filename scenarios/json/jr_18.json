@@ -1,0 +1,268 @@
+{
+  "family_id": "jr_18",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Net-banking login requested to \"credit\" a joining bonus vs. payroll collecting account number and IFSC only",
+  "summary": "A caller from Vistara Infotech's payroll team phones a new joiner about their joining bonus. In the fraud case, the caller says the bonus can be credited today only if the joiner shares their net-banking user ID and password so payroll can \"link\" the account. In the legitimate case, payroll asks for the account number, IFSC, and name as per bank records, to be entered on the HR portal with a cancelled-cheque image, and states that the bonus is paid with the first salary and no password, PIN, or OTP is ever needed.",
+  "shared_setting": {
+    "organisations": [
+      "Vistara Infotech"
+    ],
+    "pretext": "",
+    "recipient_profile": "a recent joiner; details sampled at generation.",
+    "other_facts": [
+      "Role: software engineer who joined in the last one to two weeks, CTC [AMOUNT_1] (₹6,00,000–₹12,00,000 per year).",
+      "Joining bonus: [AMOUNT_2] (₹10,000–₹50,000), stated in the offer letter.",
+      "Both calls mention the bonus amount, \"bank account\", \"IFSC\", \"credit\", and \"today\"."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_18_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks for net-banking login credentials. Nobody needs a password to send money to an account; genuine entities never ask for it.",
+      "caller_objective": "Obtain the login and take money from the account.",
+      "stable_facts": [
+        "Caller knows the joiner's name, joining date, and bonus amount.",
+        "Caller says the payroll system needs to \"link and verify\" the salary account \"through net banking\".",
+        "Caller says the bonus batch closes today; otherwise it moves to next quarter."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and Vistara payroll, confirms the joiner's name and joining date",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the joining bonus of [AMOUNT_2] from the offer letter is being processed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient is pleased and asks when it will come",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it can be credited today if the salary account is linked in the payroll system",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what details are needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks for the net-banking user ID and password to \"link and verify\" the account, saying the batch closes today",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the joiner for their net-banking user ID and password to link the account for the bonus",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the bonus batch closes today",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_18_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "Payroll asks only for the details needed to send money (account number, IFSC, name), through the company portal, and states that credentials are never needed.",
+      "caller_objective": "Get bank details entered so salary and bonus can be paid.",
+      "stable_facts": [
+        "Details are entered on https://hr.vistara-infotech.invalid with a cancelled-cheque or passbook image.",
+        "Bonus is paid with the first salary if details are in by the payroll cut-off (this week).",
+        "Payroll never asks for passwords, PINs, OTPs, or card numbers."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and Vistara payroll, confirms the joiner's name and joining date",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the joining bonus of [AMOUNT_2] from the offer letter is being processed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient is pleased and asks when it will come",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it will be credited with the first salary once the salary account is on record; the cut-off is this week",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what details are needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says to enter the account number, IFSC, and name as per bank on the HR portal with a cancelled-cheque image; payroll never needs a password, PIN, or OTP",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Only account number, IFSC, and account-holder name requested"
+        },
+        {
+          "id": "L-M2",
+          "text": "Entry through the company HR portal, not read out on the call"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller states no password, PIN, or OTP is ever needed"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Starts to give the user ID or offers to log in while on the call",
+      "legitimate": "Says they will update the portal today"
+    },
+    "clarifying": {
+      "fraud": "Asks why payroll needs the password and not just the account number",
+      "legitimate": "Asks whether a passbook photo works instead of a cheque"
+    },
+    "resistant": {
+      "fraud": "Says they will only share account number and IFSC",
+      "legitimate": "Says they have a new account and want to switch salary to it later"
+    },
+    "suspicious": {
+      "fraud": "Says banks warn never to share passwords and asks for an official email",
+      "legitimate": "Asks whether it is safe to share account number and IFSC at all"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "joiner shares credentials (cooperative only)",
+      "caller insists and joiner refuses",
+      "caller says account number is \"not enough\" and joiner hangs up",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "joiner updates the portal",
+      "payroll explains how to change the salary account later",
+      "payroll explains that account number and IFSC can only be used to send money."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may insist, reassure, or claim a \"system requirement\". They must not switch to asking for payments, app installs, or a different credential mechanism (that is jr_13). The legitimate caller must not ask for any credential or payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "joiner details, bonus amount, and \"credit\" framing identical across cases",
+      "_F net-banking user ID and password request at turn 7",
+      "_L account number, IFSC, name via portal with explicit no-credentials statement"
+    ],
+    "may_vary": [
+      "bonus amount within range",
+      "caller name",
+      "cut-off day",
+      "whether cheque or passbook is mentioned"
+    ],
+    "must_not_emit": [
+      "real bank names or net-banking portals",
+      "real account numbers",
+      "what the caller would do with the login",
+      "narrator text",
+      "scam\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Bank account\", \"IFSC\", \"credit\", and \"today\" appear in both cases; none is evidence. Account number and IFSC are safe to share for receiving money.",
+    "Knowing the bonus amount is not evidence of legitimacy (C03).",
+    "Near jr_13 (OTP disclosure during onboarding). Both are credential requests; the credential and pretext differ. Flagged for deduplication review; if one must go, keep jr_18 for the strong account-number-vs-password contrast."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Genuine entities never ask for username/password, card details, CVV, or OTP (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors share a few real personal details to gain confidence (C03)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors cite urgency to obtain credentials (C02)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

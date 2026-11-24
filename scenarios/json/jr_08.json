@@ -1,0 +1,268 @@
+{
+  "family_id": "jr_08",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "chat",
+  "title": "\"Payment agent\" job receiving and forwarding funds vs. accounts assistant role",
+  "summary": "A recruiter for Meridian Exim Traders messages a job seeker about a work-from-home accounts role. In the fraud case, the \"job\" is to receive money from \"clients\" into the recipient's own savings account and send it on to other accounts, keeping a commission. In the legitimate case, the role is an accounts assistant who records the company's transactions in the company's own systems after a formal interview, with salary paid into the recipient's account.",
+  "shared_setting": {
+    "organisations": [
+      "Meridian Exim Traders",
+      "NaukriHub"
+    ],
+    "pretext": "",
+    "recipient_profile": "a commerce graduate or student looking for remote work; details sampled at generation.",
+    "other_facts": [
+      "Role title in both: \"accounts / payments assistant\", part-time or remote, earnings stated as [AMOUNT_1] (₹15,000–₹30,000 per month).",
+      "Both chats mention \"payments\", \"clients\", \"bank account\", and \"IFSC\". Asking for the recipient's account number and IFSC for salary is normal in _L."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_08_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The \"job\" consists of letting company or third-party money pass through the recipient's personal bank account and forwarding it on, which is what public advisories describe as renting out an account (a money-mule request).",
+      "caller_objective": "Obtain the use of the recipient's personal account to move funds.",
+      "stable_facts": [
+        "The recruiter says \"clients\" will send payments to the recipient's own savings account.",
+        "The recipient is to forward each amount to account details the recruiter supplies, the same day.",
+        "Commission: [AMOUNT_2] (2–10% of each amount, framed as ₹500–₹3,000 per transfer).",
+        "No interview, no written contract, no company system access."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Recruiter messages about a remote accounts/payments assistant role at Meridian Exim",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are interested and asks about the work",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Recruiter says the company handles many client payments and needs help with \"collections\"",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what collections involve",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Recruiter says overseas clients face delays paying the company directly, so assistants help receive payments",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how they would receive them",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Recruiter says clients will pay into the recipient's own savings account, and the recipient forwards each amount the same day to accounts shared by the recruiter, keeping [AMOUNT_2]; asks for account number and IFSC to start today",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Recruiter says the job is to receive client payments into the recipient's personal account and forward them to accounts the recruiter provides, keeping a commission",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Recruiter asks for the account details to \"start receiving\" today, without interview or contract",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_08_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "A genuine accounts role: company money stays in company accounts, the recipient only records and reconciles it, and the recipient's own account is used solely to receive salary.",
+      "caller_objective": "Schedule an interview for the accounts assistant role.",
+      "stable_facts": [
+        "Work: recording invoices and client receipts in the company's accounting software, reconciling the company's bank statements.",
+        "A video interview with the finance manager, then an offer letter and contract.",
+        "The recipient's account number and IFSC are needed only after the offer, for salary.",
+        "Company funds never touch employees' personal accounts."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Recruiter messages about a remote accounts/payments assistant role at Meridian Exim",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are interested and asks about the work",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Recruiter says the company handles many client payments and needs help with \"collections\"",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what collections involve",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Recruiter says it means following up on unpaid invoices and recording receipts in the company's accounting software",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how the payments would reach them",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Recruiter says payments never come to the recipient; clients pay only the company's accounts, and the assistant just records and reconciles them. Next step is a video interview; account number and IFSC are needed only for salary after an offer",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Interview and written contract before work"
+        },
+        {
+          "id": "L-M2",
+          "text": "Recruiter states client payments go only to the company's own accounts"
+        },
+        {
+          "id": "L-M3",
+          "text": "Personal account details requested only for salary, after the offer"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees and shares that they will send account details",
+      "legitimate": "Agrees to the interview and asks for a time"
+    },
+    "clarifying": {
+      "fraud": "Asks why clients cannot pay the company directly",
+      "legitimate": "Asks which accounting software is used and whether training is given"
+    },
+    "resistant": {
+      "fraud": "Says they do not want other people's money in their account",
+      "legitimate": "Says they only want work that needs no bank details at all"
+    },
+    "suspicious": {
+      "fraud": "Says this sounds like the account-renting schemes police warn about",
+      "legitimate": "Asks why a salary account is needed and whether it is safe to share"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient agrees (cooperative only)",
+      "recruiter raises the commission and recipient declines",
+      "recruiter says \"it is completely legal\" and recipient still leaves",
+      "recruiter stops replying."
+    ],
+    "legitimate": [
+      "interview booked",
+      "recipient declines",
+      "recruiter explains that account number and IFSC can only be used to send money and that no password, PIN, or OTP will be asked."
+    ]
+  },
+  "caller_continuation_limits": "The fraud recruiter may raise the commission, reassure, or pressure. They must not switch to asking for OTPs, net-banking logins, card details, or deposits, and must not describe any method of moving or concealing funds beyond \"forward it to the account I share\". The legitimate recruiter must not ask the recipient to receive or move any money after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role title and pay identical across cases",
+      "_F receive-and-forward request with commission at turn 7",
+      "_L explicit statement that client money never touches the recipient's account"
+    ],
+    "may_vary": [
+      "industry framing (export, e-commerce reseller)",
+      "commission within range",
+      "recipient profile",
+      "interview format"
+    ],
+    "must_not_emit": [
+      "real company or bank names, working account numbers, any explanation of layering, splitting, cash withdrawal, crypto conversion, or avoiding bank checks",
+      "narrator text",
+      "scam\" or \"mule\" in recruiter lines"
+    ]
+  },
+  "ambiguities": [
+    "Asking for account number and IFSC is not evidence; it appears in both cases. In _F the purpose is to route others' money; in _L it is salary.",
+    "The word \"payments\" in a job title is not evidence.",
+    "Safety: the card describes the request only at the level of public advisories. Generation must not elaborate on what happens to the funds after forwarding.",
+    "The recipient's knowledge or intent is irrelevant to the label; the caller's request decides it."
+  ],
+  "evidence_references": [
+    {
+      "claim": "I4C advises citizens not to sell or rent bank accounts; illicit funds in such accounts can lead to arrest; accounts are scouted via social media (CJ06)",
+      "source_ids": [
+        "SJ03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Renting out an account and receiving illicit funds can lead to arrest (CJ16)",
+      "source_ids": [
+        "SJ09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

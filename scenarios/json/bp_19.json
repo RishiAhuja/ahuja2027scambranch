@@ -1,0 +1,278 @@
+{
+  "family_id": "bp_19",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Premature FD closure \"penalty\" to a personal UPI ID vs. confirmation of the customer's own closure request",
+  "summary": "The recipient recently asked Kaveri Bank to close a fixed deposit before maturity. A caller from the bank phones about that request. In the fraud case, the caller says the proceeds are on hold until the recipient pays the premature-closure penalty to a UPI ID the caller reads out. In the legitimate case, the caller confirms the request and says the penalty is simply a lower interest rate, applied by the bank as stated when the deposit was opened. The proceeds are credited to the recipient's linked savings account today, and there is nothing to pay.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "the recipient submitted a premature-closure request for an FD of [AMOUNT_1] (₹25,000–₹5,00,000) through the app or branch in the past two days, reference [TICKET_ID].",
+    "recipient_profile": "an adult depositor who needs the money for an expense; profile sampled at generation.",
+    "other_facts": [
+      "Both callers use the word \"penalty\" and give a penalty amount of about [AMOUNT_2] (₹500–₹10,000)."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_19_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller requires the recipient to pay a separate amount to a caller-named payee before their own deposit is released. Premature-closure penalties are applied by the bank to the deposit's interest, not paid in by the customer.",
+      "caller_objective": "Get the recipient to send [AMOUNT_2] to [UPI_ID_1].",
+      "stable_facts": [
+        "The caller quotes the closure reference and the FD amount. Knowing these does not prove legitimacy.",
+        "The caller says the proceeds will be released \"within an hour\" of the penalty payment.",
+        "[UPI_ID_1] is described as \"the deposits settlement ID\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's deposits team about reference [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges and confirms they asked to close the FD",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller confirms the FD of [AMOUNT_1] and says premature closure carries a penalty of [AMOUNT_2]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks when they will get the money",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the proceeds are on hold until the penalty is cleared, and the request lapses today otherwise",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to clear it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller reads out [UPI_ID_1] and asks the recipient to pay [AMOUNT_2] there now",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to pay the penalty [AMOUNT_2] to [UPI_ID_1] before the FD proceeds are released",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the closure request will be cancelled today if not paid",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_19_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller confirms a request the customer made, explains that the penalty is applied inside the deposit calculation, and asks for nothing.",
+      "caller_objective": "Confirm the closure request and set expectations about the amount credited.",
+      "stable_facts": [
+        "The penalty is a reduction in the interest rate for the period the deposit ran, as stated in the deposit terms at opening. It is deducted inside the payout calculation.",
+        "The net proceeds are credited to the linked savings account [ACCT_LAST4] the same day.",
+        "The caller says the recipient does not need to pay anything or share any code."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's deposits team about reference [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges and confirms they asked to close the FD",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller confirms the FD of [AMOUNT_1] and says premature closure carries a penalty of about [AMOUNT_2]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks when they will get the money",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the net amount will be credited to the linked savings account today",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they need to pay the penalty separately",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says no: the penalty is a lower interest rate applied in the calculation, as in the deposit terms, and nothing needs to be paid",
+          "evidence_ids": [
+            "L-M1",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Penalty is deducted from the interest by the bank, not paid by the customer"
+        },
+        {
+          "id": "L-M2",
+          "text": "Proceeds go only to the recipient's own linked account"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller refers to the deposit terms given when the FD was opened"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens their UPI app and asks the caller to repeat the ID",
+      "legitimate": "Thanks the caller and says they will check the account this evening"
+    },
+    "clarifying": {
+      "fraud": "Asks why the penalty cannot be deducted from the deposit",
+      "legitimate": "Asks how the net amount was calculated"
+    },
+    "resistant": {
+      "fraud": "Says they will cancel the closure and keep the FD",
+      "legitimate": "Says they have changed their mind and want to keep the FD"
+    },
+    "suspicious": {
+      "fraud": "Says their own money should not need a payment to release and asks for the branch",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller pressures and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will check with the branch."
+    ],
+    "legitimate": [
+      "recipient accepts the timeline",
+      "recipient asks to cancel the closure and is told how to do it in the app or at the branch",
+      "recipient is told to verify by calling the number on their passbook."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the amount, add urgency, or give up. They must not switch to a different mechanism (for example OTP, link, or app install). The legitimate caller must not ask for any payment, code, or credential after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "closure reference, FD amount, and penalty amount in both",
+      "penalty payment to [UPI_ID_1] (_F)",
+      "penalty inside the calculation and credit to own account (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "FD tenure and how long it ran",
+      "recipient's reason for closing",
+      "amounts within range",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank names",
+      "real interest or penalty rates stated as fact",
+      "working UPI handles",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Penalty\", its amount, and \"today\" appear in both cases. The label depends on whether the recipient must pay it to a caller-named payee.",
+    "The fraud caller's knowledge of the closure request could come from leaked data; the card does not say how. It is not evidence of legitimacy.",
+    "The penalty amount in _L is an estimate of interest forgone; generators should not show a calculation.",
+    "Mechanism overlap with bp_10 (fee to release an insurance payout). The pretext differs: releasing the customer's own deposit."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Penalty components must be disclosed when the deposit is accepted; otherwise no penalty (CB28)",
+      "source_ids": [
+        "SB20",
+        "SB21"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "On premature closure, interest is paid at the rate for the period the deposit ran (CB28)",
+      "source_ids": [
+        "SB21"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors share a few customer details to gain confidence (C03)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,282 @@
+{
+  "family_id": "jr_06",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Paid \"mandatory certification\" before joining vs. employer-sponsored induction training",
+  "summary": "A recruiter from TalentBridge Staffing calls a candidate who cleared an interview for a technical-support role at Vistara Infotech, to explain the training that precedes joining. In the fraud case, the candidate must first buy a \"mandatory certification\" course from Kaushal Path Academy, paying the course fee to the academy's UPI ID, or the offer will not be released. In the legitimate case, the same academy delivers a two-week induction that Vistara pays for, during which the candidate is already on salary.",
+  "shared_setting": {
+    "organisations": [
+      "TalentBridge Staffing",
+      "Kaushal Path Academy",
+      "Vistara Infotech"
+    ],
+    "pretext": "",
+    "recipient_profile": "a graduate with some support or BPO experience; details sampled at generation.",
+    "other_facts": [
+      "Role: technical-support associate, salary [AMOUNT_1] (₹20,000–₹32,000 per month).",
+      "The candidate has completed an interview; both callers say they \"cleared\" it.",
+      "Both calls use the words \"training\", \"certification\", \"mandatory\", and name Kaushal Path Academy."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_06_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The candidate must pay for training as a condition of receiving the offer, with the payment going to a training provider's handle rather than being borne by the employer.",
+      "caller_objective": "Collect the course fee; the offer does not exist.",
+      "stable_facts": [
+        "Course fee: [AMOUNT_2] (₹12,000–₹45,000), described as \"certification plus study material\".",
+        "Paid to [UPI_ID_1], presented as Kaushal Path Academy's account.",
+        "The offer letter is \"released only after the certificate is issued\".",
+        "Caller claims \"the fee is adjusted in the first three salaries\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and TalentBridge, congratulates the candidate on clearing the interview",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient thanks them and asks about the offer",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says Vistara requires a certification before joining, run by Kaushal Path Academy",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how long the training is",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it is two weeks online and \"mandatory for all new joiners\"",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do to start",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the candidate must pay the course fee [AMOUNT_2] to [UPI_ID_1] to enrol, and the offer letter follows the certificate",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the candidate to pay [AMOUNT_2] to [UPI_ID_1] for the course before the offer letter can be issued",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the offer is withheld until the paid certificate is completed",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_06_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The employer pays for mandatory training, and the candidate is paid during it; no payment is asked from the candidate.",
+      "caller_objective": "Explain the induction schedule and confirm the joining date.",
+      "stable_facts": [
+        "Offer letter is sent by Vistara from the company domain before training starts.",
+        "Induction: two weeks, delivered by Kaushal Path Academy, paid for by Vistara; salary starts from day one.",
+        "A certification exam at the end is also paid by Vistara; failing it once means a retake, not a charge."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and TalentBridge, congratulates the candidate on clearing the interview",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient thanks them and asks about the offer",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the offer letter will arrive from Vistara's email today, and there is certification training before live work, run by Kaushal Path Academy",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how long the training is",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it is two weeks online and mandatory for all new joiners, with salary from day one",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do to start",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says they only need to accept the offer and join on the stated date; Vistara pays the academy for the course and exam, and the candidate pays nothing",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Offer letter comes before training, not after"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller states Vistara bears the full training and exam cost"
+        },
+        {
+          "id": "L-M3",
+          "text": "Candidate is on salary during training"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks for the UPI ID",
+      "legitimate": "Says they will accept the offer and asks for the training timetable"
+    },
+    "clarifying": {
+      "fraud": "Asks whether the fee can be deducted from salary instead",
+      "legitimate": "Asks what happens if they fail the certification exam"
+    },
+    "resistant": {
+      "fraud": "Says they already have a similar certificate and will not pay again",
+      "legitimate": "Says the joining date clashes with notice period and asks to shift it"
+    },
+    "suspicious": {
+      "fraud": "Asks why a company would make a new hire pay for its own training",
+      "legitimate": "Asks whether there is any hidden cost or training bond"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "candidate pays (cooperative only)",
+      "caller offers an instalment plan and candidate declines",
+      "caller insists and candidate ends the call",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "offer accepted",
+      "joining date moved",
+      "candidate declines the role",
+      "caller answers that there is no hidden cost and points to the offer letter terms."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may offer instalments, a discount, or \"salary adjustment\". They must not switch to asking for OTPs or bank logins. The legitimate caller must not introduce any charge, bond payment, or deposit after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role, salary, training length, and academy name identical across cases",
+      "_F course-fee request to [UPI_ID_1] before the offer at turn 7",
+      "_L employer-paid training with salary from day one"
+    ],
+    "may_vary": [
+      "training topic (product support, networking basics, soft skills)",
+      "caller name",
+      "salary within range",
+      "fee within range"
+    ],
+    "must_not_emit": [
+      "real certification bodies",
+      "real training companies",
+      "working UPI IDs",
+      "narrator text",
+      "scam\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Mandatory training\" and \"certification\" appear in both cases; they are not evidence.",
+    "Distinct from jr_01 (registration fee before any interview, for a guaranteed seat): here the candidate has been interviewed and the payment is framed as a training purchase from a named third party.",
+    "Distinct from jr_12 (buying a physical/online kit for a stipend internship): here the purchase is a course that gates a full-time offer.",
+    "Some employers use training bonds; _L does not model bonds. If a recipient asks, the legitimate caller says there is none."
+  ],
+  "evidence_references": [
+    {
+      "claim": "A major IT employer warns that fraudulent agencies charge fees for jobs, training, internships, or interviews (CJ03)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "The same employer never asks candidates for payment at any stage of recruitment (CJ01)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A major airline states it charges no training fees on joining (CJ04; cited here only as a second employer example)",
+      "source_ids": [
+        "SJ02"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Upfront payment is a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,305 @@
+{
+  "family_id": "jr_03",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "outbound_call",
+  "title": "Overseas \"visa processing\" fee to a personal account vs. registered agent explaining the official emigration route",
+  "summary": "A caller from SafarWays Overseas Manpower phones about a facilities-technician job with Dunecrest Facilities Management in a Gulf country. In the fraud case, the caller asks for a large \"visa processing\" payment to an individual's account before any employer interview, saying the worker will travel on a visit visa and \"convert\" it later. In the legitimate case, the caller is a registered recruiting agent who gives a licence number, explains the employer interview, contract, work visa, and emigration clearance, and states a capped service charge payable only after selection, to the agency's account against a receipt.",
+  "shared_setting": {
+    "organisations": [
+      "Dunecrest Facilities Management",
+      "SafarWays Overseas Manpower"
+    ],
+    "pretext": "",
+    "recipient_profile": "a tradesperson (ITI diploma or equivalent experience) who uploaded a CV on NaukriHub or dropped it at a walk-in; details sampled at generation.",
+    "other_facts": [
+      "Role: HVAC / facilities technician, two-year contract, monthly salary [AMOUNT_1] (₹45,000–₹75,000 equivalent), accommodation mentioned.",
+      "Both callers mention the CV, the country, the role, and the salary. Both mention money; the pair differs in when, to whom, and on what terms."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_03_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller demands a large payment to an individual's account before any employer selection, for travel on a visit visa rather than a work visa, bypassing the official emigration process.",
+      "caller_objective": "Collect the \"visa processing\" money; there is no job or work visa.",
+      "stable_facts": [
+        "Payment: [AMOUNT_2] (₹80,000–₹2,00,000), called \"visa processing and ticket charges\", half now.",
+        "Paid to an account in an individual's name, [ACCT_LAST4], or [UPI_ID_1].",
+        "Caller says the worker will fly on a visit visa and the company will \"convert it to a work visa\" after arrival.",
+        "No licence number, no employer interview, no written contract before payment."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and SafarWays, mentions the recipient's CV",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges, says they are interested in working abroad",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes the Dunecrest role, country, contract length, and salary",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient expresses interest and asks about the process",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the visa is \"already arranged\" on a visit visa that will be converted after arrival; no interview needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do next",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says half of [AMOUNT_2] must be transferred today to [ACCT_LAST4] in an individual's name to \"block\" the visa and ticket",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to transfer [AMOUNT_2] (or the first half) to an individual's account now, before any employer interview or contract",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says travel will be on a visit visa to be converted later",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_03_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "A registered recruiting agent explains the official route (employer interview, signed contract, work visa, emigration clearance) and a capped, receipted service charge payable only after selection to the agency.",
+      "caller_objective": "Invite the recipient to the employer's trade test and explain the process honestly.",
+      "stable_facts": [
+        "SafarWays gives its recruiting-agent licence number [LICENCE_ID] (proposed new placeholder; see note under Evidence references) and suggests the recipient check it on the government emigration portal.",
+        "Dunecrest holds a trade test and interview in [CITY] on a stated date.",
+        "After selection: signed employment contract, work visa, emigration clearance, pre-departure orientation.",
+        "SafarWays charges a service charge [AMOUNT_3] (₹10,000–₹20,000, below both conflicting cap figures in C14; stated only as \"within the government cap\") only after selection and visa, to the agency's registered bank account, with a receipt. The employer bears airfare and accommodation."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and SafarWays, mentions the recipient's CV",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges, says they are interested in working abroad",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes the Dunecrest role, country, contract length, and salary",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient expresses interest and asks about the process",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says Dunecrest will hold a trade test in [CITY], and selected candidates get a signed contract, a work visa, and emigration clearance; gives the licence number",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to pay or do next",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says nothing is payable now; after selection and visa, SafarWays charges [AMOUNT_3], within the government cap, to the agency's account with a receipt, and the employer pays the airfare",
+          "evidence_ids": [
+            "L-M4"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Licence number stated and recipient invited to verify it"
+        },
+        {
+          "id": "L-M2",
+          "text": "Employer interview/trade test before any offer"
+        },
+        {
+          "id": "L-M3",
+          "text": "Work visa and signed contract; no visit-visa shortcut"
+        },
+        {
+          "id": "L-M4",
+          "text": "Service charge disclosed, capped, after selection, to the agency account with receipt"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to transfer and asks for the account details again",
+      "legitimate": "Confirms attendance at the trade test and asks which documents to bring"
+    },
+    "clarifying": {
+      "fraud": "Asks why a visit visa and whether the money is refundable",
+      "legitimate": "Asks what the trade test involves and when the service charge is due"
+    },
+    "resistant": {
+      "fraud": "Says they will pay only after seeing a contract",
+      "legitimate": "Says they cannot afford the service charge and asks if it can be reduced"
+    },
+    "suspicious": {
+      "fraud": "Says they heard visit-visa job offers are illegal and asks for a licence number",
+      "legitimate": "Asks how to confirm the licence number is genuine"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient agrees to pay (cooperative only)",
+      "caller insists and recipient refuses",
+      "caller gives a vague or made-up licence claim and recipient ends the call",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "trade test confirmed",
+      "recipient declines",
+      "recipient says they will verify the licence first and the caller encourages it",
+      "caller repeats that no money is due before selection."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may reduce the first instalment, claim seats are filling, or promise a refund. They must not switch to asking for OTPs, passwords, or remote access. The legitimate caller must not ask for any payment before selection, must not ask for money to a personal account, and must not change the service charge terms after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role, country, contract length, and salary identical across _F and _L",
+      "_F upfront payment to an individual's account at turn 7 with visit-visa framing",
+      "_L licence number, trade test, work visa, and post-selection receipted service charge"
+    ],
+    "may_vary": [
+      "destination country (Gulf region, unnamed or generic)",
+      "trade (HVAC, electrician, plumber)",
+      "caller name",
+      "salary within range",
+      "trade-test date"
+    ],
+    "must_not_emit": [
+      "real agency names",
+      "real licence numbers",
+      "real employer names",
+      "working account numbers or UPI IDs",
+      "a specific legal cap figure",
+      "scam\" or \"fraud\" in caller lines",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "A payment request is not by itself evidence: _L contains a disclosed service charge. The label rests on timing (before vs. after selection), recipient (individual vs. agency), visa type, and receipt.",
+    "The amount is not evidence; _F and _L ranges overlap at the low end on purpose if _F quotes only the first instalment.",
+    "Do not state a specific cap figure; sources conflict (C14).",
+    "An agency name alone does not confirm registration; the caller's stated licence number is a marker, not proof."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Overseas recruitment must go through MEA-registered agents verifiable on eMigrate (C13)",
+      "source_ids": [
+        "S10",
+        "S11"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Recruiting-agent service charges are capped (C14; cite as \"capped\" only)",
+      "source_ids": [
+        "S10",
+        "S11"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Valid offers come with a contract signed by employer, agent, and worker, on a work visa, not a tourist visa (CJ13)",
+      "source_ids": [
+        "S11"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Registered agents display a licence number and must issue receipts for service charges (CJ14)",
+      "source_ids": [
+        "S11"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Reputed foreign employers normally bear airfare, lodging, and insurance (CJ15)",
+      "source_ids": [
+        "S11"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Upfront payment is a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aaai-icfd.invalid/schemas/conversation.schema.json",
+  "title": "Generated conversation record",
+  "description": "Full conversation record with private annotations and provenance (plan §11.1). Detector-facing exports must use detector_export.schema.json instead.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "conversation_id",
+    "scenario_family_id",
+    "case_id",
+    "history_id",
+    "branch_id",
+    "language_pair",
+    "script_profile",
+    "split",
+    "turns",
+    "private_annotations",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conversation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenario_family_id": {
+      "type": "string",
+      "pattern": "^(bp|jr|ec)_\\d{2}$"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^(bp|jr|ec)_\\d{2}_[FL]$"
+    },
+    "history_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "branch_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language_pair": {
+      "type": "string",
+      "enum": ["hi_en", "ta_en", "te_en", "en"]
+    },
+    "script_profile": {
+      "type": "string",
+      "enum": ["roman"]
+    },
+    "split": {
+      "type": "string",
+      "enum": ["unassigned", "train", "dev", "test"]
+    },
+    "turns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/turn"
+      }
+    },
+    "private_annotations": {
+      "$ref": "#/$defs/privateAnnotations"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    }
+  },
+  "$defs": {
+    "turn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["turn_id", "speaker", "text"],
+      "properties": {
+        "turn_id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "speaker": {
+          "type": "string",
+          "enum": ["caller", "recipient"]
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "privateAnnotations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_label",
+        "recipient_condition",
+        "prefix_hash",
+        "branch_after_turn",
+        "evidence_turn_ids",
+        "prefix_evidence_states",
+        "observed_outcome",
+        "invariance_eligible"
+      ],
+      "properties": {
+        "scenario_label": {
+          "type": "string",
+          "enum": ["fraud_attempt", "legitimate"]
+        },
+        "recipient_condition": {
+          "type": "string",
+          "enum": ["cooperative", "clarifying", "resistant", "suspicious", "none"]
+        },
+        "prefix_hash": {
+          "type": "string"
+        },
+        "branch_after_turn": {
+          "type": "integer"
+        },
+        "evidence_turn_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "prefix_evidence_states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prefixEvidenceState"
+          }
+        },
+        "observed_outcome": {
+          "type": "string"
+        },
+        "invariance_eligible": {
+          "type": "boolean"
+        }
+      }
+    },
+    "prefixEvidenceState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["turn_id", "state"],
+      "properties": {
+        "turn_id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "state": {
+          "type": "string",
+          "enum": ["no_evidence", "evidence", "ambiguous"]
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generator_model_id",
+        "prompt_version",
+        "scenario_version",
+        "language_profile_version",
+        "generation_settings",
+        "repair_history",
+        "review_status"
+      ],
+      "properties": {
+        "generator_model_id": {
+          "type": "string"
+        },
+        "prompt_version": {
+          "type": "string"
+        },
+        "scenario_version": {
+          "type": "string"
+        },
+        "language_profile_version": {
+          "type": "string"
+        },
+        "generation_settings": {
+          "type": "object"
+        },
+        "repair_history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/repairRound"
+          }
+        },
+        "review_status": {
+          "type": "string",
+          "enum": ["pending", "in_review", "accepted", "rejected", "needs_repair"]
+        }
+      }
+    },
+    "repairRound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["round", "reason", "diff"],
+      "properties": {
+        "round": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "reason": {
+          "type": "string"
+        },
+        "diff": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

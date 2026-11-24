@@ -1,0 +1,276 @@
+{
+  "family_id": "bp_01",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": true,
+  "split": "dev",
+  "channel": "outbound_call",
+  "title": "Card \"blocked\" OTP request vs. fraud-monitoring verification",
+  "summary": "A caller from Kaveri Bank tells the recipient there is a problem with their debit card after an unusual transaction. In the fraud case, the caller says the card will be blocked and asks the recipient to read out the OTP that has just arrived. In the legitimate case, the bank's fraud-monitoring team asks the recipient only to confirm whether they made the transaction, and says explicitly that the bank will never ask for an OTP.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "an unusual online transaction of [AMOUNT_1] (₹4,000–₹25,000) at an online merchant.",
+    "recipient_profile": "an adult Kaveri Bank customer; age, occupation, and city sampled at generation.",
+    "other_facts": [
+      "Both callers introduce themselves by name and say they are from the bank's card team."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_01_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the recipient to disclose a one-time password to \"stop\" or \"reverse\" a transaction. Disclosing it would authorise a transaction or credential change on the recipient's account.",
+      "caller_objective": "Obtain the OTP sent to the recipient's phone.",
+      "stable_facts": [
+        "The caller cites the last four digits of the card, which makes the call sound credible. Knowing four digits is not proof of legitimacy.",
+        "An SMS containing an OTP arrives during the call.",
+        "The caller says the card will be blocked \"within minutes\" if the transaction is not cancelled."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's card department",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller reports an unusual transaction of [AMOUNT_1] on card [ACCT_LAST4] and asks if the recipient made it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says no, or is unsure",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says they will cancel it, an OTP will arrive, and the card will be blocked soon if it is not cancelled",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says a message has arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to read the OTP out",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to read out, type, or forward the OTP that just arrived",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller links the OTP to \"cancelling\" or \"reversing\" the transaction",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_01_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller verifies whether the recipient made a transaction, asks for no credentials, and directs any further action to official channels.",
+      "caller_objective": "Confirm whether the transaction was genuine, and if not, block the card and start a dispute.",
+      "stable_facts": [
+        "The caller cites the last four digits of the card.",
+        "No OTP is requested at any point. If the recipient offers one, the caller refuses it.",
+        "If the transaction is not recognised, the caller blocks the card from the bank's side and tells the recipient a replacement will be issued and a dispute raised with reference [TICKET_ID]."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's fraud-monitoring team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller reports the transaction of [AMOUNT_1] on card [ACCT_LAST4] and asks if the recipient made it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says no, or is unsure",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the card can be blocked immediately and a dispute raised",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient responds",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the recipient must not share any OTP, PIN, or CVV with anyone, including the bank",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Caller asks only for a yes/no confirmation of the transaction"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller states the bank will never ask for an OTP, PIN, or CVV"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller suggests the recipient can verify by calling the number on the back of the card"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Starts to read the OTP or asks where to send it",
+      "legitimate": "Agrees to block the card and asks what happens next"
+    },
+    "clarifying": {
+      "fraud": "Asks why an OTP is needed to cancel a transaction",
+      "legitimate": "Asks how long a replacement card takes and whether money will be refunded"
+    },
+    "resistant": {
+      "fraud": "Says they will not share any code and will visit the branch",
+      "legitimate": "Says they prefer to handle it at the branch themselves"
+    },
+    "suspicious": {
+      "fraud": "Says the bank never asks for OTPs and asks whether this is a scam",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient shares the OTP (cooperative only)",
+      "caller pressures and recipient hangs up",
+      "caller drops the call",
+      "recipient says they will call the bank."
+    ],
+    "legitimate": [
+      "card blocked and ticket given",
+      "recipient chooses to call the official number",
+      "recipient visits the branch. The legitimate caller answers a suspicious recipient by suggesting they call the number on the card."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may repeat the OTP request, add urgency, or give up. They must not switch to a different mechanism (for example a link or app install). The legitimate caller must not request any credential or payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "card last-four",
+      "amount",
+      "OTP request at the stated point (_F)",
+      "explicit no-OTP statement (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "merchant type",
+      "exact amount within range",
+      "recipient's age and occupation",
+      "politeness",
+      "number of filler turns before turn 3 (max 2 extra)"
+    ],
+    "must_not_emit": [
+      "real bank names",
+      "working phone numbers",
+      "real OTP formats beyond a placeholder",
+      "narrator text",
+      "English glosses",
+      "any label word such as \"scam\" in the caller's lines"
+    ]
+  },
+  "ambiguities": [
+    "The word \"OTP\" appears in both cases. The label depends on who is asked to disclose it, not on the word.",
+    "Urgency (\"card will be blocked\") appears in both cases. It is supporting evidence in _F only when attached to the OTP request.",
+    "If a _F recipient never receives the OTP before hanging up, the attempt is still fraud_attempt.",
+    "The legitimate caller knowing the last four digits does not prove legitimacy, and the fraud caller knowing them does not prove fraud."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Banks do not ask customers to share OTP, PIN, or CVV (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors cite blocking an unauthorised transaction to get an OTP (C02)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors share a few real customer details to gain trust (C03)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-24",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

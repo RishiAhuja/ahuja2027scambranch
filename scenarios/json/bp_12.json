@@ -1,0 +1,278 @@
+{
+  "family_id": "bp_12",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "inbound_call",
+  "title": "Fake helpline found online asks for PIN vs. genuine helpline raises a dispute",
+  "summary": "The recipient notices a debit on their Kaveri Bank card that they do not recognise and phones \"customer care\". In the fraud case, the recipient dialled a number found through a web search. The agent who answers asks for the full card number, CVV, and ATM PIN to \"raise the dispute\". In the legitimate case, the recipient dialled the number printed on the back of the card. The agent checks identity using non-secret details, blocks the card, and raises a dispute with a ticket number. Both agents ask verification questions.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "an unrecognised card debit of [AMOUNT_1] (₹1,000–₹20,000) at an online merchant.",
+    "recipient_profile": "an adult Kaveri Bank customer; profile sampled at generation.",
+    "other_facts": [
+      "Both agents answer as \"Kaveri Bank customer care\", give a name, and say they will \"verify a few details\" first."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_12_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The agent asks the recipient to disclose secret card credentials (CVV and ATM PIN). No bank asks for these, including when a customer calls in.",
+      "caller_objective": "Obtain the full card number, expiry, CVV, and PIN.",
+      "stable_facts": [
+        "The recipient dialled [PHONE_1], a ten-digit mobile number shown in a web search result. This is setting context only, not evidence.",
+        "The agent sounds professional and uses a scripted greeting.",
+        "The agent says a \"dispute form\" must be filled in on the call."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "recipient",
+          "act": "Recipient opens: says they are calling about a debit they do not recognise",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "caller",
+          "act": "Agent greets, gives name, says \"Kaveri Bank customer care\", and says they will help",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "recipient",
+          "act": "Recipient describes the debit of [AMOUNT_1] and the merchant name shown",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "caller",
+          "act": "Agent says they will raise a dispute and first need to verify the card",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "recipient",
+          "act": "Recipient offers their name and the last four digits [ACCT_LAST4]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "caller",
+          "act": "Agent asks for the full card number and expiry, then the CVV and ATM PIN \"to register the dispute\"",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 7,
+          "speaker": "recipient",
+          "act": "Recipient responds according to the continuation condition",
+          "evidence_ids": []
+        }
+      ],
+      "branch_after": 6,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Agent asks the recipient to read out the CVV and ATM PIN of the card",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Agent asks for the full 16-digit card number and expiry",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_12_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent verifies identity with non-secret details, blocks the card, raises a dispute, and states that the bank never needs a PIN, CVV, or OTP.",
+      "caller_objective": "Block the card and log a dispute for the unrecognised debit.",
+      "stable_facts": [
+        "The recipient dialled [PHONE_2], the number printed on the back of the card.",
+        "Verification uses the registered mobile number the call comes from, the last four digits of the card, and the date of the transaction.",
+        "The agent blocks the card, raises dispute [TICKET_ID], and says a replacement card can be requested in the app or at a branch."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "recipient",
+          "act": "Recipient opens: says they are calling about a debit they do not recognise",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "caller",
+          "act": "Agent greets, gives name, says \"Kaveri Bank customer care\", and says they will help",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "recipient",
+          "act": "Recipient describes the debit of [AMOUNT_1] and the merchant name shown",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "caller",
+          "act": "Agent says they will raise a dispute and first need to verify the card",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "recipient",
+          "act": "Recipient offers their name and the last four digits [ACCT_LAST4]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "caller",
+          "act": "Agent confirms the transaction date, says the card is now blocked and the dispute is raised, and adds that the bank will never ask for a PIN, CVV, or OTP",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 7,
+          "speaker": "recipient",
+          "act": "Recipient responds according to the continuation condition",
+          "evidence_ids": []
+        }
+      ],
+      "branch_after": 6,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Verification uses only non-secret details"
+        },
+        {
+          "id": "L-M2",
+          "text": "Agent says the bank will never ask for PIN, CVV, or OTP, even on this helpline"
+        },
+        {
+          "id": "L-M3",
+          "text": "Agent gives a ticket number and tells the recipient how to track it"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Starts reading out the card number and asks if the PIN is also needed",
+      "legitimate": "Thanks the agent and asks for the ticket number"
+    },
+    "clarifying": {
+      "fraud": "Asks why a PIN is needed to file a complaint",
+      "legitimate": "Asks when the disputed amount will be credited back"
+    },
+    "resistant": {
+      "fraud": "Says they will go to the branch rather than share more",
+      "legitimate": "Says they would prefer to also report it at the branch"
+    },
+    "suspicious": {
+      "fraud": "Says banks never ask for PINs and asks if this is really Kaveri Bank",
+      "legitimate": "Asks how they can be sure the card is really blocked"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient shares details (cooperative only)",
+      "agent insists and recipient hangs up",
+      "agent drops the call",
+      "recipient says they will call the number on the card instead."
+    ],
+    "legitimate": [
+      "dispute raised and ticket given",
+      "recipient plans a branch visit",
+      "the agent answers a suspicious recipient by suggesting they check the card status in the app."
+    ]
+  },
+  "caller_continuation_limits": "(In this inbound family the \"caller\" role is the helpline agent.) The fraud agent may repeat the request, claim the dispute will be rejected without it, or give up. They must not switch to a different mechanism (for example a screen-sharing install or payment request). The legitimate agent must not ask for any PIN, CVV, OTP, or full card number after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "recipient speaks first in both",
+      "debit amount and last-four in both",
+      "CVV and PIN request (_F)",
+      "non-secret verification, block, ticket, and explicit \"never PIN/CVV/OTP\" (_L)"
+    ],
+    "may_vary": [
+      "agent name",
+      "merchant type",
+      "amount within range",
+      "how the recipient found the number (mentioned or not in dialogue)",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real search engine or bank names",
+      "working phone numbers",
+      "real card-number formats",
+      "narrator text",
+      "label words in agent lines"
+    ]
+  },
+  "ambiguities": [
+    "Both agents \"verify details\". The label depends on which details: secret credentials versus non-secret ones.",
+    "Where the recipient got the number is setting context. The generator may let the recipient mention it, but the label must not rest on it.",
+    "A genuine helpline may ask for date of birth or registered mobile. These are not secret credentials and must not be treated as evidence of fraud.",
+    "Cross-domain overlap: ec_09 (fake support number for a marketplace, card details asked) is the same mechanism. Deduplication should keep one or vary them clearly."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Contact numbers on search engines may be fraudulent (C07)",
+      "source_ids": [
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Imposters on search-result numbers ask callers for card credentials; customer care numbers are never mobile numbers (CB12)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Banks never ask for PIN, CVV, OTP, or passwords (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

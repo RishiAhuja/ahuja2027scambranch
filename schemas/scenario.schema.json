@@ -1,0 +1,404 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aaai-icfd.invalid/schemas/scenario.schema.json",
+  "title": "Scenario family card",
+  "description": "One scenario family: a shared setting plus paired fraud and legitimate cases. JSON Schema cannot compare values across properties, so `cases.fraud.branch_after` and `cases.legitimate.branch_after` must be equal; scripts/scenarios/validate_scenarios.py enforces that invariant.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family_id",
+    "domain",
+    "version",
+    "status",
+    "pilot",
+    "split",
+    "channel",
+    "title",
+    "summary",
+    "shared_setting",
+    "cases",
+    "continuations",
+    "allowed_endings",
+    "caller_continuation_limits",
+    "generation_constraints",
+    "ambiguities",
+    "evidence_references",
+    "signoff"
+  ],
+  "properties": {
+    "family_id": {
+      "type": "string",
+      "pattern": "^(bp|jr|ec)_\\d{2}$"
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["banking_payments", "jobs_recruitment", "ecommerce_delivery"]
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "reviewed", "approved", "retired"]
+    },
+    "pilot": {
+      "type": "boolean"
+    },
+    "split": {
+      "type": "string",
+      "enum": ["unassigned", "train", "dev", "test"]
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["outbound_call", "inbound_call", "chat"]
+    },
+    "title": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "shared_setting": {
+      "$ref": "#/$defs/sharedSetting"
+    },
+    "cases": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fraud", "legitimate"],
+      "properties": {
+        "fraud": {
+          "$ref": "#/$defs/fraudCase"
+        },
+        "legitimate": {
+          "$ref": "#/$defs/legitimateCase"
+        }
+      }
+    },
+    "continuations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cooperative", "clarifying", "resistant", "suspicious"],
+      "properties": {
+        "cooperative": {
+          "$ref": "#/$defs/continuationPair"
+        },
+        "clarifying": {
+          "$ref": "#/$defs/continuationPair"
+        },
+        "resistant": {
+          "$ref": "#/$defs/continuationPair"
+        },
+        "suspicious": {
+          "$ref": "#/$defs/continuationPair"
+        }
+      }
+    },
+    "allowed_endings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fraud", "legitimate"],
+      "properties": {
+        "fraud": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "legitimate": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "caller_continuation_limits": {
+      "type": "string"
+    },
+    "generation_constraints": {
+      "$ref": "#/$defs/generationConstraints"
+    },
+    "ambiguities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceReference"
+      }
+    },
+    "signoff": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/signoffEntry"
+      }
+    }
+  },
+  "$defs": {
+    "sharedSetting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organisations", "pretext", "recipient_profile", "other_facts"],
+      "properties": {
+        "organisations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pretext": {
+          "type": "string"
+        },
+        "recipient_profile": {
+          "type": "string"
+        },
+        "other_facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "fraudCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "scenario_label",
+        "label_rationale",
+        "caller_objective",
+        "stable_facts",
+        "evidence",
+        "dialogue_plan",
+        "branch_after"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^(bp|jr|ec)_\\d{2}_F$"
+        },
+        "scenario_label": {
+          "const": "fraud_attempt"
+        },
+        "label_rationale": {
+          "type": "string"
+        },
+        "caller_objective": {
+          "type": "string"
+        },
+        "stable_facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceItem"
+          }
+        },
+        "dialogue_plan": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dialogueTurn"
+          }
+        },
+        "branch_after": {
+          "type": "integer"
+        }
+      }
+    },
+    "legitimateCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "scenario_label",
+        "label_rationale",
+        "caller_objective",
+        "stable_facts",
+        "markers",
+        "dialogue_plan",
+        "branch_after"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^(bp|jr|ec)_\\d{2}_L$"
+        },
+        "scenario_label": {
+          "const": "legitimate"
+        },
+        "label_rationale": {
+          "type": "string"
+        },
+        "caller_objective": {
+          "type": "string"
+        },
+        "stable_facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "markers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/markerItem"
+          }
+        },
+        "dialogue_plan": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dialogueTurn"
+          }
+        },
+        "branch_after": {
+          "type": "integer"
+        }
+      }
+    },
+    "evidenceItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "role"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["required", "supporting"]
+        }
+      }
+    },
+    "markerItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "dialogueTurn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["turn", "speaker", "act", "evidence_ids"],
+      "properties": {
+        "turn": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "speaker": {
+          "type": "string",
+          "enum": ["caller", "recipient"]
+        },
+        "act": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "continuationPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fraud", "legitimate"],
+      "properties": {
+        "fraud": {
+          "type": "string"
+        },
+        "legitimate": {
+          "type": "string"
+        }
+      }
+    },
+    "generationConstraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["must_preserve", "may_vary", "must_not_emit"],
+      "properties": {
+        "must_preserve": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "may_vary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "must_not_emit": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim", "source_ids", "retrieved", "status"],
+      "properties": {
+        "claim": {
+          "type": "string"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "retrieved": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["verified", "partial", "VERIFY", "reported"]
+        }
+      }
+    },
+    "signoffEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "name", "date", "notes"],
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

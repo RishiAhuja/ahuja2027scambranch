@@ -1,0 +1,253 @@
+{
+  "family_id": "ec_10",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "inbound_call",
+  "title": "\"Posted officer\" buyer asks seller to pay a security amount vs. buyer pays at pickup",
+  "summary": "The recipient is selling a used appliance or furniture on BechoBazaar. A buyer calls, says they have recently been posted or transferred to the city, and wants the item. In the legitimate case, the buyer negotiates a small discount, arranges to come with a vehicle, and pays in full at pickup after inspecting the item. In the fraud case, the buyer says they cannot come, that payment will go through their \"unit account\", and that the seller must first send a refundable \"security\" amount so they can be registered for payment. This differs from `ec_02` because the seller is asked to make a direct transfer, not to scan a QR code. Both buyers mention a posting or transfer and UPI payment.",
+  "shared_setting": {
+    "organisations": [
+      "BechoBazaar",
+      "PaySetu"
+    ],
+    "pretext": "",
+    "recipient_profile": "the seller; profile sampled at generation.",
+    "other_facts": [
+      "Item: a used refrigerator, washing machine, or sofa set, listed at [AMOUNT_11] (₹5,000–₹25,000).",
+      "Both buyers are polite, say they are new to the city because of a transfer, and seem keen."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_10_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The buyer asks the seller to send money to the buyer before the buyer pays. A buyer never needs the seller to pay in order to be paid; the \"security\" is the theft.",
+      "caller_objective": "Make the seller transfer [AMOUNT_12] (₹1,000–₹5,000), and then more.",
+      "stable_facts": [
+        "The buyer says they are in the armed forces, cannot leave the base, and will send \"unit transport\" later.",
+        "The buyer says the \"unit account\" only pays registered sellers and registration needs a refundable amount from the seller.",
+        "Transfer is to [UPI_ID_8]; the buyer may send an ID-card photo in chat."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Buyer says they saw the listing and asks if the item is available",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Seller confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Buyer says they have just been posted to the city with the forces and need it for their quarters",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Seller asks when they can come to see it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Buyer says they cannot leave the base; their unit's transport will collect it and payment comes from the unit account",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Seller asks how the payment will be made",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Buyer says the unit account first needs the seller registered: the seller must send [AMOUNT_12] to [UPI_ID_8], which will be returned with the full price",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Buyer tells the seller to first send [AMOUNT_12] to a UPI ID as a refundable security or registration amount before being paid",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_10_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The buyer negotiates, arranges pickup in person, and pays the seller in full at pickup. The seller sends nothing.",
+      "caller_objective": "Buy the item at a fair price.",
+      "stable_facts": [
+        "The buyer says they have been transferred for a government job and are setting up a home.",
+        "The buyer asks for a small discount and agrees a final price within the range.",
+        "The buyer will come with a small goods vehicle the next day and pay by UPI or cash after checking the item works."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Buyer says they saw the listing and asks if the item is available",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Seller confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Buyer says they have just been transferred to the city for a government job and need it for their new flat",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Seller asks when they can come to see it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Buyer asks for a small discount and says they can come tomorrow with a vehicle",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Seller asks how the payment will be made",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Buyer says they will pay the full amount by UPI or cash when they pick it up, after checking it works",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Buyer comes in person to inspect"
+        },
+        {
+          "id": "L-M2",
+          "text": "Buyer pays the seller in full at pickup"
+        },
+        {
+          "id": "L-M3",
+          "text": "Seller is asked to pay nothing"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they will send the security amount",
+      "legitimate": "Agrees the price and gives the address"
+    },
+    "clarifying": {
+      "fraud": "Asks why a seller has to pay anything",
+      "legitimate": "Asks what time they will come"
+    },
+    "resistant": {
+      "fraud": "Says the buyer should pay first, then they will release the item",
+      "legitimate": "Refuses the discount and keeps the listed price"
+    },
+    "suspicious": {
+      "fraud": "Says the forces-buyer story is a known trick and asks for in-person pickup",
+      "legitimate": "Asks the buyer to send a token amount first to confirm seriousness"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "seller sends the amount (cooperative only), after which the buyer asks for a \"second verification",
+      "seller refuses and buyer stops responding",
+      "buyer sends an ID photo and repeats the request."
+    ],
+    "legitimate": [
+      "price agreed and pickup fixed",
+      "buyer accepts the listed price",
+      "buyer agrees to send a small token themselves, if the seller asks."
+    ]
+  },
+  "caller_continuation_limits": "The fraud buyer may send an ID photo, cite rules of the unit, or reduce the security amount. They must not switch to QR codes, links, or OTPs. The legitimate buyer may send money to the seller only if the seller asks; they must never ask the seller to pay anything.",
+  "generation_constraints": {
+    "must_preserve": [
+      "posting/transfer story and UPI mention in both cases",
+      "seller-pays-first instruction in _F",
+      "in-person pickup and full payment at pickup in _L",
+      "identical item and listed price"
+    ],
+    "may_vary": [
+      "item type, the buyer's stated role (forces in _F",
+      "any government job in _L), pickup time, discount size"
+    ],
+    "must_not_emit": [
+      "real military units",
+      "ranks with names",
+      "real ID numbers",
+      "real UPI handles",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Real service personnel and government employees do buy second-hand goods after a transfer; the occupation claim is not evidence, and a similar claim appears in _L.",
+    "A buyer who cannot come in person is not by itself fraudulent; the label rests on the seller being asked to pay.",
+    "A legitimate buyer who sends a token when the seller asks is still legitimate; that direction of money is the opposite of _F."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Classifieds fraudsters often pose as armed-forces personnel posted far away who cannot collect or pay cash, and use fake IDs of national institutions (CE08)",
+      "source_ids": [
+        "SE08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Financial cyber fraud can be reported on 1930 or cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09",
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

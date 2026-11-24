@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -N scsetup
+#PBS -q cpuq
+#PBS -l select=1:ncpus=4
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o scsetup.log
+# CPU-only install. Never workq. Never login-node pip.
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?qsub from the repository root}"
+export PYTHONNOUSERSITE=1
+echo "=== scsetup start $(date -Is) host=$(hostname) ==="
+source /apps/compilers/anaconda3/etc/profile.d/conda.sh
+/apps/compilers/anaconda3/bin/python -m venv .venv
+.venv/bin/pip install -U pip
+.venv/bin/pip install torch --index-url https://download.pytorch.org/whl/cu124
+.venv/bin/pip install 'transformers>=4.51' accelerate scikit-learn numpy jsonschema pyyaml python-dotenv peft sentencepiece
+.venv/bin/python -c 'import torch; print(torch.__version__, torch.cuda.is_available())'
+echo "=== scsetup done $(date -Is) ==="

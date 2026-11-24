@@ -1,0 +1,278 @@
+{
+  "family_id": "ec_08",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "outbound_call",
+  "title": "\"Cancel unwanted COD order\" with a payment-app code vs. parcel marked refused",
+  "summary": "A SwiftShip Couriers caller phones about a cash-on-delivery ShopKart parcel booked to the recipient's number. The recipient says they did not order anything. In the legitimate case, the agent says they will simply mark the parcel as refused and return it; nothing needs to be shared or paid, and the usual delivery OTP is not needed when refusing. In the fraud case, the caller says a \"cancellation code\" will arrive from PaySetu or the recipient's bank and asks the recipient to read it out. Unlike `ec_01`, the recipient here did not expect a parcel, and the payment-app origin of the code is stated by the caller, not revealed by the recipient. Both cases mention a code or OTP.",
+  "shared_setting": {
+    "organisations": [
+      "SwiftShip Couriers",
+      "Kaveri Bank",
+      "ShopKart",
+      "PaySetu"
+    ],
+    "pretext": "",
+    "recipient_profile": "an adult who has not placed a ShopKart order recently; profile sampled at generation.",
+    "other_facts": [
+      "The parcel is COD for [AMOUNT_9] (₹500–₹4,000).",
+      "Both callers give an agent name, the order number, the COD amount, and the recipient's address."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_08_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the recipient to share a code that the caller says will come from PaySetu or the recipient's bank, to \"cancel\" a courier order. Codes from a payment app or bank authorise payments or account changes; a courier does not need one to cancel a parcel.",
+      "caller_objective": "Obtain a payment or account-linking OTP.",
+      "stable_facts": [
+        "The caller says the order will be \"auto-accepted\" and charged unless cancelled now.",
+        "The caller says the cancellation code \"comes through PaySetu\" or \"from your bank for security\".",
+        "The caller is not at the door."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, with a COD ShopKart parcel [ORDER_ID] for [AMOUNT_9] booked to the recipient",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they have not ordered anything",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says it may be a wrong booking and they can cancel it now so the recipient is not charged",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how to cancel",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says a cancellation code will come from PaySetu / the recipient's bank",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says a message has arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks them to read out the code so the order is cancelled",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller says the cancellation code will come from PaySetu or the recipient's bank",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller asks the recipient to read that code out",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_08_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent records the parcel as refused and returns it. The recipient shares nothing and pays nothing.",
+      "caller_objective": "Avoid a wasted delivery trip by confirming the refusal.",
+      "stable_facts": [
+        "The agent says a refused COD parcel goes back to the seller with no charge to the recipient.",
+        "The agent mentions that the delivery OTP is only used when accepting a parcel.",
+        "The agent suggests checking whether a family member placed the order on the ShopKart app."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, with a COD ShopKart parcel [ORDER_ID] for [AMOUNT_9] booked to the recipient",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they have not ordered anything",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says it may be a wrong booking or someone at home may have ordered it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how to cancel",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says they will mark it refused and it will go back to the seller; nothing is charged",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they need to give any code or OTP",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says no, the delivery OTP is only for accepting a parcel; they can check the ShopKart app in case a family member ordered",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Refusal is recorded by the agent without any code"
+        },
+        {
+          "id": "L-M2",
+          "text": "Agent states nothing is charged for refusing"
+        },
+        {
+          "id": "L-M3",
+          "text": "Agent points to the ShopKart order history to check"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Starts reading the code",
+      "legitimate": "Thanks the agent and confirms the refusal"
+    },
+    "clarifying": {
+      "fraud": "Asks why a payment app is sending a courier code",
+      "legitimate": "Asks whether they will be charged later"
+    },
+    "resistant": {
+      "fraud": "Says they will just refuse the parcel at the door",
+      "legitimate": "Says they want to check with family before refusing"
+    },
+    "suspicious": {
+      "fraud": "Says they will not share any bank or payment code",
+      "legitimate": "Asks how they know this is really SwiftShip"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient shares the code (cooperative only)",
+      "caller insists the charge will hit their account and recipient hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "refusal recorded",
+      "agent holds the parcel a day while the recipient checks with family",
+      "agent suggests checking the tracking page in the ShopKart app when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may insist the charge is automatic or say a second code is needed; a second payment-app code is the same mechanism. They must not switch to links, card details, or app installation. The legitimate agent must not ask for any code, payment, or personal detail beyond confirming the address.",
+  "generation_constraints": {
+    "must_preserve": [
+      "unplaced COD order in both cases",
+      "mention of a code or OTP in both",
+      "payment-app/bank origin stated by the caller in _F",
+      "refusal without code in _L"
+    ],
+    "may_vary": [
+      "product",
+      "COD amount within range",
+      "whether the recipient lives with family",
+      "time of day"
+    ],
+    "must_not_emit": [
+      "real OTP-like numbers",
+      "real app or bank names",
+      "narrator explanations"
+    ]
+  },
+  "ambiguities": [
+    "Some real marketplaces ask customers to share an OTP over a call for COD return requests. Sharing an OTP with a courier is therefore not always fraud; the label rests on the code's stated origin (payment app or bank).",
+    "The recipient's \"I did not order this\" is identical in both cases and is not evidence.",
+    "If generation omits F-E1 (origin of the code), the prefix must be rejected, not relabelled."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Police warn of calls about unordered parcels asking for an OTP to \"cancel\" (CE21)",
+      "source_ids": [
+        "SE22"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A marketplace shares some OTPs with its staff (delivery, COD returns) but never asks for payment OTPs on calls (CE16)",
+      "source_ids": [
+        "SE16"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Bank OTPs must not be shared with anyone (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Unexpected contact about an order you did not place is a common scam pattern; check order history (CE13)",
+      "source_ids": [
+        "SE13"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,260 @@
+{
+  "family_id": "bp_02",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": true,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "KYC update link vs. re-KYC reminder via official channels",
+  "summary": "A caller from Kaveri Bank says the recipient's KYC details are due for update. In the fraud case, the caller sends a link, says the account will be frozen today unless the recipient fills it in, and asks for net-banking login details on that page. In the legitimate case, the caller reminds the recipient that periodic re-KYC is due and tells them to complete it at the branch or in the official app, with a deadline weeks away.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "KYC (identity details) due for periodic update.",
+    "recipient_profile": "an adult Kaveri Bank account holder; profile sampled at generation.",
+    "other_facts": [
+      "Both callers mention that accounts may face restrictions if KYC is not updated."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_02_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller directs the recipient to an unofficial link and asks for net-banking credentials there under a same-day threat.",
+      "caller_objective": "Get the recipient to enter net-banking username and password on a look-alike page.",
+      "stable_facts": [
+        "Link: https://kaveri-kyc-update.invalid/verify (sent by SMS during the call).",
+        "Deadline: \"today\" or \"within two hours\".",
+        "The page asks for customer ID, password, and then an OTP."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets and identifies as Kaveri Bank's KYC department",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the account's KYC has expired and the account will be frozen today",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (worried or asks what to do)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says a link has been sent by SMS",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient confirms the SMS arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to open it and log in with their net-banking ID and password",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to open the sent link and log in with net-banking ID and password",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the account will be frozen today if not done",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_02_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller reminds the recipient of a routine requirement and directs them to official channels without asking for any credential or sending any link.",
+      "caller_objective": "Get the recipient to complete re-KYC before the due date.",
+      "stable_facts": [
+        "Due date: four to six weeks away.",
+        "Options: use the \"Update KYC\" option in the official Kaveri Bank app they already have, or visit any branch with ID and address proof.",
+        "If nothing has changed in the customer's details, a self-declaration is enough."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets and identifies as Kaveri Bank customer service",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says periodic re-KYC for the account is due by a date weeks away, and restrictions may apply after that",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller explains the two options: branch visit or the app's \"Update KYC\" section",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient responds",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says they do not need any password or OTP from the recipient on this call",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "No link is sent; recipient is told to use the app they already have or visit a branch"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller does not ask for passwords, OTP, or card details"
+        },
+        {
+          "id": "L-M3",
+          "text": "Deadline is weeks away"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are opening the link and asks which field to fill",
+      "legitimate": "Says they will do it in the app this week"
+    },
+    "clarifying": {
+      "fraud": "Asks why the bank's own app cannot be used instead",
+      "legitimate": "Asks which documents to bring to the branch"
+    },
+    "resistant": {
+      "fraud": "Says they will go to the branch and not open the link",
+      "legitimate": "Says they are busy and will do it later"
+    },
+    "suspicious": {
+      "fraud": "Says the link looks fake and asks if this is a phishing call",
+      "legitimate": "Asks how they know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient enters details (cooperative only)",
+      "caller pushes and recipient disconnects",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "recipient agrees to update",
+      "recipient postpones",
+      "recipient is told to verify by calling the number on their passbook or card."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may insist on the link or increase urgency. They must not switch to asking for payment or app installation. The legitimate caller must not send a link or request credentials after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "link in _F only",
+      "same-day threat in _F",
+      "weeks-away deadline and official channels in _L"
+    ],
+    "may_vary": [
+      "caller name",
+      "account type (savings/salary)",
+      "recipient profile",
+      "whether the recipient recently changed address"
+    ],
+    "must_not_emit": [
+      "real bank URLs",
+      "working links",
+      "the words \"phishing\" or \"scam\" in caller lines",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Both cases mention KYC and possible account restrictions. The label depends on the link and credential request, not the topic.",
+    "A legitimate bank may send an SMS reminder. In this family the legitimate caller sends no link, so that link presence is a clean contrast. Legitimate SMS links belong in a different family if needed."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Periodic KYC updating is required; with no change, self-declaration through bank channels suffices without a branch visit (C05)",
+      "source_ids": [
+        "S05",
+        "S04"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Banks send advance reminders before the re-KYC due date (C06)",
+      "source_ids": [
+        "S04"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "partial"
+    },
+    {
+      "claim": "Calls threatening account blocking over KYC with a link are a common fraud (C04)",
+      "source_ids": [
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-24",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

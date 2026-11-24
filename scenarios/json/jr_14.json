@@ -1,0 +1,270 @@
+{
+  "family_id": "jr_14",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "outbound_call",
+  "title": "Onboarding fee to an agent's UPI vs. gig platform onboarding through its app with a disclosed, earnings-deducted fee",
+  "summary": "A caller from KhanaGo's delivery-partner onboarding phones someone who filled in a \"join as delivery partner\" form. In the fraud case, the caller asks for an \"ID activation\" fee paid now to their own UPI ID, promising a priority zone and skipping the app. In the legitimate case, the caller directs the recipient to download KhanaGo's partner app and upload documents there, and openly states that a kit and onboarding charge, shown in the app, is deducted in instalments from weekly earnings. Both cases involve a fee; the label rests on who collects it, how, and whether it is disclosed through the platform.",
+  "shared_setting": {
+    "organisations": [
+      "KhanaGo"
+    ],
+    "pretext": "",
+    "recipient_profile": "an adult with a two-wheeler or cycle who submitted a lead form; details sampled at generation.",
+    "other_facts": [
+      "Work: delivery partner, flexible hours, earnings per order, stated as up to [AMOUNT_1] (₹15,000–₹30,000 per month).",
+      "Both calls mention documents (Aadhaar, PAN, driving licence, bank details), a T-shirt and bag, and an onboarding fee."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_14_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller collects an onboarding payment directly into a personal UPI handle, outside the platform's app, in exchange for an \"activated\" ID.",
+      "caller_objective": "Collect the activation fee; no ID is created.",
+      "stable_facts": [
+        "Fee: [AMOUNT_2] (₹1,000–₹3,500), called \"ID activation plus priority zone\".",
+        "Paid to [UPI_ID_1], the caller's own handle, now, during the call.",
+        "The caller says there is \"no need to go through the app queue\"; they will activate from the back end.",
+        "Caller claims slots in the recipient's area close today."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and KhanaGo delivery-partner onboarding, refers to the lead form",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they want to join",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes flexible hours, per-order earnings, and weekly payouts",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what documents are needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller lists Aadhaar, PAN, driving licence, and bank details, and mentions the T-shirt and bag",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to start and whether there is any charge",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says there is an onboarding fee of [AMOUNT_2] to be paid now to [UPI_ID_1]; they will activate the ID from the back end today, with a priority zone, without waiting in the app queue",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to pay [AMOUNT_2] to [UPI_ID_1] now to activate the partner ID, bypassing the app",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the app process can be skipped",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_14_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "Onboarding happens entirely in the platform's own app; the onboarding fee is disclosed there and recovered from earnings, not paid to any individual.",
+      "caller_objective": "Help the lead complete onboarding in the app.",
+      "stable_facts": [
+        "The recipient downloads the KhanaGo Partner app from the phone's official app store.",
+        "Documents are uploaded in the app; bank account number and IFSC are entered in the app for weekly payouts.",
+        "Onboarding fee [AMOUNT_3] (₹1,000–₹2,000, varies by city) covers kit and onboarding; the app shows it and deducts it in instalments from weekly earnings.",
+        "The caller never takes any payment."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and KhanaGo delivery-partner onboarding, refers to the lead form",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they want to join",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes flexible hours, per-order earnings, and weekly payouts",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what documents are needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller lists Aadhaar, PAN, driving licence, and bank details, all uploaded in the KhanaGo Partner app, and mentions the T-shirt and bag",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to start and whether there is any charge",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says there is an onboarding fee of about [AMOUNT_3], shown in the app, deducted in instalments from weekly earnings; nothing is paid to the caller or any person",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "All onboarding through the platform's own app"
+        },
+        {
+          "id": "L-M2",
+          "text": "Fee disclosed with its amount shown in the app and recovered from earnings"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller states they never collect money and nobody should pay an individual"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks for the UPI ID again",
+      "legitimate": "Says they will download the app now"
+    },
+    "clarifying": {
+      "fraud": "Asks whether the fee can be cut from earnings instead",
+      "legitimate": "Asks how many instalments and whether the kit is returned if they quit"
+    },
+    "resistant": {
+      "fraud": "Says they will register through the app themselves",
+      "legitimate": "Says they do not want any deduction from earnings"
+    },
+    "suspicious": {
+      "fraud": "Asks why the payment goes to a personal UPI and not the app",
+      "legitimate": "Asks how they can be sure the app is the real KhanaGo app"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller lowers the fee and recipient declines",
+      "caller insists the app is \"slow\" and recipient still declines",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "recipient downloads and starts onboarding",
+      "recipient declines because of the deduction",
+      "caller explains how to find the app from the official store and the company website."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the fee, add urgency, or promise extra incentives. They must not switch to OTPs, remote access, or bank logins. The legitimate caller must not ask for any payment to themselves, and must not change the fee terms, after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "earnings description and document list identical across cases",
+      "a fee is mentioned in both",
+      "_F payment to [UPI_ID_1] bypassing the app at turn 7",
+      "_L in-app disclosure and earnings deduction"
+    ],
+    "may_vary": [
+      "vehicle type",
+      "city",
+      "caller name",
+      "fee within the stated ranges"
+    ],
+    "must_not_emit": [
+      "real delivery-platform names",
+      "real app store listings",
+      "working UPI IDs",
+      "narrator text",
+      "scam\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "A fee is present in both cases on purpose. The word \"fee\", and even the amount, must not decide the label. The evidence is payment to an individual outside the platform.",
+    "Distinct from jr_01 (agency fee for a guaranteed job), jr_09 (forfeitable deposit for work), and jr_20 (fee for student leads): this is the only family where the legitimate counterpart also contains a real, disclosed charge borne by the worker.",
+    "A real platform may also let partners pay upfront inside its app (CJ11). _L uses only the deduction route to keep the contrast clean."
+  ],
+  "evidence_references": [
+    {
+      "claim": "At least one major Indian delivery platform discloses an onboarding fee (about ₹1,500, varies by city) deducted in instalments after onboarding; details shown in the app (CJ11)",
+      "source_ids": [
+        "SJ08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "The same platform onboards through its app and pays earnings weekly to the partner's bank account (CJ12)",
+      "source_ids": [
+        "SJ08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Upfront payment is a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

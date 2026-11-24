@@ -1,0 +1,288 @@
+{
+  "family_id": "bp_03",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "UPI refund \"approve to receive\" vs. automatic failed-transaction reversal",
+  "summary": "A caller from PaySetu support phones about a UPI payment that failed: the recipient's money was debited but the merchant never received it. In the fraud case, the caller says the refund is being \"sent\" as a request in the app and asks the recipient to approve it with their UPI PIN. In the legitimate case, the caller says the failed amount will be reversed to the recipient's bank account automatically, that nothing needs to be approved, and that a UPI PIN is never needed to receive money.",
+  "shared_setting": {
+    "organisations": [
+      "PaySetu"
+    ],
+    "pretext": "a failed UPI payment of [AMOUNT_1] (₹500–₹5,000) to an online merchant one or two days ago. The recipient raised a complaint in the app and got ticket [TICKET_ID].",
+    "recipient_profile": "an adult PaySetu user; age, occupation, and city sampled at generation.",
+    "other_facts": [
+      "Both callers give a name, say they are from PaySetu support, and quote the ticket number and amount."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_03_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the recipient to enter their UPI PIN to approve a request that is presented as a refund. Entering a UPI PIN authorises money leaving the recipient's account; receiving money never needs it.",
+      "caller_objective": "Get the recipient to approve a payment request for [AMOUNT_1] or more by entering their UPI PIN.",
+      "stable_facts": [
+        "The caller quotes the ticket number and the failed amount correctly. Knowing these details does not prove legitimacy.",
+        "During the call a payment request appears in the recipient's PaySetu app. On screen it shows an amount and a \"Pay\" or \"Approve\" button.",
+        "The caller says the refund \"expires\" if not accepted within a few minutes."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from PaySetu support about ticket [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller confirms the failed payment of [AMOUNT_1] and the date",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient confirms and asks when the money will come back",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says they are sending the refund now as a request in the PaySetu app",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says a request has appeared",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to tap approve and enter their UPI PIN so the refund is credited",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to approve the incoming request and enter their UPI PIN to \"receive\" the refund",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the refund will lapse if not approved in minutes",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_03_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller confirms the complaint, explains that failed transfers are reversed automatically to the source account, and asks for no approval, PIN, or payment.",
+      "caller_objective": "Close the complaint by telling the recipient when the reversal will reach their bank account.",
+      "stable_facts": [
+        "The caller quotes the ticket number and the failed amount.",
+        "The reversal goes back to the linked bank account without any action by the recipient. If it is late, compensation is credited automatically.",
+        "No request is sent to the recipient's app. If the recipient mentions a request, the caller tells them to decline it."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from PaySetu support about ticket [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller confirms the failed payment of [AMOUNT_1] and the date",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient confirms and asks when the money will come back",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the amount is being reversed automatically to the bank account ending [ACCT_LAST4]",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient responds (relieved, or asks whether they must do anything)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says there is nothing to approve, and that a UPI PIN is only for paying and never for receiving a refund",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Caller says the reversal is automatic and nothing needs to be approved"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says a UPI PIN is never needed to receive money"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller tells the recipient to track the ticket status in the app's Help section"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens the request and asks where to type the PIN",
+      "legitimate": "Thanks the caller and says they will check the bank balance tomorrow"
+    },
+    "clarifying": {
+      "fraud": "Asks why the screen says \"Pay\" if money is coming in",
+      "legitimate": "Asks what happens if the money does not arrive in time"
+    },
+    "resistant": {
+      "fraud": "Says they will wait for the automatic refund and not approve anything",
+      "legitimate": "Says they want the complaint escalated anyway"
+    },
+    "suspicious": {
+      "fraud": "Says entering a PIN sends money and asks whether this is a trick",
+      "legitimate": "Asks how they can know this call is really from PaySetu"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient approves the request (cooperative only)",
+      "caller insists and recipient declines the request and hangs up",
+      "caller disconnects",
+      "recipient says they will check in the app's Help section."
+    ],
+    "legitimate": [
+      "recipient accepts the timeline",
+      "recipient asks for escalation and gets a reference",
+      "recipient is told to check the ticket in the app or call the support number listed in the app."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may repeat the approval request, resend a request, or add urgency. They must not switch to a different mechanism (for example a link, a QR code, or screen sharing). The legitimate caller must not send any request or ask for a PIN, OTP, or payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "ticket number and amount in both",
+      "request in the app plus PIN instruction (_F)",
+      "automatic reversal and explicit \"no PIN to receive\" statement (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "merchant type",
+      "exact amount within range",
+      "days since the failure",
+      "recipient profile",
+      "politeness",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real app or bank names",
+      "working UPI handles",
+      "real PIN formats",
+      "narrator text",
+      "the words \"scam\" or \"fraud\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Refund\" and \"UPI PIN\" appear in both cases. The label depends on whether the caller asks the recipient to enter the PIN, not on the words.",
+    "Person-to-person UPI collect requests are no longer allowed (CB03), but merchant-type requests and PIN prompts still exist. The card therefore says \"a payment request\" without describing how it was sent. Generators must not explain the technical route.",
+    "The fraud caller's knowledge of the ticket number does not prove legitimacy. The card does not say how the caller got it.",
+    "If the recipient never opens the request before hanging up, the attempt is still fraud_attempt.",
+    "Cross-domain overlap: close to ec_05 (UPI PIN to \"receive\" a marketplace refund) and ec_02 (\"scan to receive\"). This family is kept for the payments-app support pretext."
+  ],
+  "evidence_references": [
+    {
+      "claim": "No PIN is needed to receive money; a PIN prompt means you are paying (CB01)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraudsters use \"request money\" and ask for the PIN to approve it (CB02)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "P2P UPI collect is no longer permitted; merchant collect continues (CB03)",
+      "source_ids": [
+        "SB04",
+        "SB05"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Failed UPI transfers are auto-reversed by T+1, with compensation for delay (CB04)",
+      "source_ids": [
+        "SB07"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "UPI PIN is never required to receive funds (C08)",
+      "source_ids": [
+        "S06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,1849 @@
+# Released profile: corpus example sentences (reference_utterances, unnatural_examples and
+# per-pattern examples) are removed because the source licences allow statistics only.
+# Counts, bands and word forms are kept. scripts/calibration/ rebuilds the full profile.
+pair: hi_en
+script: roman
+version: 0.1-auto
+status_note: automatically derived from human-written corpora; not yet reviewed by
+  a fluent speaker
+known_gaps:
+- Calibration sources are social media, QA, or restaurant-bot translations — not authentic
+  Indian fraud or care calls.
+- LinCE tweet text is not redistributable; strict service-candidate audit precision
+  is 60%.
+- No open human Roman Hinglish phone-call / customer-care corpus.
+brand_placeholder_replacements:
+  n_replacements: 20
+  n_utterances_touched: 17
+  note: original brand/company/app strings are not stored; mapping count only
+sources:
+- source_id: lince
+  url: https://huggingface.co/datasets/lince-benchmark/lince
+  license_status: restricted Twitter research; stats only, do not redistribute raw
+    tweets
+  redistributable: 'no'
+  used_for: stats, reference_utterances, romanization
+- source_id: lince_pos
+  url: https://huggingface.co/datasets/lince-benchmark/lince
+  license_status: restricted Twitter research; stats only, do not redistribute raw
+    tweets
+  redistributable: 'no'
+  used_for: stats, reference_utterances, romanization
+- source_id: phinc
+  url: https://huggingface.co/datasets/LingoIITGN/PHINC
+  license_status: CC BY 4.0
+  redistributable: 'yes'
+  used_for: stats, reference_utterances, romanization
+- source_id: hinge
+  url: https://huggingface.co/datasets/LingoIITGN/HinGE
+  license_status: CC BY 4.0 (human column only)
+  redistributable: 'yes'
+  used_for: stats, reference_utterances, romanization
+- source_id: sentimix
+  url: https://doi.org/10.5281/zenodo.3974927
+  license_status: CC BY 4.0 (Twitter-derived; platform terms may still apply)
+  redistributable: 'yes'
+  used_for: stats, reference_utterances, romanization
+- source_id: code_mixed_dialog
+  url: https://github.com/sumanbanerjee1/Code-Mixed-Dialog
+  license_status: CC BY 4.0 (paper) / Apache 2.0 (repo)
+  redistributable: 'yes'
+  used_for: reference_utterances, dialog_anchors
+- source_id: hinglish_top
+  url: https://github.com/google-research-datasets/Hinglish-TOP-Dataset
+  license_status: Apache 2.0 (human split only)
+  redistributable: 'yes'
+  used_for: reference_utterances, dialog_anchors
+- source_id: dakshina
+  url: https://github.com/google-research-datasets/dakshina
+  license_status: CC BY-SA 4.0
+  redistributable: 'yes'
+  used_for: romanization
+mixing_bands:
+  origin: gold
+  n_utterances: 26969
+  note: gold-tagged utterances n=26969
+  english_share:
+    p10: 0.0556
+    p25: 0.1579
+    p50: 0.36
+    p75: 0.75
+    p90: 1.0
+  cmi:
+    p10: 0.0
+    p25: 6.25
+    p50: 18.1818
+    p75: 31.25
+    p90: 42.1053
+  switches_per_utterance:
+    p10: 0.0
+    p25: 1.0
+    p50: 2.0
+    p75: 3.0
+    p90: 4.0
+  monolingual_turn_share: 0.1801
+service_register_bands:
+  origin: auto
+  n_utterances: 180
+  note: 'computed on service / dialog / assistant reference utterances (not social-media
+    mixing_bands). Selection-biased upward: candidates required CMI > 0 and English
+    service terms. Upper reference only, not a generation target.'
+  english_share:
+    p10: 0.2
+    p25: 0.3822
+    p50: 0.5
+    p75: 0.5
+    p90: 0.5392
+  cmi:
+    p10: 20.0
+    p25: 33.3333
+    p50: 47.0175
+    p75: 50.0
+    p90: 50.0
+  switches_per_utterance:
+    p10: 0.0
+    p25: 0.0
+    p50: 3.0
+    p75: 5.0
+    p90: 7.0
+  monolingual_turn_share: 0.0056
+lexical_insertions:
+- en_word: rt
+  count: 1462
+- en_word: to
+  count: 834
+- en_word: sir
+  count: 817
+- en_word: is
+  count: 592
+- en_word: of
+  count: 529
+- en_word: a
+  count: 523
+- en_word: and
+  count: 487
+- en_word: k
+  count: 479
+- en_word: bjp
+  count: 475
+- en_word: you
+  count: 437
+- en_word: the
+  count: 402
+- en_word: modi
+  count: 400
+- en_word: in
+  count: 388
+- en_word: pakistan
+  count: 384
+- en_word: me
+  count: 371
+- en_word: i
+  count: 359
+- en_word: p
+  count: 355
+- en_word: congress
+  count: 349
+- en_word: or
+  count: 336
+- en_word: for
+  count: 317
+- en_word: d
+  count: 308
+- en_word: h
+  count: 298
+- en_word: ki
+  count: 278
+- en_word: india
+  count: 275
+- en_word: are
+  count: 270
+- en_word: ko
+  count: 269
+- en_word: good
+  count: 250
+- en_word: this
+  count: 247
+- en_word: twitter
+  count: 246
+- en_word: best
+  count: 245
+- en_word: time
+  count: 229
+- en_word: so
+  count: 229
+- en_word: pm
+  count: 220
+- en_word: ka
+  count: 218
+- en_word: my
+  count: 216
+- en_word: m
+  count: 216
+- en_word: 'on'
+  count: 216
+- en_word: u
+  count: 215
+- en_word: but
+  count: 215
+- en_word: team
+  count: 207
+- en_word: s
+  count: 202
+- en_word: all
+  count: 198
+- en_word: media
+  count: 197
+- en_word: match
+  count: 196
+- en_word: be
+  count: 196
+- en_word: he
+  count: 193
+- en_word: it
+  count: 180
+- en_word: bc
+  count: 179
+- en_word: news
+  count: 177
+- en_word: lol
+  count: 175
+- en_word: congratulations
+  count: 170
+- en_word: b
+  count: 169
+- en_word: 'no'
+  count: 167
+- en_word: se
+  count: 166
+- en_word: not
+  count: 166
+- en_word: n
+  count: 164
+- en_word: com
+  count: 163
+- en_word: world
+  count: 160
+- en_word: ye
+  count: 154
+- en_word: love
+  count: 153
+- en_word: party
+  count: 152
+- en_word: movie
+  count: 151
+- en_word: like
+  count: 145
+- en_word: that
+  count: 145
+- en_word: ke
+  count: 143
+- en_word: very
+  count: 140
+- en_word: ne
+  count: 137
+- en_word: tweet
+  count: 133
+- en_word: maine
+  count: 133
+- en_word: great
+  count: 129
+- en_word: t
+  count: 125
+- en_word: what
+  count: 125
+- en_word: morning
+  count: 122
+- en_word: with
+  count: 121
+- en_word: pic
+  count: 120
+- en_word: indian
+  count: 118
+- en_word: your
+  count: 117
+- en_word: we
+  count: 115
+- en_word: vote
+  count: 114
+- en_word: happy
+  count: 113
+- en_word: haha
+  count: 113
+- en_word: fake
+  count: 110
+- en_word: r
+  count: 109
+- en_word: ji
+  count: 108
+- en_word: govt
+  count: 107
+- en_word: election
+  count: 106
+- en_word: one
+  count: 104
+- en_word: free
+  count: 104
+- en_word: thanks
+  count: 103
+- en_word: allah
+  count: 103
+- en_word: was
+  count: 102
+- en_word: per
+  count: 101
+- en_word: day
+  count: 100
+- en_word: family
+  count: 99
+- en_word: new
+  count: 99
+- en_word: fan
+  count: 98
+- en_word: by
+  count: 98
+- en_word: please
+  count: 96
+- en_word: army
+  count: 94
+- en_word: minister
+  count: 94
+light_verb_constructions:
+- pattern: band kar
+  examples: []
+  count: 18
+- pattern: block kar
+  examples: []
+  count: 16
+- pattern: wait kar
+  examples: []
+  count: 16
+- pattern: band karo
+  examples: []
+  count: 15
+- pattern: delete kar
+  examples: []
+  count: 12
+- pattern: late ho
+  examples: []
+  count: 10
+- pattern: change kar
+  examples: []
+  count: 10
+- pattern: fan ho
+  examples: []
+  count: 8
+- pattern: start ho
+  examples: []
+  count: 8
+- pattern: emotional ho
+  examples: []
+  count: 7
+- pattern: band ho
+  examples: []
+  count: 7
+- pattern: wait karein
+  examples: []
+  count: 7
+- pattern: clear ho
+  examples: []
+  count: 6
+- pattern: bore ho
+  examples: []
+  count: 6
+- pattern: support kar
+  examples: []
+  count: 6
+- pattern: fail ho
+  examples: []
+  count: 6
+- pattern: phone kar
+  examples: []
+  count: 6
+- pattern: great ho
+  examples: []
+  count: 5
+- pattern: pm ho
+  examples: []
+  count: 5
+- pattern: post karo
+  examples: []
+  count: 5
+- pattern: promote kar
+  examples: []
+  count: 5
+- pattern: change ho
+  examples: []
+  count: 5
+- pattern: waste ho
+  examples: []
+  count: 5
+- pattern: start kiya
+  examples: []
+  count: 5
+- pattern: tag kar
+  examples: []
+  count: 5
+- pattern: rt kar
+  examples: []
+  count: 5
+- pattern: emotional kar
+  examples: []
+  count: 5
+- pattern: set karein
+  examples: []
+  count: 5
+- pattern: feel hua
+  examples: []
+  count: 4
+- pattern: add kar
+  examples: []
+  count: 4
+- pattern: gift kar
+  examples: []
+  count: 4
+- pattern: post kar
+  examples: []
+  count: 4
+- pattern: launch karo
+  examples: []
+  count: 4
+- pattern: miss kar
+  examples: []
+  count: 4
+- pattern: operation kar
+  examples: []
+  count: 4
+- pattern: flop ho
+  examples: []
+  count: 4
+- pattern: solve ho
+  examples: []
+  count: 4
+- pattern: hack ho
+  examples: []
+  count: 4
+- pattern: unfollow kar
+  examples: []
+  count: 4
+- pattern: study kiya
+  examples: []
+  count: 4
+excluded_domain_specific:
+- pattern: tweet kar
+  examples: []
+  count: 20
+- pattern: out ho
+  examples: []
+  count: 19
+- pattern: tweet kiya
+  examples: []
+  count: 8
+- pattern: release kar
+  examples: []
+  count: 5
+- pattern: tweet karna
+  examples: []
+  count: 4
+- pattern: share karo
+  examples: []
+  count: 3
+- pattern: tweets karna
+  examples: []
+  count: 3
+- pattern: share kar
+  examples: []
+  count: 3
+- pattern: like karo
+  examples: []
+  count: 2
+- pattern: like kiya
+  examples: []
+  count: 2
+- pattern: out hoga
+  examples: []
+  count: 2
+- pattern: like kijiye
+  examples: []
+  count: 2
+- pattern: tweets kar
+  examples: []
+  count: 2
+- pattern: tweet karo
+  examples: []
+  count: 2
+- pattern: out karo
+  examples: []
+  count: 2
+- pattern: out kar
+  examples: []
+  count: 2
+- pattern: win ho
+  examples: []
+  count: 1
+- pattern: release karna
+  examples: []
+  count: 1
+- pattern: win karo
+  examples: []
+  count: 1
+- pattern: share karna
+  examples: []
+  count: 1
+- pattern: play kar
+  examples: []
+  count: 1
+- pattern: upload karo
+  examples: []
+  count: 1
+- pattern: subscribe karein
+  examples: []
+  count: 1
+- pattern: tweets karo
+  examples: []
+  count: 1
+- pattern: like karna
+  examples: []
+  count: 1
+- pattern: tweets ho
+  examples: []
+  count: 1
+- pattern: upload hoga
+  examples: []
+  count: 1
+- pattern: like ho
+  examples: []
+  count: 1
+- pattern: like kar
+  examples: []
+  count: 1
+- pattern: release ho
+  examples: []
+  count: 1
+- pattern: tweet karein
+  examples: []
+  count: 1
+- pattern: tweets kiya
+  examples: []
+  count: 1
+- pattern: upload kar
+  examples: []
+  count: 1
+- pattern: review dijiye
+  examples: []
+  count: 1
+- pattern: tweet kijiye
+  examples: []
+  count: 1
+- pattern: subscribe kar
+  examples: []
+  count: 1
+- pattern: upload kiya
+  examples: []
+  count: 1
+- pattern: release kiya
+  examples: []
+  count: 1
+mixed_morphology:
+- form: congressiyon
+  stem: congress
+  suffix: iyon
+  count: 3
+- form: pakistaniyon
+  stem: pakistan
+  suffix: iyon
+  count: 2
+- form: partiyon
+  stem: part
+  suffix: iyon
+  count: 2
+- form: armymein
+  stem: army
+  suffix: mein
+  count: 1
+- form: italywali
+  stem: italy
+  suffix: wali
+  count: 1
+- form: superse
+  stem: super
+  suffix: se
+  count: 1
+- form: partyko
+  stem: party
+  suffix: ko
+  count: 1
+- form: constitutionmein
+  stem: constitution
+  suffix: mein
+  count: 1
+- form: congressko
+  stem: congress
+  suffix: ko
+  count: 1
+- form: autowale
+  stem: auto
+  suffix: wale
+  count: 1
+- form: scaremein
+  stem: scare
+  suffix: mein
+  count: 1
+- form: janewali
+  stem: jane
+  suffix: wali
+  count: 1
+romanization_variants:
+- canonical: nahi
+  variants:
+  - nahi
+  - nahii
+  - nahee
+  - nnahi
+  - nahiiii
+  - naahi
+  - nahiiiiii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 6206
+- canonical: bhi
+  variants:
+  - bhi
+  - bhee
+  - bhii
+  - beeee
+  - bhiii
+  - bhiiiii
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 4370
+- canonical: aur
+  variants:
+  - aur
+  - aaur
+  - aurr
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 4190
+- canonical: kya
+  variants:
+  - kya
+  - kyaa
+  - kyaaa
+  - khya
+  - kyaaaaaaaaa
+  - kkya
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 2271
+- canonical: liye
+  variants:
+  - liye
+  - lye
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1608
+- canonical: hain
+  variants:
+  - hain
+  - haain
+  - hainn
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1591
+- canonical: nhi
+  variants:
+  - nhi
+  - nhii
+  - nii
+  - nhee
+  - nhiii
+  - niii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1404
+- canonical: kuch
+  variants:
+  - kuch
+  - kuchh
+  - khuch
+  - kuc
+  - kucch
+  - kucchh
+  - koochh
+  - kucc
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1398
+- canonical: gaya
+  variants:
+  - gaya
+  - gya
+  - gyaa
+  - gyaaa
+  - gayaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1275
+- canonical: bahut
+  variants:
+  - bahut
+  - bahoot
+  - bahuth
+  - bahutt
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1163
+- canonical: apne
+  variants:
+  - apne
+  - aapne
+  - appne
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1087
+- canonical: aaj
+  variants:
+  - aaj
+  - ajj
+  - aaaj
+  - aaaaaj
+  - ajh
+  - ajjj
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1065
+- canonical: raha
+  variants:
+  - raha
+  - rahaa
+  - raaha
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1021
+- canonical: kiya
+  variants:
+  - kiya
+  - kiyaa
+  - kiyaaaa
+  - kiyya
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1009
+- canonical: diya
+  variants:
+  - diya
+  - diyaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 988
+- canonical: sath
+  variants:
+  - sath
+  - saath
+  - shat
+  - saat
+  - shath
+  - shaat
+  - sathh
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 936
+- canonical: sab
+  variants:
+  - sab
+  - shab
+  - sabh
+  - sabbb
+  - sabb
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 893
+- canonical: baat
+  variants:
+  - baat
+  - bhaat
+  - batt
+  - baaat
+  - baath
+  - bhat
+  - bhatt
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 866
+- canonical: karne
+  variants:
+  - karne
+  - krne
+  - krrne
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 799
+- canonical: kabhi
+  variants:
+  - kabhi
+  - kbhi
+  - kabi
+  - kbi
+  - khbi
+  - kabbi
+  - kabhee
+  - kbbi
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 767
+- canonical: hota
+  variants:
+  - hota
+  - hotha
+  - hotta
+  - hotaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 741
+- canonical: mujhe
+  variants:
+  - mujhe
+  - muje
+  - mjhe
+  - mje
+  - mujje
+  - mujhhe
+  - mjje
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 705
+- canonical: kisi
+  variants:
+  - kisi
+  - kissi
+  - kishi
+  - kisee
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 679
+- canonical: aapko
+  variants:
+  - aapko
+  - apko
+  - appko
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 677
+- canonical: hoga
+  variants:
+  - hoga
+  - hogaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 661
+- canonical: karo
+  variants:
+  - karo
+  - kro
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 656
+- canonical: khud
+  variants:
+  - khud
+  - kud
+  - kudh
+  - khood
+  - khudh
+  - khuddd
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 622
+- canonical: gaye
+  variants:
+  - gaye
+  - gye
+  - gaaye
+  - ggaye
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 611
+- canonical: karte
+  variants:
+  - karte
+  - krte
+  - karthe
+  - karrte
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 586
+- canonical: kaam
+  variants:
+  - kaam
+  - kham
+  - kamm
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 544
+- canonical: hoti
+  variants:
+  - hoti
+  - hotii
+  - hotti
+  - hothi
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 532
+- canonical: apni
+  variants:
+  - apni
+  - appni
+  - apnee
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 531
+- canonical: baar
+  variants:
+  - baar
+  - bhar
+  - barh
+  - baaar
+  - baaaaar
+  - bhaarh
+  - bhaar
+  - bharr
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 530
+- canonical: yaar
+  variants:
+  - yaar
+  - yar
+  - yarr
+  - yaaaar
+  - yaaar
+  - yarrrrr
+  - yaarrrr
+  - yarrrr
+  - yaaaarrrrr
+  - yarrr
+  - yarrrrrr
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 529
+- canonical: wale
+  variants:
+  - wale
+  - waale
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 529
+- canonical: sirf
+  variants:
+  - sirf
+  - shirf
+  - sirfh
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 527
+- canonical: chahiye
+  variants:
+  - chahiye
+  - cahiye
+  - chaahiye
+  - chhahiye
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 523
+- canonical: kyu
+  variants:
+  - kyu
+  - kyoo
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 517
+- canonical: abhi
+  variants:
+  - abhi
+  - abhee
+  - abhiii
+  - aabhi
+  - abbi
+  - abee
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 513
+- canonical: jaise
+  variants:
+  - jaise
+  - jaishe
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 511
+- canonical: naam
+  variants:
+  - naam
+  - naaam
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 487
+- canonical: karta
+  variants:
+  - karta
+  - krta
+  - kartaa
+  - kartha
+  - krtaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 483
+- canonical: accha
+  variants:
+  - accha
+  - acha
+  - achha
+  - aacha
+  - achaa
+  - achhaaaa
+  - achaaaa
+  - achhha
+  - acchha
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 481
+- canonical: meri
+  variants:
+  - meri
+  - merii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 479
+- canonical: pata
+  variants:
+  - pata
+  - patta
+  - paata
+  - patha
+  - pataa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 466
+- canonical: teri
+  variants:
+  - teri
+  - teriii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 463
+- canonical: rahi
+  variants:
+  - rahi
+  - rahee
+  - raahi
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 460
+- canonical: jeet
+  variants:
+  - jeet
+  - jit
+  - jeeth
+  - jitt
+  - jith
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 454
+- canonical: karna
+  variants:
+  - karna
+  - krna
+  - krrna
+  - karrna
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 431
+- canonical: aapki
+  variants:
+  - aapki
+  - apki
+  - appki
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 421
+- canonical: phir
+  variants:
+  - phir
+  - pir
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 417
+- canonical: kaha
+  variants:
+  - kaha
+  - kahaa
+  - kahaaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 412
+- canonical: baad
+  variants:
+  - baad
+  - badh
+  - bhad
+  - bhaad
+  - badd
+  - bhadd
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 409
+- canonical: aise
+  variants:
+  - aise
+  - aaise
+  - aisse
+  - aishe
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 408
+- canonical: baap
+  variants:
+  - baap
+  - bap
+  - baaap
+  - bbap
+  - bappp
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 406
+- canonical: wala
+  variants:
+  - wala
+  - waala
+  - walla
+  - wallaaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 400
+- canonical: gayi
+  variants:
+  - gayi
+  - gyi
+  - gayee
+  - gyee
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 397
+- canonical: ghar
+  variants:
+  - ghar
+  - gar
+  - gaar
+  - gharr
+  - garh
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 396
+- canonical: sakta
+  variants:
+  - sakta
+  - skta
+  - saktha
+  - shakta
+  - saktaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 394
+- canonical: apna
+  variants:
+  - apna
+  - aapna
+  - apnaa
+  - appna
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 391
+- canonical: hamare
+  variants:
+  - hamare
+  - hamaare
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 386
+- canonical: dekh
+  variants:
+  - dekh
+  - dhek
+  - dhekh
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 385
+- canonical: sahi
+  variants:
+  - sahi
+  - shahi
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 385
+- canonical: bol
+  variants:
+  - bol
+  - bhol
+  - boll
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 363
+- canonical: maa
+  variants:
+  - maa
+  - maaa
+  - mha
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 361
+- canonical: woh
+  variants:
+  - woh
+  - wohh
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 360
+- canonical: tera
+  variants:
+  - tera
+  - terha
+  - thera
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 353
+- canonical: kare
+  variants:
+  - kare
+  - kre
+  - khare
+  - karre
+  - krre
+  - krrhe
+  - krhe
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 352
+- canonical: chor
+  variants:
+  - chor
+  - chhor
+  - chhorr
+  - chhorh
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 332
+- canonical: sarkar
+  variants:
+  - sarkar
+  - sarkaar
+  - sharkar
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 332
+- canonical: lagta
+  variants:
+  - lagta
+  - lgta
+  - lagtaaa
+  - lgtaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 327
+- canonical: aisa
+  variants:
+  - aisa
+  - aaisa
+  - aisaa
+  - aisaaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 325
+- canonical: itna
+  variants:
+  - itna
+  - itnaa
+  - itnaaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 319
+- canonical: aapke
+  variants:
+  - aapke
+  - apke
+  - appke
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 312
+- canonical: rha
+  variants:
+  - rha
+  - rhaa
+  - raa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 309
+- canonical: nai
+  variants:
+  - nai
+  - naii
+  - naaai
+  - nhai
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 301
+- canonical: aapka
+  variants:
+  - aapka
+  - apka
+  - appka
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 296
+- canonical: bana
+  variants:
+  - bana
+  - banna
+  - banaa
+  - ban'na
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 291
+- canonical: pyar
+  variants:
+  - pyar
+  - pyaar
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 290
+- canonical: laga
+  variants:
+  - laga
+  - lagaa
+  - lagha
+  - laaga
+  - lagga
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 287
+- canonical: sakte
+  variants:
+  - sakte
+  - sakhte
+  - sakthe
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 286
+- canonical: chal
+  variants:
+  - chal
+  - chaal
+  - chall
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 266
+- canonical: yaad
+  variants:
+  - yaad
+  - yad
+  - yaaad
+  - yadh
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 263
+- canonical: bada
+  variants:
+  - bada
+  - badha
+  - badda
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 256
+- canonical: khush
+  variants:
+  - khush
+  - khus
+  - kus
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 251
+- canonical: itni
+  variants:
+  - itni
+  - itniiiiiiiiiiiiiiiii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 249
+- canonical: jaye
+  variants:
+  - jaye
+  - jaaye
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 246
+- canonical: kab
+  variants:
+  - kab
+  - khaab
+  - kabh
+  - kaab
+  - khab
+  - kabb
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 243
+- canonical: duniya
+  variants:
+  - duniya
+  - dunya
+  - duniyaa
+  - dhuniya
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 232
+- canonical: samajh
+  variants:
+  - samajh
+  - samaj
+  - samjh
+  - smjh
+  - smj
+  - samj
+  - samaaj
+  - shamaaj
+  - shamajh
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 228
+- canonical: janta
+  variants:
+  - janta
+  - jaanta
+  - jantaa
+  - jaantha
+  - jantta
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 221
+- canonical: nahin
+  variants:
+  - nahin
+  - naheen
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 221
+- canonical: shree
+  variants:
+  - shree
+  - saari
+  - sree
+  - saree
+  - sarri
+  - shari
+  - saarii
+  - sharii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 218
+- canonical: yaha
+  variants:
+  - yaha
+  - yahaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 216
+- canonical: saal
+  variants:
+  - saal
+  - ssal
+  - sall
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 210
+- canonical: jaan
+  variants:
+  - jaan
+  - jann
+  - jannn
+  - jaann
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 204
+- canonical: jyada
+  variants:
+  - jyada
+  - jyaada
+  - jyadha
+  - jyaadaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 203
+- canonical: bola
+  variants:
+  - bola
+  - bhola
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 200
+- canonical: tumhe
+  variants:
+  - tumhe
+  - tume
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 200
+- canonical: badhai
+  variants:
+  - badhai
+  - bhadai
+  - bhadhai
+  - badai
+  - badhaai
+  - badhaee
+  - baddhai
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 199
+- canonical: ke
+  variants:
+  - ke
+  - k
+  - ka
+  - ki
+  - kr
+  - kee
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 8097
+- canonical: men
+  variants:
+  - men
+  - me
+  - mein
+  - mem
+  - main
+  - mn
+  - mei
+  - meni
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 6226
+- canonical: hai
+  variants:
+  - hai
+  - hain
+  - hia
+  - hi
+  - his
+  - ha
+  - hian
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 5820
+- canonical: ki
+  variants:
+  - ki
+  - kii
+  - kee
+  - ke
+  - ko
+  - key
+  - kki
+  - kik
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 4062
+- canonical: aur
+  variants:
+  - aur
+  - aura
+  - ayr
+  - and
+  - aure
+  - ar
+  - or
+  - air
+  - auur
+  - aurr
+  - aru
+  - au
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 3492
+- canonical: se
+  variants:
+  - se
+  - say
+  - sse
+  - sem
+  - sr
+  - ss
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 3182
+- canonical: ka
+  variants:
+  - ka
+  - kaa
+  - k
+  - ke
+  - kar
+  - ko
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 2990
+- canonical: ko
+  variants:
+  - ko
+  - ki
+  - ke
+  - co
+  - ka
+  - koo
+  - kam
+  - kko
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 2481
+- canonical: hain
+  variants:
+  - hain
+  - hai
+  - haim
+  - hian
+  - hin
+  - hi
+  - hainm
+  - hainl
+  - ha
+  - han
+  - haain
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 2025
+- canonical: ek
+  variants:
+  - ek
+  - eka
+  - eak
+  - em
+  - e
+  - el
+  - eek
+  - ej
+  - ekk
+  - ea
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 1981
+- canonical: par
+  variants:
+  - par
+  - para
+  - pr
+  - pae
+  - paa
+  - pan
+  - pa
+  - pra
+  - parr
+  - pwr
+  - per
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 1483
+- canonical: kiya
+  variants:
+  - kiya
+  - kiyaa
+  - kiy
+  - kya
+  - kiye
+  - kaya
+  - kiyan
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 1218
+- canonical: ne
+  variants:
+  - ne
+  - nen
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 1172
+- canonical: bhi
+  variants:
+  - bhi
+  - bh
+  - bi
+  - bhii
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 1089
+- canonical: yah
+  variants:
+  - yah
+  - yeh
+  - yaha
+  - ya
+  - yan
+  - yh
+  - yam
+  - yay
+  - yean
+  - yeha
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 1038
+- canonical: dakshina_alternation:a~
+  variants:
+  - count:5204
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 5204
+- canonical: dakshina_alternation:aa~a
+  variants:
+  - count:4205
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 4205
+- canonical: dakshina_alternation:final_a_dropped
+  variants:
+  - count:3941
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 3941
+- canonical: dakshina_alternation:final_n_dropped
+  variants:
+  - count:1112
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 1112
+- canonical: dakshina_alternation:sh~s
+  variants:
+  - count:799
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 799
+- canonical: dakshina_alternation:v~w
+  variants:
+  - count:762
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 762
+- canonical: dakshina_alternation:a~e
+  variants:
+  - count:705
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 705
+- canonical: dakshina_alternation:ee~i
+  variants:
+  - count:580
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 580
+- canonical: dakshina_alternation:oo~u
+  variants:
+  - count:540
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 540
+- canonical: dakshina_alternation:i~
+  variants:
+  - count:483
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 483
+address_forms:
+- form: aap
+  register: formal
+  count: 2139
+- form: aapka
+  register: formal
+  count: 152
+- form: aapko
+  register: formal
+  count: 396
+- form: ji
+  register: formal
+  count: 2917
+- form: sir
+  register: formal
+  count: 2535
+- form: madam
+  register: formal
+  count: 113
+- form: kripya
+  register: formal
+  count: 23
+- form: dhanyavaad
+  register: formal
+  count: 1
+- form: tum
+  register: neutral
+  count: 1293
+- form: bhaiya
+  register: neutral
+  count: 124
+- form: didi
+  register: neutral
+  count: 111
+- form: tu
+  register: informal
+  count: 1116
+- form: bhai
+  register: informal
+  count: 2413
+reference_utterances: []
+unnatural_examples: []
+rules:
+- rule_id: L01
+  status: needs_speaker_review
+  evidence: clause grammar is not measurable from CMI; fluent review required
+- rule_id: L02
+  status: needs_speaker_review
+  evidence: switches_per_utterance exists in mixing_bands but boundary quality is
+    unvalidated
+- rule_id: L03
+  status: supported_by_data
+  evidence: mixed_morphology has 12 attested stem+suffix types; Telugu/Tamil within-word
+    mixing is allowed (plan L03)
+- rule_id: L04
+  status: supported_by_data
+  evidence: mixing_bands origin=gold; also service_register_bands for generation
+- rule_id: L05
+  status: supported_by_data
+  evidence: romanization_variants from romanization_clusters_clean.tsv plus Dakshina
+    alternations
+- rule_id: L06
+  status: supported_by_data
+  evidence: address_forms with formal/neutral/informal counts from the pair corpora
+- rule_id: L07
+  status: policy
+  evidence: named entities, payment acronyms, or a lone greeting do not establish
+    bilingual substance
+- rule_id: L08
+  status: policy
+  evidence: semantic fidelity is an experimental invariant, not a corpus statistic
+- rule_id: L09
+  status: policy
+  evidence: mixing, spelling, and register must be distributed across labels (design
+    requirement)
+- rule_id: L10
+  status: needs_speaker_review
+  evidence: Code-Mixed-Dialog user turns show short replies; natural endings still
+    need speaker check
+- rule_id: L11
+  status: policy
+  evidence: do not enforce one matrix language globally; mixing_bands include monolingual
+    turns
+- rule_id: L12
+  status: policy
+  evidence: exclude English glosses, parenthetical translations, and stage directions
+    from detector input
+reviewer_signoff: []
+change_history:
+- date: '2026-09-25'
+  version: 0.1-auto
+  summary: auto-built by build_profiles.py
+  note: auto-built by build_profiles.py

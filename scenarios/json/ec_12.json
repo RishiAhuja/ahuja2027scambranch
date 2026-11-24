@@ -1,0 +1,261 @@
+{
+  "family_id": "ec_12",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "dev",
+  "channel": "outbound_call",
+  "title": "Damage compensation needing a \"verification payment\" vs. replacement through the app",
+  "summary": "The recipient received a damaged appliance from ShopKart and uploaded photos in the app. A caller from \"ShopKart support\" phones about the complaint and mentions both a replacement and a goodwill compensation amount. In the legitimate case, the agent schedules a replacement pickup through the app and adds the goodwill credit to the recipient's ShopKart balance; nothing is paid. In the fraud case, the caller says the compensation goes to the bank account only after the recipient sends a small \"verification payment\" to a UPI ID to \"link\" the account. The catalog originally used \"card number and OTP\" as the fraud mechanism; it was changed to a small outgoing \"verification\" payment so that this family does not duplicate `ec_09` and `ec_14`. Both cases mention compensation, bank or balance credit, and the word \"verify\".",
+  "shared_setting": {
+    "organisations": [
+      "ShopKart",
+      "PaySetu"
+    ],
+    "pretext": "",
+    "recipient_profile": "a ShopKart customer; profile sampled at generation.",
+    "other_facts": [
+      "Product: a mixer grinder, kettle, or small speaker worth [AMOUNT_14] (₹1,500–₹12,000), delivered with a cracked body.",
+      "Goodwill compensation offered in both cases: [AMOUNT_16] (₹200–₹1,000).",
+      "The recipient really raised a damage complaint [TICKET_ID] with photos."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_12_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller requires the recipient to send money to a UPI ID in order to receive compensation. Receiving a payment never requires the receiver to pay first; the \"verification\" is the first step of a theft that usually escalates.",
+      "caller_objective": "Get a first small transfer, then larger \"verification\" or \"reversal\" payments.",
+      "stable_facts": [
+        "The verification amount is [AMOUNT_15] (₹1–₹10), to [UPI_ID_9].",
+        "The caller says it will be \"returned with the compensation within minutes\".",
+        "The caller says the replacement will be \"processed after verification\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart support, calling about damage complaint [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms the product arrived cracked",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller apologises and says the recipient is eligible for a replacement and compensation of [AMOUNT_16]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how they will get the compensation",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it will be paid to their bank account once the account is verified",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what verification is needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller tells them to send [AMOUNT_15] to [UPI_ID_9] from PaySetu; it will come back with the compensation",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to send [AMOUNT_15] to a UPI ID to verify their account before the compensation can be paid",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_12_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent schedules the replacement through the app and credits the goodwill amount to the recipient's ShopKart balance. The recipient pays nothing and shares nothing.",
+      "caller_objective": "Resolve the damage complaint with a replacement and a goodwill credit.",
+      "stable_facts": [
+        "A replacement pickup is scheduled for the next day; the slot is visible on the order page.",
+        "The goodwill credit of [AMOUNT_16] is added to the ShopKart balance within the day.",
+        "The agent says the complaint photos have already verified the damage."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart support, calling about damage complaint [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms the product arrived cracked",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller apologises and says the recipient is eligible for a replacement and compensation of [AMOUNT_16]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how they will get the compensation",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it will be added to their ShopKart balance today",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what verification is needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says none; the photos already verified the damage, and the replacement pickup is scheduled for tomorrow on the order page",
+          "evidence_ids": [
+            "L-M1",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Replacement scheduled through the ShopKart app"
+        },
+        {
+          "id": "L-M2",
+          "text": "Compensation credited to ShopKart balance by the company"
+        },
+        {
+          "id": "L-M3",
+          "text": "Verification\" refers to photos already uploaded, not a payment"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are sending the small amount",
+      "legitimate": "Confirms the pickup slot"
+    },
+    "clarifying": {
+      "fraud": "Asks why they must pay to receive compensation",
+      "legitimate": "Asks whether they must pack the item in the original box"
+    },
+    "resistant": {
+      "fraud": "Says the compensation can be sent without any verification or not at all",
+      "legitimate": "Says they want a refund instead of a replacement"
+    },
+    "suspicious": {
+      "fraud": "Says sending money to get money is a known trick",
+      "legitimate": "Asks how they can check the call is from ShopKart"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient sends the amount (cooperative only), after which the caller says it \"failed\" and asks for a larger amount",
+      "recipient refuses and hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "pickup confirmed",
+      "agent converts the request to a refund to the original payment method",
+      "agent points the recipient to the complaint status in the app when suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may claim the first transfer failed and ask for a repeat or larger \"verification\"; this is the same mechanism. They must not switch to card details, OTPs, QR codes, or app installation. The legitimate agent must not request any payment, card detail, or code.",
+  "generation_constraints": {
+    "must_preserve": [
+      "compensation offer and the word \"verify/verification\" in both cases",
+      "outgoing transfer to a UPI ID in _F",
+      "company-side credit and app-scheduled replacement in _L",
+      "identical product and compensation amount"
+    ],
+    "may_vary": [
+      "product",
+      "nature of the damage",
+      "pickup slot",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real UPI handles",
+      "real brand names",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Some real companies verify a bank account by sending a tiny amount to the customer. That direction is legitimate and is not used in this family, to keep the contrast on who pays whom.",
+    "A small amount is not safe because it is small; it is the evidence because of its direction.",
+    "Knowing the complaint details is not a cue; both callers know them."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Refund scams ask victims to approve small \"verification\" transactions (CE22)",
+      "source_ids": [
+        "SE23"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraudsters start with small fees and then ask for more (CE09)",
+      "source_ids": [
+        "SE09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A major marketplace states it will never ask for payment via phone (CE14)",
+      "source_ids": [
+        "SE14"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

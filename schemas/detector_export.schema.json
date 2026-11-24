@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aaai-icfd.invalid/schemas/detector_export.schema.json",
+  "title": "Detector-facing conversation export",
+  "description": "Visible transcript only. No labels, branch types, scenario IDs beyond conversation_id, rationales, or provenance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["conversation_id", "turns"],
+  "properties": {
+    "conversation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "turns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["speaker", "text"],
+        "properties": {
+          "speaker": {
+            "type": "string",
+            "enum": ["caller", "recipient"]
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

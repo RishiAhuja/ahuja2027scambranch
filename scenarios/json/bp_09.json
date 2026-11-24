@@ -1,0 +1,294 @@
+{
+  "family_id": "bp_09",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "\"Move your money to a safe account\" vs. fraud team that blocks the card and asks for a branch visit",
+  "summary": "A caller from Kaveri Bank's fraud team tells the recipient that their account has been compromised. In the fraud case, the caller says the account is linked to a criminal investigation and the recipient must move their balance to a \"safe account\" the bank has opened, keeping the call secret. In the legitimate case, the fraud team confirms a fraudulent card transaction the recipient has already reported, says the card is blocked and debits are frozen from the bank's side, and asks the recipient to visit the branch with ID. The legitimate caller never asks to move money.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "suspicious activity on the account; a card transaction of [AMOUNT_1] (₹5,000–₹40,000) the recipient did not make.",
+    "recipient_profile": "an adult Kaveri Bank customer with savings of [AMOUNT_2] (₹50,000–₹10,00,000); profile sampled at generation.",
+    "other_facts": [
+      "Both callers say the recipient's money is at risk and that the bank is acting to protect it."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_09_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller instructs the recipient to transfer their own balance to an account the caller controls, calling it a \"safe account\". No bank or agency asks customers to move money for protection or verification.",
+      "caller_objective": "Get the recipient to transfer [AMOUNT_2], or as much as possible, to [UPI_ID_1] or an account number the caller reads out.",
+      "stable_facts": [
+        "The caller says the account has been flagged in a money-laundering case and may be seized. They may say a police or central-bank officer will \"join the call\".",
+        "The \"safe account\" is described as a temporary account opened by the bank's fraud cell in the recipient's name. It is not.",
+        "The caller tells the recipient not to tell family or branch staff, to \"protect the investigation\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's fraud and risk team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller reports a suspicious transaction of [AMOUNT_1] on the card and says the account is under watch",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says they did not make it and asks what is happening",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the account is linked to a money-laundering case and could be frozen or seized, and the recipient must not discuss this with anyone",
+          "evidence_ids": [
+            "F-E2",
+            "F-E3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient reacts (frightened, asks how to protect their money)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the bank has opened a safe account and asks the recipient to move the full balance there now",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to transfer their balance to the \"safe account\" [UPI_ID_1] or a caller-given account",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller tells the recipient to keep the call secret from family and branch staff",
+          "role": "supporting"
+        },
+        {
+          "id": "F-E3",
+          "text": "Caller links the account to a criminal case and threatens seizure or arrest",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_09_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The fraud team confirms the fraud, has already protected the account from the bank's side, and directs the recipient to the branch. It asks for no transfer, credential, or secrecy.",
+      "caller_objective": "Tell the recipient the card is blocked and get them to visit the branch to close the dispute and collect a new card.",
+      "stable_facts": [
+        "The recipient reported the transaction earlier the same day through the app, and ticket [TICKET_ID] exists.",
+        "The bank has blocked the card and placed a temporary debit freeze on the account. Incoming credits continue.",
+        "The recipient must visit their home branch with photo ID to lift the freeze, sign the dispute form, and collect a replacement card. The money stays in the recipient's own account."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's fraud and risk team about ticket [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller confirms the reported transaction of [AMOUNT_1] on the card was fraudulent",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what is happening to their money",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the card is blocked and debits are frozen from the bank's side, so no more money can leave",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient reacts (relieved, or worried about access to cash)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to visit the branch with ID, says the money stays in their own account, and that the bank will never ask them to transfer it anywhere",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Card already blocked and account protected from the bank's side; no action by phone needed"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says the money stays in the recipient's account and the bank will never ask them to move it"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller invites the recipient to bring a family member and to verify at the branch"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens the banking app and asks for the safe-account details",
+      "legitimate": "Agrees to visit the branch tomorrow and asks what to bring"
+    },
+    "clarifying": {
+      "fraud": "Asks why money must leave their own account to be safe",
+      "legitimate": "Asks whether the disputed amount will be refunded and when"
+    },
+    "resistant": {
+      "fraud": "Says they will go to the branch before moving anything",
+      "legitimate": "Says they cannot visit soon and asks for another option"
+    },
+    "suspicious": {
+      "fraud": "Says a bank would never ask this and asks for the caller's branch and employee ID",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient transfers (cooperative only)",
+      "caller escalates threats and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will speak to family or the branch first."
+    ],
+    "legitimate": [
+      "recipient agrees to visit",
+      "recipient asks about the refund and is told it follows the dispute process",
+      "recipient is told to call the number on their passbook to confirm. For a recipient who cannot visit soon, the caller may say the freeze stays in place until they do."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may add a fake \"officer\", repeat threats, or reduce the amount demanded. They must not switch to a different mechanism (for example OTP, screen sharing, or a link). The legitimate caller must not ask the recipient to move, withdraw, or pay money, or to share any credential, after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "suspicious transaction amount in both",
+      "criminal-case framing, secrecy, and safe-account transfer (_F)",
+      "card blocked from the bank's side and branch visit (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "the agency the fraud caller names (police, cyber cell, central bank — generic, no real officer names)",
+      "balance within range",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank, police, or agency officer names",
+      "real case numbers",
+      "working account numbers or UPI handles",
+      "video-call staging details",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Both callers say the recipient's money is at risk and the bank is protecting it. The label depends on whether the recipient is asked to move money.",
+    "A legitimate bank may freeze an account. Freezing from the bank's side is not evidence of fraud.",
+    "Real \"digital arrest\" schemes often use video calls and fake officers over many hours. This family keeps a single phone call and the bank pretext; digital-arrest escalation belongs with ec_04 (customs parcel) if needed.",
+    "Real schemes sometimes tell victims to visit a branch and transfer the money themselves. In this card only the fraud caller asks for a transfer; the legitimate branch visit involves no transfer."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Criminals impersonate police, CBI, RBI and demand money to settle a \"case\" (CB15)",
+      "source_ids": [
+        "SB06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "No genuine \"safe account\" exists; agencies never ask to transfer money for verification (CB17)",
+      "source_ids": [
+        "SB27"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "RBI does not open accounts for members of the public (CB16)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Prompt reporting limits customer liability (CB18) — cards must not state a day count",
+      "source_ids": [
+        "SB18",
+        "SB19"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09",
+        "SB06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

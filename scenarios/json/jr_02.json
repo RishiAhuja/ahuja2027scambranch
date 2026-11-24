@@ -1,0 +1,253 @@
+{
+  "family_id": "jr_02",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": true,
+  "split": "dev",
+  "channel": "chat",
+  "title": "Paid \"task\" work-from-home vs. contracted part-time work",
+  "summary": "A coordinator offers part-time online work rating products or labelling data. In the fraud case, the recipient is paid a tiny amount for the first tasks, then told they must deposit money to unlock \"premium\" tasks with higher commission. In the legitimate case, the coordinator from TalentBridge explains a contracted annotation job paid monthly by the employer, with no deposit.",
+  "shared_setting": {
+    "organisations": [
+      "TalentBridge Staffing"
+    ],
+    "pretext": "",
+    "recipient_profile": "a student or homemaker looking for part-time income; profile sampled at generation.",
+    "other_facts": [
+      "Work: short online tasks, 2–3 hours a day from home.",
+      "Pay: stated as [AMOUNT_4] (₹300–₹800) per day.",
+      "Both conversations are chat messages. Turns are messages rather than spoken lines, so short replies are expected."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_02_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The \"job\" requires the worker to pay money in to continue earning. Earnings are shown on a dashboard but cannot be withdrawn until more is deposited.",
+      "caller_objective": "Get increasing deposits from the recipient.",
+      "stable_facts": [
+        "Earlier the recipient received a small credit of ₹150 for three \"trial\" tasks.",
+        "Premium tasks require a deposit of [AMOUNT_5] (₹1,000–₹5,000) to [UPI_ID_2].",
+        "The coordinator claims the deposit plus commission will be returned after the task set."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Coordinator messages about the part-time work and the daily pay",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are interested",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Coordinator reminds them the ₹150 for trial tasks was credited and says there is a higher-paying task set now",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how it works",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Coordinator explains commission is higher on \"premium\" tasks",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Coordinator says they must first deposit [AMOUNT_5] to [UPI_ID_2] to unlock the premium set, refunded with commission",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Coordinator tells the recipient to deposit [AMOUNT_5] to unlock the next task set",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Coordinator says withdrawals are available only after the deposit task is completed",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_02_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The work is paid by the employer under a written contract; the worker pays nothing.",
+      "caller_objective": "Onboard the recipient onto a part-time annotation project.",
+      "stable_facts": [
+        "A paid two-hour training task is part of onboarding.",
+        "Pay is monthly by bank transfer to the recipient's own account, after the recipient signs a contract sent by email.",
+        "The coordinator asks for the recipient's bank account number and IFSC for payroll, nothing else."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Coordinator messages about the part-time annotation project and the daily pay",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are interested",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Coordinator explains there is a paid two-hour training task first",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how it works",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Coordinator explains the contract and monthly payment",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Coordinator says they will email the contract, need the account number and IFSC for salary, and that the recipient never pays anything",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Written contract before work begins"
+        },
+        {
+          "id": "L-M2",
+          "text": "Coordinator states there is no deposit or fee of any kind"
+        },
+        {
+          "id": "L-M3",
+          "text": "Only account number and IFSC requested, for receiving pay"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to deposit and asks for payment details",
+      "legitimate": "Agrees and says they will share account details after reading the contract"
+    },
+    "clarifying": {
+      "fraud": "Asks why they must pay to do a job",
+      "legitimate": "Asks about working hours and whether it can be done on a phone"
+    },
+    "resistant": {
+      "fraud": "Says they will only do tasks that do not need money",
+      "legitimate": "Says they want to read the contract before sharing any details"
+    },
+    "suspicious": {
+      "fraud": "Says this sounds like the task scams they have read about",
+      "legitimate": "Asks why the account number is needed and whether it is safe"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient deposits (cooperative only)",
+      "coordinator pressures and recipient leaves",
+      "coordinator claims the ₹150 proves it is real and recipient still declines."
+    ],
+    "legitimate": [
+      "recipient accepts the contract",
+      "recipient delays",
+      "recipient declines. The legitimate coordinator answers a suspicious recipient by explaining that account number and IFSC can only be used to send money, and that no OTP or PIN will ever be asked."
+    ]
+  },
+  "caller_continuation_limits": "The fraud coordinator may reduce the deposit, point to the earlier ₹150, or add urgency. They must not switch to asking for OTPs or remote access. The legitimate coordinator must not mention any payment by the recipient.",
+  "generation_constraints": {
+    "must_preserve": [
+      "earlier ₹150 credit and deposit request in _F",
+      "contract, no-deposit statement, and account-number-only request in _L"
+    ],
+    "may_vary": [
+      "task type (product ratings, image labelling, text review)",
+      "daily pay within range",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real app or platform names",
+      "working UPI IDs",
+      "narrator text",
+      "scam\" in the coordinator's lines"
+    ]
+  },
+  "ambiguities": [
+    "Asking for a bank account number is not evidence of fraud: it appears only in _L.",
+    "A small real payment to the recipient (₹150) does not make _F legitimate. It is part of the fraud pattern.",
+    "Both cases start with unsolicited messages."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Task-based job frauds pay a small commission first, then demand larger deposits (C10)",
+      "source_ids": [
+        "S07"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Withheld payouts pending further fees are a red flag (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-24",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

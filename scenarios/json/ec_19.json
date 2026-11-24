@@ -1,0 +1,251 @@
+{
+  "family_id": "ec_19",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "outbound_call",
+  "title": "Buy gift cards and read out the codes vs. support resolves a gift-card balance query",
+  "summary": "The recipient recently bought a ShopKart gift card and raised a complaint in the app that its balance did not show up. A caller from \"ShopKart support\" phones back about that complaint. In the legitimate case, the agent says the glitch is fixed and asks the recipient to add the card in the app themselves and read out only the balance shown. In the fraud case, the caller says the card was \"flagged\" and that to restore it the recipient must buy a new gift card of the same value and read out its claim code for \"verification\". Both callers say \"gift card\", \"code\", \"balance\", and \"verify\".",
+  "shared_setting": {
+    "organisations": [
+      "ShopKart"
+    ],
+    "pretext": "",
+    "recipient_profile": "the ShopKart customer who raised the complaint; profile sampled at generation.",
+    "other_facts": [
+      "Gift card value: [AMOUNT_25] (₹500–₹10,000), bought by the recipient a few days ago for a relative's birthday.",
+      "Both callers quote the complaint reference and the card value."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_19_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller tells the recipient to buy a new gift card and read out its claim code. Whoever holds a claim code can spend the value; no legitimate support process needs a customer to buy gift cards or share codes.",
+      "caller_objective": "Obtain the claim code of a new card worth [AMOUNT_25], and then more.",
+      "stable_facts": [
+        "The caller says the original card was \"flagged for misuse\" and will be restored once the account is \"verified\".",
+        "The caller says the new card's value \"will be refunded with the old balance\".",
+        "The caller asks for the full claim code of the new card."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart support, calling about gift-card complaint [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms the balance did not show up",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the card of [AMOUNT_25] was flagged and needs to be restored",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how to fix it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says their account must be verified first",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what verification is needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller tells them to buy another ShopKart gift card of the same value now and read out its claim code; both will be credited back",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to buy a new gift card and read out its claim code",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_19_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent fixes the problem from ShopKart's side and asks the recipient to add the card in the app themselves. Only the balance, not the code, is read out.",
+      "caller_objective": "Close the complaint and confirm the balance is visible.",
+      "stable_facts": [
+        "A delay in activating the card has been fixed.",
+        "The recipient adds the card under Gift Cards, Add gift card, in the app; the agent does not ask for the code.",
+        "If the card was meant as a gift, the agent says the recipient can resend it to the relative from the app."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart support, calling about gift-card complaint [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms the balance did not show up",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the card of [AMOUNT_25] had an activation delay that has now been fixed",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how to check it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller asks them to open Gift Cards in the ShopKart app and add the card",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says they have entered the code themselves",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks them to verify only the balance shown and not to read the code to anyone",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Problem fixed from ShopKart's side"
+        },
+        {
+          "id": "L-M2",
+          "text": "Recipient enters the code themselves in the app"
+        },
+        {
+          "id": "L-M3",
+          "text": "Agent asks only for the balance shown, not the code"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are buying the new card",
+      "legitimate": "Reads out the balance and thanks the agent"
+    },
+    "clarifying": {
+      "fraud": "Asks why buying another card would fix the first",
+      "legitimate": "Asks how to send the card to their relative"
+    },
+    "resistant": {
+      "fraud": "Asks for a refund of the first card to their bank instead",
+      "legitimate": "Asks for a refund instead of the gift card"
+    },
+    "suspicious": {
+      "fraud": "Says support never asks customers to buy gift cards",
+      "legitimate": "Asks how to confirm the caller is from ShopKart"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient buys and shares a code (cooperative only), after which the caller says a second card is needed",
+      "recipient refuses and hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "balance confirmed and complaint closed",
+      "agent explains the refund policy for unused gift cards",
+      "agent points to the complaint status in the app when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may ask for more cards of the same kind or split the value; this is the same mechanism. They must not switch to OTPs, card details, links, or app installation. The legitimate agent must not ask for any claim code, OTP, or payment.",
+  "generation_constraints": {
+    "must_preserve": [
+      "gift card, code, balance, and \"verify\" in both cases",
+      "buy-new-card-and-read-code instruction in _F",
+      "self-entry in app and balance-only check in _L",
+      "identical card value"
+    ],
+    "may_vary": [
+      "occasion for the gift card",
+      "card value within range",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real gift-card brands",
+      "real or realistic claim codes",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "The word \"code\" appears in both cases; in _L the recipient uses it themselves and never reads it out.",
+    "Knowing the complaint reference and card value is not a cue.",
+    "If generation has the fraud caller ask for the code of the original card only, it is still fraud, but that variant is not used here to keep the \"buy a new card\" action as the evidence."
+  ],
+  "evidence_references": [
+    {
+      "claim": "No legitimate transaction requires payment in gift cards; do not share claim codes; a major marketplace never calls asking customers to buy gift cards (CE12)",
+      "source_ids": [
+        "SE12"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A major marketplace states it will never pressure customers to buy gift cards (CE14)",
+      "source_ids": [
+        "SE14"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

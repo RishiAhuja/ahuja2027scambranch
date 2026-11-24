@@ -1,0 +1,261 @@
+{
+  "family_id": "jr_15",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "\"Priority placement\" with a guaranteed shortlist paid to a personal UPI vs. job portal openly selling a paid visibility service",
+  "summary": "A caller from NaukriHub phones a registered job seeker about improving their chances for roles such as a Vistara Infotech opening. In the fraud case, the caller sells \"priority placement\" that guarantees a shortlist or offer, payable to a personal UPI ID, with a refund promise. In the legitimate case, a NaukriHub sales executive openly sells a paid profile-highlight subscription, says plainly that it only increases visibility and guarantees no interview or job, that applying is free without it, and that payment happens only through the portal's own checkout with a GST invoice. **The legitimate label rests on transparent disclosure and the official payment channel, not on the absence of payment.**",
+  "shared_setting": {
+    "organisations": [
+      "Vistara Infotech",
+      "NaukriHub"
+    ],
+    "pretext": "",
+    "recipient_profile": "a job seeker with an active NaukriHub profile, seeking an operations or sales role at [AMOUNT_1] (₹25,000–₹45,000 per month); details sampled at generation.",
+    "other_facts": [
+      "Both calls mention the recipient's profile views, recruiter interest, a paid plan, and a price.",
+      "Both callers are selling something; money is requested in both."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_15_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller takes payment to a personal account for an outcome no portal can sell (a guaranteed shortlist or offer from a named employer).",
+      "caller_objective": "Collect the \"priority placement\" payment.",
+      "stable_facts": [
+        "Price: [AMOUNT_2] (₹3,000–₹12,000), called \"priority placement\" or \"premium recruiter desk\".",
+        "Paid to [UPI_ID_1], a personal handle; \"the portal checkout does not have this plan\".",
+        "Caller guarantees an interview and \"near-certain\" offer from Vistara Infotech, with full refund if not placed within 30 days.",
+        "No invoice is offered."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and NaukriHub, refers to the recipient's profile",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they are job hunting",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the profile has been viewed by several recruiters, including Vistara Infotech",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks whether anyone has shortlisted them",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says a \"priority placement\" plan puts the profile directly in Vistara's shortlist and guarantees an interview and near-certain offer",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how much it costs and how to pay",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says it costs [AMOUNT_2], paid today to [UPI_ID_1] because the plan is \"not on the website checkout\", fully refundable if no offer in 30 days",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks for [AMOUNT_2] to [UPI_ID_1] in exchange for a guaranteed interview/offer from a named employer",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the plan is not available through the portal's own checkout",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_15_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "An openly paid, optional service is described accurately (what it does and does not do), and payment goes through the portal's own checkout with an invoice.",
+      "caller_objective": "Sell a profile-highlight subscription honestly.",
+      "stable_facts": [
+        "Plan: \"Profile Highlight\", [AMOUNT_3] (₹800–₹3,500) for three months, shown on the NaukriHub pricing page.",
+        "What it does: profile appears higher in recruiter searches and gets a badge.",
+        "What it does not do: no guaranteed interview, shortlist, or job; employers decide independently.",
+        "Payment only through the NaukriHub app or https://naukrihub.invalid/pricing, GST invoice issued; cancellable per stated terms. Applying to jobs stays free."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and NaukriHub, refers to the recipient's profile",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they are job hunting",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the profile has been viewed by several recruiters, including Vistara Infotech",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks whether anyone has shortlisted them",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says shortlisting is up to employers; a paid \"Profile Highlight\" plan raises visibility in recruiter searches but guarantees no interview or job, and applying stays free without it",
+          "evidence_ids": [
+            "L-M1",
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how much it costs and how to pay",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says it costs [AMOUNT_3] for three months, listed on the pricing page, paid only in the NaukriHub app or website with a GST invoice; the caller does not take payments",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Caller states the service does not guarantee interviews or jobs"
+        },
+        {
+          "id": "L-M2",
+          "text": "Payment only through the portal's checkout, with invoice"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller states the service is optional and applying is free without it"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks for the UPI ID again",
+      "legitimate": "Says they will buy it in the app"
+    },
+    "clarifying": {
+      "fraud": "Asks how the refund works and whether there is a receipt",
+      "legitimate": "Asks how much visibility improves and whether it can be cancelled"
+    },
+    "resistant": {
+      "fraud": "Says they will keep applying normally for free",
+      "legitimate": "Says they are not interested in paid plans"
+    },
+    "suspicious": {
+      "fraud": "Says no portal can guarantee a job and asks why the payment is not on the website",
+      "legitimate": "Asks whether this call is really from NaukriHub and how to check the price"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller offers a \"discount\" and recipient declines",
+      "caller insists on the guarantee and recipient ends the call",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "recipient buys through the app",
+      "recipient declines and the caller accepts politely",
+      "caller tells a suspicious recipient to check the pricing page directly and not pay anyone by phone."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the price, strengthen the guarantee, or add urgency. They must not switch to OTPs, bank logins, or remote access. The legitimate caller may answer questions and accept a refusal; they must not claim any guarantee, push payment off-platform, or introduce any other charge after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "profile-views framing and named employer identical across cases",
+      "_F guaranteed outcome with payment to [UPI_ID_1] at turn 7",
+      "_L \"no guarantee\", optional, in-app checkout with invoice"
+    ],
+    "may_vary": [
+      "plan names (generic)",
+      "price within range",
+      "number of recruiter views",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real job portal names or real plan names",
+      "working UPI IDs",
+      "narrator text",
+      "scam\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Payment is requested in both cases. _L is legitimate because the service is described accurately, is optional, and is paid through the platform's own channel with an invoice. A sales call being persistent is not evidence.",
+    "A \"refund guarantee\" does not make _F legitimate.",
+    "Distinct from jr_01: there, an agency charges a registration fee for a guaranteed job; here the caller impersonates the portal and sells a guaranteed outcome, and the counterpart is a real paid product."
+  ],
+  "evidence_references": [
+    {
+      "claim": "A major IT employer warns that fraudulent agencies charge fees to promise interviews, and that fake offers appear on genuine job portals (CJ03)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Upfront payment and unrealistic promises are red flags in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

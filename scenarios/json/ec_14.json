@@ -1,0 +1,262 @@
+{
+  "family_id": "ec_14",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Exchange \"price lock\" needing card details vs. exchange pickup scheduled with no payment",
+  "summary": "The recipient ordered a new Voltrix phone on ShopKart with an exchange offer on their old phone. A caller from the \"ShopKart exchange team\" phones before delivery. In the legitimate case, the agent confirms the old phone's model and condition, schedules the exchange pickup at the time of delivery, and says nothing more is payable because the difference was paid at checkout. In the fraud case, the caller says the exchange value must be \"locked\" with a refundable hold on the recipient's card and asks for the full card number, expiry date, and CVV. This family shares the card-details evidence type with `ec_09`, but differs in initiation (outbound, not recipient-initiated) and pretext (a pending exchange, not a delayed refund). Both cases mention the card, the exchange value, and the price difference.",
+  "shared_setting": {
+    "organisations": [
+      "SwiftShip Couriers",
+      "ShopKart",
+      "Voltrix"
+    ],
+    "pretext": "",
+    "recipient_profile": "the ShopKart customer who placed the order; profile sampled at generation.",
+    "other_facts": [
+      "Exchange value of the old phone: [AMOUNT_18] (₹2,000–₹15,000); the price difference was paid by card at checkout.",
+      "Both callers know the order, the old phone model, and the exchange value."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_14_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks for full card credentials, including CVV, on a call to \"lock\" an exchange value. The payment was already made at checkout, and no genuine entity asks for CVV on a call.",
+      "caller_objective": "Obtain card credentials, then the OTP, to make a purchase.",
+      "stable_facts": [
+        "The caller says exchange prices \"change daily\" and the offer lapses tonight unless locked.",
+        "The caller says the hold is \"refundable\" and \"not a charge\".",
+        "The caller asks for the details verbally; no link is sent."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from the ShopKart exchange team, calling about Voltrix order [ORDER_ID] with exchange",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller confirms the old phone model and the exchange value [AMOUNT_18]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks if anything more is needed before delivery",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says exchange values change daily and theirs must be locked today with a refundable hold on their card",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they have to pay anything more",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says it is only a hold and asks for the card number, expiry, and CVV",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks for the full card number, expiry date, and CVV to lock the exchange value",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_14_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent confirms exchange details and schedules the pickup with delivery. The recipient is told no further payment or card detail is needed.",
+      "caller_objective": "Make sure the exchange pickup goes smoothly at delivery.",
+      "stable_facts": [
+        "The agent asks simple condition questions: does the old phone switch on, is the screen cracked.",
+        "The exchange value is fixed at checkout and shown on the order page; the delivery agent checks the old phone at the door.",
+        "If the old phone fails the check, the recipient can pay the difference in the app or cancel the exchange at the door."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from the ShopKart exchange team, calling about Voltrix order [ORDER_ID] with exchange",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller confirms the old phone model and the exchange value [AMOUNT_18]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks if anything more is needed before delivery",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller asks whether the old phone switches on and if the screen is intact; the delivery agent will check it at the door",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they have to pay anything more",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says no; the card was already charged the difference at checkout and the exchange value is fixed on the order page",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Exchange value already fixed on the order page"
+        },
+        {
+          "id": "L-M2",
+          "text": "Agent says no payment or card detail is needed"
+        },
+        {
+          "id": "L-M3",
+          "text": "Old phone is checked in person at delivery"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Reads out the card details",
+      "legitimate": "Confirms the phone works and thanks the agent"
+    },
+    "clarifying": {
+      "fraud": "Asks why a hold is needed if they already paid",
+      "legitimate": "Asks whether they should remove their SIM and data first"
+    },
+    "resistant": {
+      "fraud": "Says they will cancel the exchange rather than give card details",
+      "legitimate": "Says they want to keep the old phone and cancel the exchange"
+    },
+    "suspicious": {
+      "fraud": "Says real support never asks for CVV",
+      "legitimate": "Asks how to confirm the caller is from ShopKart"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient shares details (cooperative only), after which the caller asks for \"the code for the hold",
+      "recipient refuses and hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "pickup confirmed",
+      "agent explains how to cancel the exchange in the app",
+      "agent points to the exchange details on the order page when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may press about the deadline or ask for the OTP that follows the card details (same mechanism). They must not switch to links, UPI requests, or app installation. The legitimate agent must not ask for card details, codes, or any payment.",
+  "generation_constraints": {
+    "must_preserve": [
+      "exchange value and \"card\" in both cases",
+      "card number, expiry, and CVV request in _F",
+      "condition questions and no-payment statement in _L",
+      "identical order and exchange value"
+    ],
+    "may_vary": [
+      "old and new phone models (Voltrix range only)",
+      "exchange value in range",
+      "delivery date"
+    ],
+    "must_not_emit": [
+      "real phone brands",
+      "real card numbers",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Real exchange programmes can re-price an old phone at the door; in this family that happens only through the app or by cancelling, never by card details on a call.",
+    "Card\" appears in _L (the difference was charged to it) as a confound.",
+    "If generation has the caller ask only for the \"last four digits\", the prefix is not eligible for _F."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Genuine entities never ask for card details, CVV, or OTP (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors cite urgency to obtain card details (C02)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A major marketplace never asks for payment information over the phone (CE13, CE14)",
+      "source_ids": [
+        "SE13",
+        "SE14"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

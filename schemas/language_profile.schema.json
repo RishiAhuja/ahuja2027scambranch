@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aaai-icfd.invalid/schemas/language_profile.schema.json",
+  "title": "Language profile",
+  "description": "Versioned pair-specific generation profile (plan §7): provenance, mixing bands, reviewed exemplars, and L01–L12 rule status. Schema extensions for v0.1-auto (2026-09-25): status_note; known_gaps; service_register_bands (same shape as mixing_bands) so generation can target service register; excluded_domain_specific light-verb list; brand_placeholder_replacements (counts only, never original brand strings); mixing_bands.origin / n_utterances / note; source.redistributable; reference_utterance.register and redistributable; romanization_variant.dakshina_attested / kind / count; rule.evidence; optional change_history.note.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pair",
+    "script",
+    "version",
+    "status_note",
+    "sources",
+    "mixing_bands",
+    "service_register_bands",
+    "lexical_insertions",
+    "light_verb_constructions",
+    "excluded_domain_specific",
+    "mixed_morphology",
+    "romanization_variants",
+    "address_forms",
+    "reference_utterances",
+    "unnatural_examples",
+    "rules",
+    "reviewer_signoff",
+    "change_history"
+  ],
+  "properties": {
+    "pair": {
+      "type": "string",
+      "enum": ["hi_en", "ta_en", "te_en"]
+    },
+    "script": {
+      "type": "string",
+      "enum": ["roman"]
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "known_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "brand_placeholder_replacements": {
+      "$ref": "#/$defs/brandReplacementSummary"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "mixing_bands": {
+      "$ref": "#/$defs/mixingBands"
+    },
+    "service_register_bands": {
+      "$ref": "#/$defs/mixingBands"
+    },
+    "lexical_insertions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lexicalInsertion"
+      }
+    },
+    "light_verb_constructions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lightVerbConstruction"
+      }
+    },
+    "excluded_domain_specific": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lightVerbConstruction"
+      }
+    },
+    "mixed_morphology": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mixedMorphology"
+      }
+    },
+    "romanization_variants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/romanizationVariant"
+      }
+    },
+    "address_forms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/addressForm"
+      }
+    },
+    "reference_utterances": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/referenceUtterance"
+      }
+    },
+    "unnatural_examples": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unnaturalExample"
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "reviewer_signoff": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/signoffEntry"
+      }
+    },
+    "change_history": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/changeEntry"
+      }
+    }
+  },
+  "$defs": {
+    "quantileBand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["p10", "p25", "p50", "p75", "p90"],
+      "properties": {
+        "p10": {
+          "type": "number"
+        },
+        "p25": {
+          "type": "number"
+        },
+        "p50": {
+          "type": "number"
+        },
+        "p75": {
+          "type": "number"
+        },
+        "p90": {
+          "type": "number"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "url", "license_status", "used_for"],
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string"
+        },
+        "license_status": {
+          "type": "string"
+        },
+        "redistributable": {
+          "type": "string",
+          "enum": ["yes", "no"]
+        },
+        "used_for": {
+          "type": "string"
+        }
+      }
+    },
+    "mixingBands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "english_share",
+        "cmi",
+        "switches_per_utterance",
+        "monolingual_turn_share"
+      ],
+      "properties": {
+        "origin": {
+          "type": "string",
+          "enum": ["gold", "auto"]
+        },
+        "n_utterances": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "note": {
+          "type": "string"
+        },
+        "english_share": {
+          "$ref": "#/$defs/quantileBand"
+        },
+        "cmi": {
+          "$ref": "#/$defs/quantileBand"
+        },
+        "switches_per_utterance": {
+          "$ref": "#/$defs/quantileBand"
+        },
+        "monolingual_turn_share": {
+          "type": "number"
+        }
+      }
+    },
+    "lexicalInsertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en_word", "count"],
+      "properties": {
+        "en_word": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "lightVerbConstruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pattern", "examples", "count"],
+      "properties": {
+        "pattern": {
+          "type": "string"
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "mixedMorphology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["form", "stem", "suffix", "count"],
+      "properties": {
+        "form": {
+          "type": "string"
+        },
+        "stem": {
+          "type": "string"
+        },
+        "suffix": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "romanizationVariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical", "variants"],
+      "properties": {
+        "canonical": {
+          "type": "string"
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dakshina_attested": {
+          "type": "string",
+          "enum": ["yes", "no"]
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["corpus_cluster", "dakshina_word", "dakshina_alternation"]
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "addressForm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["form", "register", "count"],
+      "properties": {
+        "form": {
+          "type": "string"
+        },
+        "register": {
+          "type": "string",
+          "enum": ["formal", "neutral", "informal"]
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "referenceUtterance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source_id", "text", "register", "accepted"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "register": {
+          "type": "string",
+          "enum": [
+            "service",
+            "service_dialog_user",
+            "service_dialog_system_template",
+            "assistant_command",
+            "question",
+            "conversational"
+          ]
+        },
+        "accepted": {
+          "type": "string",
+          "enum": ["yes", "no", "pending"]
+        },
+        "redistributable": {
+          "type": "string",
+          "enum": ["yes", "no"]
+        }
+      }
+    },
+    "unnaturalExample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "reason", "synthetic"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "synthetic": {
+          "type": "boolean"
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule_id", "status"],
+      "properties": {
+        "rule_id": {
+          "type": "string",
+          "pattern": "^L(0[1-9]|1[0-2])$"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["supported_by_data", "policy", "needs_speaker_review"]
+        },
+        "evidence": {
+          "type": "string"
+        }
+      }
+    },
+    "signoffEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "name", "date", "notes"],
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "changeEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "version", "summary"],
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "brandReplacementSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["n_replacements", "n_utterances_touched"],
+      "properties": {
+        "n_replacements": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "n_utterances_touched": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

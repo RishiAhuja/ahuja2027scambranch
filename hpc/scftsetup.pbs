@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -N scftset
+#PBS -q cpuq
+#PBS -l select=1:ncpus=1
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -o scftset.log
+# Install peft + sentencepiece into existing scmeval venv. Never login-node pip.
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?qsub from the repository root}"
+export PYTHONNOUSERSITE=1
+echo "=== scftset start $(date -Is) host=$(hostname) ==="
+if [[ ! -x .venv/bin/pip ]]; then
+  echo "ERROR: missing .venv; run scsetup.pbs first" >&2
+  exit 1
+fi
+source .venv/bin/activate
+.venv/bin/pip install peft sentencepiece
+.venv/bin/python -c 'import peft, sentencepiece; print("peft", peft.__version__)'
+echo "=== scftset done $(date -Is) ==="

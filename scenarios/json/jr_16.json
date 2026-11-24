@@ -1,0 +1,269 @@
+{
+  "family_id": "jr_16",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "chat",
+  "title": "\"Trading analyst\" job that requires funding one's own trading account vs. fintech analyst role with a standard interview",
+  "summary": "A recruiter for KuberQuant Technologies messages a job seeker about a junior analyst role in crypto and equity markets. In the fraud case, the recruiter says the recipient must first deposit their own money into a trading account on the company's platform to \"qualify\", with salary paid as a share of profits shown on a dashboard. In the legitimate case, the recruiter describes a fixed-salary analyst role with an aptitude test and interviews, and notes that analysts never trade with their own money for the firm.",
+  "shared_setting": {
+    "organisations": [
+      "KuberQuant Technologies"
+    ],
+    "pretext": "",
+    "recipient_profile": "a commerce, economics, or engineering graduate interested in markets; details sampled at generation.",
+    "other_facts": [
+      "Role: junior market analyst, remote or hybrid, pay described as [AMOUNT_1] (₹25,000–₹50,000 per month).",
+      "Both chats mention crypto, equity markets, \"trading account\", \"platform\", and \"profits\"."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_16_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The \"job\" requires the recipient to invest their own money on the recruiter's platform as a condition of employment and pay; this is an investment solicitation disguised as a job.",
+      "caller_objective": "Get deposits onto the fake platform, show fake profits, and seek larger deposits.",
+      "stable_facts": [
+        "Minimum \"qualifying capital\": [AMOUNT_2] (₹10,000–₹50,000), deposited on https://kuberquant-trade.invalid.",
+        "Pay is \"40% of profits\" shown on the platform dashboard; no fixed salary.",
+        "Recruiter claims past analysts doubled their capital in weeks.",
+        "No interview; \"the qualifying trade is the interview\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Recruiter messages about a junior analyst role at KuberQuant covering crypto and equity markets",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are interested and asks what the role involves",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Recruiter says analysts track markets and execute trades on the company platform",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks about pay",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Recruiter says pay is a share of profits from trades, and that recent analysts doubled their results within weeks",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how the selection works",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Recruiter says there is no interview; the recipient opens a trading account on the platform and deposits [AMOUNT_2] of their own money as qualifying capital to start",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Recruiter says the recipient must deposit [AMOUNT_2] of their own money on the company's platform to start the job",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Recruiter promises large, near-certain returns",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_16_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "A salaried analyst role with a standard selection process; the recipient's own money is never involved.",
+      "caller_objective": "Invite the recipient to an online aptitude test.",
+      "stable_facts": [
+        "Selection: online aptitude test, a case-study round, and an HR interview.",
+        "Fixed monthly salary; offer letter from KuberQuant's company domain.",
+        "Analysts use the firm's simulated and research tools; they do not trade with personal funds for the firm.",
+        "Compliance policy: employees disclose and may be restricted in personal trading (a deliberate confound on \"trading account\")."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Recruiter messages about a junior analyst role at KuberQuant covering crypto and equity markets",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are interested and asks what the role involves",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Recruiter says analysts track markets and prepare research for the trading desk using the firm's tools",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks about pay",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Recruiter says it is a fixed monthly salary with an annual bonus; there is no profit share from the analyst's own money",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how the selection works",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Recruiter says there is an online aptitude test, a case study, and an HR interview; the recipient never deposits or invests any of their own money, and staff personal trading is governed by a compliance policy",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Fixed salary, not profit share from personal capital"
+        },
+        {
+          "id": "L-M2",
+          "text": "Structured interview process"
+        },
+        {
+          "id": "L-M3",
+          "text": "Recruiter states the recipient never deposits or invests their own money"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to deposit and asks for the platform link",
+      "legitimate": "Agrees to take the aptitude test and asks for dates"
+    },
+    "clarifying": {
+      "fraud": "Asks whether the capital can be withdrawn at any time",
+      "legitimate": "Asks what the case study covers and what the compliance policy restricts"
+    },
+    "resistant": {
+      "fraud": "Says they want a salaried job, not to invest",
+      "legitimate": "Says they have no finance background and may not qualify"
+    },
+    "suspicious": {
+      "fraud": "Says jobs should not need an investment and asks whether the firm is registered",
+      "legitimate": "Asks how to verify that KuberQuant is a real company"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient deposits (cooperative only)",
+      "recruiter lowers the minimum and recipient declines",
+      "recruiter shows \"proof\" screenshots and recipient still leaves",
+      "recruiter stops replying."
+    ],
+    "legitimate": [
+      "test scheduled",
+      "recipient declines",
+      "recruiter points a suspicious recipient to the company's official site and careers email."
+    ]
+  },
+  "caller_continuation_limits": "The fraud recruiter may lower the minimum, share claimed profit stories, or add urgency. They must not switch to OTPs, remote access, or money-mule requests. The legitimate recruiter must not ask for any deposit, investment, or payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role title, markets, and pay range identical across cases",
+      "_F own-money deposit as a job condition at turn 7",
+      "_L fixed salary, interviews, and explicit no-investment statement"
+    ],
+    "may_vary": [
+      "asset focus (crypto, equities, derivatives, described generically)",
+      "recipient background",
+      "deposit within range"
+    ],
+    "must_not_emit": [
+      "real exchanges, brokers, tokens, or trading apps",
+      "working links",
+      "investment advice",
+      "specific return percentages beyond \"doubled",
+      "narrator text",
+      "scam\" in recruiter lines"
+    ]
+  },
+  "ambiguities": [
+    "Crypto\", \"trading account\", and \"profits\" appear in both cases. Interest in markets is not evidence.",
+    "Distinct from jr_02 (small task commissions, then deposits to unlock tasks): here the job itself is framed as trading one's own capital from day one.",
+    "Real firms may restrict employees' personal trading; that confound is deliberate in _L."
+  ],
+  "evidence_references": [
+    {
+      "claim": "I4C warns of fake investment groups and apps run by fraudsters posing as advisers; check SEBI registration (CJ10)",
+      "source_ids": [
+        "SJ07"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Guaranteed returns are a red flag; genuine brokers never ask for more deposits to withdraw (CJ18)",
+      "source_ids": [
+        "SJ10"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "VERIFY"
+    },
+    {
+      "claim": "Unrealistic earning promises are a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

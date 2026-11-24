@@ -1,0 +1,261 @@
+{
+  "family_id": "ec_06",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Lucky-draw prize \"tax\" to a UPI ID vs. reward voucher credited in the app",
+  "summary": "A caller from \"ShopKart\" phones a customer about a recently delivered order and says the order was picked in a festive reward draw. In the legitimate case, the prize is a ShopKart voucher that is already in the recipient's Rewards section, nothing has to be paid, and the agent also asks for delivery feedback. In the fraud case, the prize is an expensive item that will be \"released\" only after the recipient pays a tax or processing charge to a UPI ID over the call. Both callers say \"congratulations\", \"draw\", and \"won\", and the word \"tax\" comes up in both.",
+  "shared_setting": {
+    "organisations": [
+      "ShopKart",
+      "PaySetu"
+    ],
+    "pretext": "",
+    "recipient_profile": "a ShopKart customer who did not knowingly enter any contest; profile sampled at generation.",
+    "other_facts": [
+      "Amount range used in both cases: [AMOUNT_5] (₹500–₹5,000). In _F it is the demanded charge; in _L it is the voucher value.",
+      "Both callers know the recipient's name and the delivered order."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_06_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller demands that the recipient pay a \"tax\" or \"processing\" charge to a UPI ID over the phone to release a prize. Paying money to receive a prize from an unsolicited draw is the core of prize fraud; a real reward is credited through the platform.",
+      "caller_objective": "Collect [AMOUNT_5], then ask for more with new charges.",
+      "stable_facts": [
+        "The prize is described as a phone or a scooter, far above [AMOUNT_5] in value.",
+        "The caller says the prize \"cannot be dispatched\" until \"GST and processing\" are paid today.",
+        "Payment is to [UPI_ID_6], a handle that does not look like ShopKart's."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart, calling about the recently delivered order [ORDER_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they received it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller congratulates them: the order was picked in the festive draw and they have won a phone",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient is surprised and asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the prize will be dispatched once the tax and processing charge is cleared",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how much and whether it can be taken from the prize",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says it must be paid now and tells them to send [AMOUNT_5] to [UPI_ID_6]",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to send [AMOUNT_5] to a UPI ID over the call to release the prize",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_06_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The prize is a voucher credited to the recipient's ShopKart account. The agent explicitly says nothing is payable and asks only for feedback on the delivery.",
+      "caller_objective": "Inform the customer of the voucher and collect delivery feedback.",
+      "stable_facts": [
+        "A voucher worth [AMOUNT_5] is already visible in the app's Rewards section, valid for 30 days.",
+        "The voucher is applied at checkout; it cannot be converted to cash.",
+        "The agent asks for a 1–5 rating of the delivery."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart, calling about the recently delivered order [ORDER_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they received it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller congratulates them: the order was picked in the festive draw and they have won a voucher",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient is surprised and asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it is already in the Rewards section of the app and asks them to rate the delivery",
+          "evidence_ids": [
+            "L-M1",
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they have to pay any tax or charge",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says no, there is nothing to pay; the voucher is simply applied at checkout",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Reward is already credited inside the ShopKart app"
+        },
+        {
+          "id": "L-M2",
+          "text": "Agent states nothing has to be paid, including tax"
+        },
+        {
+          "id": "L-M3",
+          "text": "Call also collects routine delivery feedback"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are sending the amount",
+      "legitimate": "Gives a rating and says they will use the voucher"
+    },
+    "clarifying": {
+      "fraud": "Asks why the tax cannot be deducted from the prize",
+      "legitimate": "Asks if the voucher works on any product"
+    },
+    "resistant": {
+      "fraud": "Says they do not want the prize if they must pay",
+      "legitimate": "Says they do not want to give feedback now"
+    },
+    "suspicious": {
+      "fraud": "Says they never entered any draw and asks if this is a scam",
+      "legitimate": "Asks how to check the voucher is genuine"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only), after which the caller may mention a further \"delivery\" charge",
+      "recipient refuses and hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "rating given",
+      "call ends without feedback",
+      "agent suggests opening the Rewards section to confirm when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may add urgency (\"offer expires today\") or a second charge of the same kind (courier fee, insurance). They must not switch to OTPs, links, card details, or remote access. The legitimate agent must not ask for any payment, bank detail, or code.",
+  "generation_constraints": {
+    "must_preserve": [
+      "draw, \"won\", and tax wording in both cases",
+      "payment to a UPI ID in _F",
+      "in-app voucher and \"nothing to pay\" in _L",
+      "same amount range"
+    ],
+    "may_vary": [
+      "prize item in _F",
+      "voucher validity",
+      "product in the delivered order",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real UPI handles",
+      "real brand or contest names",
+      "real prize schemes",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Real organisers of large in-kind prizes must ensure tax is paid before release and may collect it from the winner. \"Tax\" alone therefore does not decide the label; the label rests on payment to a UPI ID over an unsolicited call. The legitimate prize is a voucher so that no tax question arises.",
+    "Congratulations and surprise appear in both cases.",
+    "Recipient suspicion (\"I never entered\") is not evidence; the legitimate recipient also did not knowingly enter."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Prize fraudsters ask for small sums as processing or tax-clearance charges, then more (CE09)",
+      "source_ids": [
+        "SE09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Marketplace-impersonating callers may ask for a small transfer for a prize; this is a red flag (CE17)",
+      "source_ids": [
+        "SE17"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "For in-kind winnings, the organiser must ensure tax is paid before release (CE10)",
+      "source_ids": [
+        "SE10"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

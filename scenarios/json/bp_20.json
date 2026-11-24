@@ -1,0 +1,282 @@
+{
+  "family_id": "bp_20",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "\"Re-register after merger\" via link and PIN vs. merger notice with account unchanged",
+  "summary": "A caller from Narmada Cooperative Bank tells the recipient that the bank is merging with Kaveri Bank. In the fraud case, the caller says every account must be \"re-registered\" today or it will be frozen, sends a link, and asks the recipient to enter their account number, debit card details, and ATM PIN there. In the legitimate case, the caller announces the merger date and says the account continues automatically, with the same passbook, cheque book, and card. Nothing needs to be done, and any later changes will be announced at the branch and by letter.",
+  "shared_setting": {
+    "organisations": [
+      "Narmada Cooperative Bank",
+      "Kaveri Bank"
+    ],
+    "pretext": "the merger takes effect on a date two to four weeks away.",
+    "recipient_profile": "an adult long-time cooperative-bank member, often in a smaller town; profile sampled at generation.",
+    "other_facts": [
+      "Both callers say \"after the merger\" and mention that customers will \"become Kaveri Bank customers\". Balance of about [AMOUNT_1] (₹10,000–₹5,00,000) may be mentioned."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_20_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller directs the recipient to an unofficial link and asks them to enter card details and ATM PIN, under a threat of freezing. A merger transfers accounts automatically and never needs customers' secret credentials.",
+      "caller_objective": "Capture the recipient's account number, card number, and ATM PIN on a look-alike page.",
+      "stable_facts": [
+        "Link: https://narmada-kaveri-merger.invalid/register (sent by SMS during the call).",
+        "Deadline: \"today\", or the account will be frozen \"until you visit the head office\".",
+        "The page shows both banks' names and asks for account number, card number, expiry, and ATM PIN."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Narmada Cooperative Bank's head office",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the bank is merging with Kaveri Bank and all accounts must be re-registered",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (worried about their savings, asks what to do)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says a registration link has been sent and unregistered accounts will be frozen today",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient confirms the SMS arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to open it and enter the account number, debit card number, and ATM PIN",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to open the link and enter their card number and ATM PIN to re-register the account",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the account will be frozen today if not re-registered",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_20_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller informs the recipient of a merger and says nothing is needed from them. No link, credential, or payment is asked.",
+      "caller_objective": "Reassure the recipient that the account continues and tell them where to get information.",
+      "stable_facts": [
+        "From the merger date, Narmada branches work as Kaveri Bank branches. The recipient's account continues with its balance, and the account number, passbook, cheque book, and card keep working until further notice (fictional arrangement for this card).",
+        "Any later change, such as a new card or app, will be announced by letter and on the branch notice board, with time to act.",
+        "The caller says the bank will never ask for a PIN, password, or OTP because of the merger."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Narmada Cooperative Bank's branch",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the bank is merging with Kaveri Bank from a date a few weeks away",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (worried about their savings, asks what to do)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the account and balance move over automatically and nothing needs to be done",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they need to fill any form or register",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says no registration or link is needed, any later changes will come by letter and at the branch, and no one will ask for a PIN or password",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Account continues automatically; no registration is needed"
+        },
+        {
+          "id": "L-M2",
+          "text": "No link is sent; information is at the branch and by letter"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller says no PIN, password, or OTP will be asked because of the merger"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens the link and asks where to type the PIN",
+      "legitimate": "Thanks the caller and says they will read the notice at the branch"
+    },
+    "clarifying": {
+      "fraud": "Asks why the branch cannot re-register them in person",
+      "legitimate": "Asks whether interest rates on their FD will change"
+    },
+    "resistant": {
+      "fraud": "Says they will go to the branch and not use the link",
+      "legitimate": "Says they want to close the account before the merger"
+    },
+    "suspicious": {
+      "fraud": "Says a bank never asks for the ATM PIN and asks if this is a trick",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient enters details (cooperative only)",
+      "caller pushes and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will visit the branch."
+    ],
+    "legitimate": [
+      "recipient is reassured",
+      "recipient asks about interest and is told existing deposit terms are covered in the notice",
+      "recipient asks to close and is told to visit the branch",
+      "recipient is told to verify by calling the number in the passbook."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may insist on the link, resend it, or increase urgency. They must not switch to a different mechanism (for example payment or an app install). The legitimate caller must not send a link or ask for credentials after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "both bank names and the merger in both",
+      "link plus card and ATM PIN request with same-day freeze (_F)",
+      "automatic continuation, no registration, and explicit \"no PIN/password\" (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "merger date",
+      "recipient's town and profile",
+      "whether an FD is mentioned",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank names",
+      "real merger schemes",
+      "working links",
+      "real PIN formats",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Merger\", \"update\", and \"Kaveri Bank\" appear in both cases. The label depends on the link and credential request.",
+    "In real mergers, account numbers or IFSC codes may change later, with notice. This card fixes them as unchanged for the notice period as a fictional arrangement. Generators must not state a real rule.",
+    "The legitimate caller's mention of a future new card or app is a deliberate confound. It must stay in the future, announced by letter and at the branch, with no link.",
+    "Mechanism overlap: the same as bp_02 (link plus credentials under a freeze threat), with a merger pretext and a cooperative-bank recipient."
+  ],
+  "evidence_references": [
+    {
+      "claim": "In an RBI-sanctioned amalgamation, the transferee opens corresponding accounts with full balances; branches function as its branches (CB30)",
+      "source_ids": [
+        "SB24",
+        "SB25"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Banks never ask for PIN, password, or OTP (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Calls threatening account blocking with a link to \"update\" are a common fraud (C04)",
+      "source_ids": [
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

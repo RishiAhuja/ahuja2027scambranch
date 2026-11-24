@@ -1,0 +1,277 @@
+{
+  "family_id": "bp_04",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Screen-sharing \"support\" vs. verbal guidance through official app menus",
+  "summary": "A caller from PaySetu support phones about a problem the recipient reported: their bank account keeps getting unlinked from the app and payments fail. In the fraud case, the caller asks the recipient to install a separate screen-sharing app so the caller can \"fix it from their side\". In the legitimate case, the caller guides the recipient verbally through the menus of the PaySetu app they already have and says no other app is needed.",
+  "shared_setting": {
+    "organisations": [
+      "PaySetu"
+    ],
+    "pretext": "the recipient raised an in-app complaint [TICKET_ID] saying the bank account shows as \"unlinked\" and payments fail.",
+    "recipient_profile": "an adult PaySetu user who is not very confident with phone settings; age, occupation, and city sampled at generation.",
+    "other_facts": [
+      "Both callers offer to \"guide you step by step\" and say the problem is common and quick to fix."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_04_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the recipient to install a remote screen-sharing app at the caller's request. This would let the caller watch or control the phone, including banking apps and incoming codes.",
+      "caller_objective": "Get the recipient to install a screen-sharing app and start sharing, so the caller can see the screen and act on the payments app.",
+      "stable_facts": [
+        "The caller quotes the ticket number. Knowing it does not prove legitimacy.",
+        "The caller calls from an ordinary mobile number [PHONE_1].",
+        "The screen-sharing app is described only generically (\"a support app\", \"a screen-share app\"). It is never named."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from PaySetu support about ticket [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges and describes the problem briefly",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the problem is on the app's side and is quick to fix",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it is easier if the caller can see the recipient's screen",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient hesitates or agrees",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to install a screen-sharing app and share the code it shows",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to download a screen-sharing or remote-support app and start sharing with the caller",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller asks the recipient to read out a code shown in that app so they can \"connect",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_04_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller resolves the complaint by describing steps inside the official app, asks for no installation, screen sharing, code, or credential.",
+      "caller_objective": "Get the recipient to re-link the bank account using the PaySetu app's own settings.",
+      "stable_facts": [
+        "The caller quotes the ticket number.",
+        "The fix is to open the app's profile or settings page, remove the bank account, and add it again. The app then sends an SMS from the recipient's phone to verify the number. This happens inside the app and needs no code to be read out.",
+        "The caller says PaySetu support never asks users to install other apps or share their screen."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from PaySetu support about ticket [TICKET_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges and describes the problem briefly",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the problem is common and quick to fix",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to open PaySetu and go to the profile or bank-accounts section",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says they are on that screen",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller explains how to remove and re-add the bank account, and says they do not need to install anything or share their screen",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Caller describes menu steps verbally inside the app the recipient already has"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says no other app, screen sharing, or code is needed"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller asks the recipient to update the app from the official app store if it is out of date"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are downloading the app and asks which one to pick",
+      "legitimate": "Follows the steps and says the account is linked again"
+    },
+    "clarifying": {
+      "fraud": "Asks why a separate app is needed if PaySetu has support built in",
+      "legitimate": "Asks what to do if the SMS verification fails"
+    },
+    "resistant": {
+      "fraud": "Says they will not install anything and will try later themselves",
+      "legitimate": "Says they are busy and will do it in the evening"
+    },
+    "suspicious": {
+      "fraud": "Says screen sharing lets someone see their bank app and asks if this is a trick",
+      "legitimate": "Asks how they can know this call is really from PaySetu"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient installs and shares (cooperative only)",
+      "caller insists and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will use in-app help instead."
+    ],
+    "legitimate": [
+      "account re-linked",
+      "recipient postpones",
+      "recipient is told to reply to the ticket in the app if the problem returns."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may insist on the screen-share, reassure, or give up. They must not switch to a different mechanism (for example asking directly for OTP or UPI PIN, or sending a payment link). The legitimate caller must not ask for any install, screen share, code, PIN, or payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "ticket number in both",
+      "screen-sharing install request (_F)",
+      "verbal in-app steps and explicit \"no install, no screen share\" statement (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "exact nature of the fault (unlinked account, failed payments, app crash)",
+      "recipient's phone skill",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "names of real screen-sharing or remote-access apps",
+      "real app store names",
+      "real app or bank names",
+      "step-by-step instructions for any remote-access tool",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Both callers offer to \"guide step by step\". The label depends on whether an external screen-sharing app is requested, not on how helpful the caller sounds.",
+    "Official guidance allows screen-sharing when advised through a company's official toll-free number (CB06). This family avoids that case: the legitimate caller never uses screen sharing, so the contrast stays clean. A card for sanctioned screen-sharing would need a separate family.",
+    "The fraud caller's mobile number [PHONE_1] is a stable fact but not required evidence. Generators must not make the label depend on it.",
+    "Cross-domain overlap: ec_11 (remote-access app for a food refund) and ec_13 (subscription cancel by screen share) use the same mechanism with a different pretext."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Fraudsters trick customers into screen-sharing apps to access financial credentials (CB05)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Install screen-sharing apps only on advice from the official toll-free number, not a caller's personal number (CB06)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Do not install screen-sharing apps at an unknown person's request (C09)",
+      "source_ids": [
+        "S06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

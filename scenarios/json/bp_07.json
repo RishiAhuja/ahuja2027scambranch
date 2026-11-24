@@ -1,0 +1,270 @@
+{
+  "family_id": "bp_07",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Expiring reward points via link and card details vs. points-expiry notice",
+  "summary": "A caller from Kaveri Bank tells the recipient that credit-card reward points are about to expire. In the fraud case, the caller sends a link, says the points expire today, and asks the recipient to enter their full card number, expiry date, and CVV on that page to convert the points to cash. In the legitimate case, the caller reminds the recipient that points expire at the end of the month and tells them to redeem in the Rewards section of the official app, and asks for nothing.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "reward points worth about [AMOUNT_1] (₹1,000–₹12,000) are due to expire.",
+    "recipient_profile": "an adult Kaveri Bank credit-card holder; profile sampled at generation.",
+    "other_facts": [
+      "Both callers say points can be converted to a statement credit or vouchers."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_07_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller directs the recipient to an unofficial link and asks for full card details, including the CVV, under a same-day deadline. Card details and CVV are enough to make card-not-present payments.",
+      "caller_objective": "Get the recipient's full card number, expiry date, and CVV entered on a look-alike page.",
+      "stable_facts": [
+        "Link: https://kaveri-rewards-redeem.invalid/claim (sent by SMS during the call).",
+        "Deadline: \"tonight at midnight\".",
+        "The page shows the bank's name and asks for card number, expiry, CVV, and then an OTP."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's card rewards team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says points worth about [AMOUNT_1] on card [ACCT_LAST4] expire tonight",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (surprised, asks how to use them)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says a redemption link has been sent by SMS",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient confirms the SMS arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to open it and fill in the card number, expiry date, and CVV",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to open the sent link and enter the full card number, expiry date, and CVV to redeem the points",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the points will lapse tonight",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_07_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller gives an expiry reminder and points to the official app. No link is sent and no card details are asked.",
+      "caller_objective": "Remind the recipient to redeem points before they expire.",
+      "stable_facts": [
+        "Expiry: end of the current month, two to four weeks away.",
+        "Redemption: the Rewards section of the Kaveri Bank app the recipient already has, or the bank's website typed in by the recipient.",
+        "The caller says the bank never asks for card number, CVV, or OTP to redeem points."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's card rewards team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says points worth about [AMOUNT_1] on card [ACCT_LAST4] expire at the end of the month",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (surprised, asks how to use them)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller explains they can redeem in the Rewards section of the Kaveri Bank app",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient responds",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the bank will not ask for the card number, CVV, or OTP to redeem, on this call or any link",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "No link is sent; recipient is directed to the app they already use"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says no card number, CVV, or OTP is needed and none should be shared"
+        },
+        {
+          "id": "L-M3",
+          "text": "Expiry is weeks away"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens the link and asks where the CVV is on the card",
+      "legitimate": "Says they will redeem in the app this weekend"
+    },
+    "clarifying": {
+      "fraud": "Asks why the bank's own app cannot be used",
+      "legitimate": "Asks whether points can be moved to the statement as cash"
+    },
+    "resistant": {
+      "fraud": "Says they will check in the app later and not open links",
+      "legitimate": "Says they are not interested in the points"
+    },
+    "suspicious": {
+      "fraud": "Says the link does not look like the bank's and asks if this is phishing",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient enters details (cooperative only)",
+      "caller pushes and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will call the number on the card."
+    ],
+    "legitimate": [
+      "recipient agrees to redeem",
+      "recipient lets the points lapse",
+      "recipient is told to verify by calling the number on the back of the card."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may insist on the link, resend it, or raise urgency. They must not switch to a different mechanism (for example an app install or payment to a UPI ID). The legitimate caller must not send a link or ask for any card detail after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "card last-four and points value in both",
+      "link plus card-number/expiry/CVV request (_F)",
+      "app-only redemption and explicit \"no card details\" statement (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "points value within range",
+      "redemption options (vouchers, statement credit)",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank URLs",
+      "working links",
+      "real card numbers or CVV formats beyond a placeholder",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Expire\", \"points\", and \"redeem\" appear in both cases. The label depends on the link and the card-detail request.",
+    "Real campaigns of this type often ask users to install an app file from a message (CB14). This card uses a link and card details instead, so it does not overlap with the app-install families (bp_04).",
+    "The mechanism (unofficial link plus credentials under a deadline) is the same as bp_02 with a different pretext and credential. Deduplication should decide whether both stay."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Banks never ask for card details, CVV, or OTP (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors cite \"an attractive discount\" or similar to get card credentials (C02)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Expiring-reward-points messages with app files or links are fake per PIB Fact Check (CB14)",
+      "source_ids": [
+        "SB26"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "reported"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

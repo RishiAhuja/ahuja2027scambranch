@@ -1,0 +1,279 @@
+{
+  "family_id": "jr_05",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "dev",
+  "channel": "outbound_call",
+  "title": "Payment for \"backdoor\" government selection vs. counsellor explaining the official exam route",
+  "summary": "A counsellor from Pragati Career Academy calls a job seeker who enquired about clerk posts advertised by the Vindhya State Staff Selection Board. In the fraud case, the caller claims \"contacts\" inside the board and asks for a token advance to an individual's account in exchange for guaranteed selection. In the legitimate case, the counsellor explains the official route: apply on the board's website, pay only the official examination fee there, and qualify on merit in the written test.",
+  "shared_setting": {
+    "organisations": [
+      "Vindhya State Staff Selection Board",
+      "Pragati Career Academy"
+    ],
+    "pretext": "",
+    "recipient_profile": "a graduate preparing for government jobs who filled an enquiry form at the academy; details sampled at generation.",
+    "other_facts": [
+      "Role: junior clerk, state government, pay [AMOUNT_1] (₹20,000–₹35,000 per month plus allowances).",
+      "Both calls mention the notification, the number of posts, the written exam, and a fee."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_05_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller offers selection to a public post outside the merit process in exchange for money paid to an individual.",
+      "caller_objective": "Collect the token advance and later instalments; the caller has no influence over selection.",
+      "stable_facts": [
+        "Total \"package\": [AMOUNT_2] (₹3,00,000–₹10,00,000), with a token advance [AMOUNT_3] (₹25,000–₹1,00,000) now and the rest \"after the result\".",
+        "Token paid to [ACCT_LAST4] or [UPI_ID_1], in an individual's name.",
+        "Caller says the candidate \"only has to appear\" in the exam; the name will be on the list regardless of marks.",
+        "Caller says \"only a few seats\" are available in this arrangement."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and Pragati Career Academy, refers to the enquiry form",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges, says they are preparing for the clerk exam",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes the notification: number of posts, pay, and exam date",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says competition is tough and asks for guidance",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the academy has \"contacts\" in the board and can make selection certain, whatever the marks",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how that works and what it costs",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller states the package [AMOUNT_2] and asks for the token [AMOUNT_3] today to [ACCT_LAST4], balance after the result",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to pay the token advance [AMOUNT_3] to an individual's account in exchange for assured selection regardless of exam marks",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller claims contacts inside the board who can place names on the selection list",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_05_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller gives accurate guidance on the official process and does not offer or sell any shortcut; the only fee mentioned is the official examination fee paid on the board's own portal.",
+      "caller_objective": "Inform the recipient about application dates and invite them to a free exam-strategy session.",
+      "stable_facts": [
+        "Application only on https://vssb.invalid (the board's official site).",
+        "Official examination fee [AMOUNT_4] (₹100–₹800, lower or waived for some categories), paid on that portal during the online application.",
+        "Selection is by written test and document verification, purely on merit.",
+        "The counsellor mentions a free exam-strategy session at the academy; nothing is sold on this call."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and Pragati Career Academy, refers to the enquiry form",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges, says they are preparing for the clerk exam",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes the notification: number of posts, pay, and exam date",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says competition is tough and asks for guidance",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says selection is purely on written-test merit, and that anyone claiming contacts in the board should be ignored",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to apply and what it costs",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says to apply on https://vssb.invalid before the closing date and pay the examination fee [AMOUNT_4] there, nowhere else, and invites them to the free strategy session",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Directs the recipient to the board's official portal"
+        },
+        {
+          "id": "L-M2",
+          "text": "The only fee is the official examination fee, paid to the board"
+        },
+        {
+          "id": "L-M3",
+          "text": "States selection depends only on exam merit and nobody can influence it"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay the token and asks for account details",
+      "legitimate": "Says they will apply this week and asks for the session timing"
+    },
+    "clarifying": {
+      "fraud": "Asks whether the money is returned if they are not selected",
+      "legitimate": "Asks about the syllabus and category-wise fee concessions"
+    },
+    "resistant": {
+      "fraud": "Says they will clear the exam on their own",
+      "legitimate": "Says they do not need a strategy session"
+    },
+    "suspicious": {
+      "fraud": "Says this sounds illegal and asks who the \"contact\" is",
+      "legitimate": "Asks whether the academy is linked to the board"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient agrees (cooperative only)",
+      "caller promises a refund guarantee and recipient still declines",
+      "caller lowers the token and recipient refuses",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "recipient thanks them and plans to apply",
+      "recipient declines the session",
+      "caller clarifies the academy is private and has no role in selection."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the token, offer \"refund if not selected\", or claim past successes. They must not switch to asking for OTPs, passwords, or app installs. The legitimate caller must not sell coaching, request any payment to the academy, or offer any influence after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "notification details, pay, and exam date identical across cases",
+      "_F token request to an individual's account at turn 7",
+      "_L official portal and official fee only"
+    ],
+    "may_vary": [
+      "post (clerk, typist, data-entry operator)",
+      "number of posts",
+      "caller name",
+      "fee amounts within range"
+    ],
+    "must_not_emit": [
+      "real recruitment boards",
+      "real exam names",
+      "real officials",
+      "working account numbers",
+      "narrator text",
+      "scam\" in caller lines",
+      "any description of how exams could be manipulated"
+    ]
+  },
+  "ambiguities": [
+    "The word \"fee\" appears in _L (official examination fee). A fee paid to the recruiting body through its own portal is normal and is not evidence.",
+    "Coaching institutes may legitimately sell courses. That is not modelled here (see jr_15 for transparent paid services); _L sells nothing so that the contrast rests on the influence-for-money offer.",
+    "The fictional board and academy must not be described as affiliated with each other."
+  ],
+  "evidence_references": [
+    {
+      "claim": "RRBs warn against touts promising jobs through influence, appoint no agents or coaching centres, and select purely on merit (CJ07)",
+      "source_ids": [
+        "SJ04"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "RRB notices state selection is fully computerised and on merit, warning of \"illegal consideration\" (CJ08)",
+      "source_ids": [
+        "SJ05"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Government recruitment notices prescribe an official examination fee paid by candidates with the application (CJ17)",
+      "source_ids": [
+        "SJ11"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

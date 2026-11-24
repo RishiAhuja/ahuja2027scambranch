@@ -1,0 +1,270 @@
+{
+  "family_id": "ec_11",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Food-order refund via a \"refund helper\" app vs. refund credited to the in-app wallet",
+  "summary": "The recipient reported a missing item in a KhanaGo food order through the app an hour ago. A caller from \"KhanaGo support\" phones back. In the legitimate case, the agent apologises, credits the refund to the recipient's KhanaGo wallet during the call, and asks them to check the wallet in the app. In the fraud case, the caller says refunds are now processed through a separate \"refund helper\" app, sends a download link, and tells the recipient to install it and allow the permissions it asks for. This differs from `ec_13` in the mechanism (installing an app from a link, rather than turning on screen sharing) and the setting (a one-off food refund, rather than a recurring subscription). Both cases involve opening an app to see the refund.",
+  "shared_setting": {
+    "organisations": [
+      "PaySetu",
+      "KhanaGo"
+    ],
+    "pretext": "",
+    "recipient_profile": "a KhanaGo customer; profile sampled at generation.",
+    "other_facts": [
+      "The missing item is worth [AMOUNT_13] (₹150–₹1,500).",
+      "The recipient really did raise a complaint in the app; the complaint reference is [TICKET_ID].",
+      "Both callers quote the complaint reference and the missing item."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_11_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller tells the recipient to install an app from a link they send, and to allow its permissions, in order to receive a refund. Apps pushed by callers can take over the device or read messages; a genuine refund needs no extra software.",
+      "caller_objective": "Get a remote-access or message-reading app installed, then use it to move money.",
+      "stable_facts": [
+        "The link arrives by SMS as https://khanago-refund.invalid/helper.",
+        "The caller says the KhanaGo app \"cannot process refunds under ₹[AMOUNT_13] directly\".",
+        "The caller says to \"allow all permissions\" so the refund can be \"verified\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from KhanaGo support, calling about complaint [TICKET_ID] for the missing item",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms and says they want the refund",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller apologises and says the refund of [AMOUNT_13] has been approved",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks when they will get it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says small refunds now go through a separate refund helper app and they have sent a link",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says they have received the link",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller tells them to install the app from the link and allow all the permissions it asks for, so the refund can be credited",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to install an app from the link they sent and allow its permissions to get the refund",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_11_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent credits the refund to the KhanaGo wallet from their side. The recipient only opens the app they already have to see the credit.",
+      "caller_objective": "Close the complaint with a refund and an apology.",
+      "stable_facts": [
+        "The refund is credited to the KhanaGo wallet during the call; the recipient can move it to the original PaySetu account from the wallet screen if they prefer.",
+        "A notification from the KhanaGo app confirms the credit.",
+        "The agent closes the complaint and asks if anything else is wrong with the order."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from KhanaGo support, calling about complaint [TICKET_ID] for the missing item",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms and says they want the refund",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller apologises and says the refund of [AMOUNT_13] has been approved",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks when they will get it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says they are crediting it to the KhanaGo wallet now",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says a notification has come",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks them to open the wallet in the KhanaGo app to check the amount; they can transfer it to their bank from there if they like",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Refund credited by the agent from their side"
+        },
+        {
+          "id": "L-M2",
+          "text": "Recipient checks it in the KhanaGo app they already use"
+        },
+        {
+          "id": "L-M3",
+          "text": "No link, download, or permission request"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says the app is downloading",
+      "legitimate": "Confirms the wallet shows the amount"
+    },
+    "clarifying": {
+      "fraud": "Asks why the KhanaGo app itself cannot refund",
+      "legitimate": "Asks how long the bank transfer from the wallet takes"
+    },
+    "resistant": {
+      "fraud": "Says they will take the refund as wallet credit in the KhanaGo app instead",
+      "legitimate": "Says they want the money in their bank, not the wallet"
+    },
+    "suspicious": {
+      "fraud": "Says they will not install anything from a link",
+      "legitimate": "Asks how to confirm the call is really from KhanaGo"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient installs (cooperative only)",
+      "caller insists the refund will lapse and recipient hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "complaint closed",
+      "agent explains the wallet-to-bank option",
+      "agent suggests checking the complaint status in the app's Help section when suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may resend the link, reassure that the app is \"official\", or add a deadline. They must not switch to asking for card details, OTPs, collect requests, or screen sharing. The legitimate agent must not send any link or ask the recipient to install or allow anything.",
+  "generation_constraints": {
+    "must_preserve": [
+      "complaint reference and refund amount in both cases",
+      "open the app\" in both",
+      "install-from-link and permissions instruction in _F",
+      "wallet credit in the existing app in _L"
+    ],
+    "may_vary": [
+      "missing item",
+      "restaurant type",
+      "amount within range",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "names of real remote-access or screen-sharing apps",
+      "working URLs",
+      "permission names from real phone systems",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Opening an app is not evidence: the legitimate recipient also opens an app. The label rests on installing new software from a caller's link.",
+    "Knowing the complaint reference does not make a caller genuine; both callers know it.",
+    "If the fraud caller only sends a link without telling the recipient to install it, the prefix is not eligible."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Do not install screen-sharing or SMS-forwarding apps at an unknown person's request (C09)",
+      "source_ids": [
+        "S06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impersonating callers may ask you to download an app that steals data; hang up (CE18)",
+      "source_ids": [
+        "SE18"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A major marketplace states it will never ask customers to install software for support (CE14)",
+      "source_ids": [
+        "SE14"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Refund scams ask victims to install remote-access apps (CE22)",
+      "source_ids": [
+        "SE23"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

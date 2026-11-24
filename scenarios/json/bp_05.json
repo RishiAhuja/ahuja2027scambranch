@@ -1,0 +1,278 @@
+{
+  "family_id": "bp_05",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "outbound_call",
+  "title": "Electricity \"disconnection tonight\" to a personal UPI ID vs. due-date reminder",
+  "summary": "A caller from Deccan Power Distribution phones about the recipient's electricity bill. In the fraud case, the caller says power will be cut tonight and tells the recipient to pay immediately to a personal UPI ID that the caller reads out. In the legitimate case, the caller reminds the recipient that the bill is due soon and lists the official payment channels, all of which use the recipient's consumer number. Both callers mention UPI and possible disconnection.",
+  "shared_setting": {
+    "organisations": [
+      "Deccan Power Distribution"
+    ],
+    "pretext": "the latest bill of [AMOUNT_1] (₹800–₹6,000) is unpaid.",
+    "recipient_profile": "an adult household account holder; age, occupation, and city sampled at generation.",
+    "other_facts": [
+      "Both callers mention that unpaid bills can lead to disconnection and that the bill can be paid by UPI."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_05_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller demands payment to an individual's UPI ID, not through any of the company's billing channels, and uses a same-night deadline to force it.",
+      "caller_objective": "Get the recipient to send [AMOUNT_1] or more to [UPI_ID_1].",
+      "stable_facts": [
+        "[UPI_ID_1] is a personal-looking handle. The caller calls it \"the officer's ID\" or \"the department's direct ID\".",
+        "Deadline: supply will be cut \"tonight\" or \"within two hours\".",
+        "The caller may quote the consumer number or the bill amount. Neither proves legitimacy."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Deccan Power's billing department",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the last bill of [AMOUNT_1] shows as unpaid in the system",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says they think they paid, or asks what to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the line crew is scheduled to cut supply tonight",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient reacts (worried, asks how to stop it)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller reads out [UPI_ID_1] and tells the recipient to pay there now and share a screenshot",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to pay the bill now to the UPI ID [UPI_ID_1] read out on the call",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says power will be disconnected tonight unless paid immediately",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_05_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller reminds the recipient of an upcoming due date and points only to official billing channels tied to the consumer number. No payment is taken on the call and no personal account is mentioned.",
+      "caller_objective": "Get the bill paid by the due date.",
+      "stable_facts": [
+        "Due date: five to ten days away.",
+        "Channels: the Deccan Power app or website (typed by the recipient), the bill-payment section of any UPI or banking app using the consumer number, or a Deccan Power collection counter.",
+        "The caller says a late fee may apply after the due date and that disconnection happens only after a written notice."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Deccan Power's customer care",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the bill of [AMOUNT_1] is due in a few days",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says they think they paid, or asks what to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says a late fee applies after the due date and supply can be disconnected only after a written notice",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient reacts",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller lists the official payment channels, including UPI bill payment by consumer number, and says no staff member collects to a personal ID",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Payment channels are official billing routes that use the consumer number"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says they cannot take payment on the call and no one from the company collects to a personal ID"
+        },
+        {
+          "id": "L-M3",
+          "text": "Due date is days away; disconnection is only after written notice"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens their UPI app and asks the caller to repeat the ID",
+      "legitimate": "Says they will pay through the app today"
+    },
+    "clarifying": {
+      "fraud": "Asks why the payment is not going to Deccan Power's own account",
+      "legitimate": "Asks whether a payment made yesterday will show up"
+    },
+    "resistant": {
+      "fraud": "Says they will pay tomorrow at the counter",
+      "legitimate": "Says money is tight and asks whether they can pay after the due date"
+    },
+    "suspicious": {
+      "fraud": "Says companies do not collect to personal IDs and asks for a written notice",
+      "legitimate": "Asks how they can know this call is really from Deccan Power"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller escalates the threat and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will check the bill in the official app."
+    ],
+    "legitimate": [
+      "recipient agrees to pay",
+      "recipient asks about delayed payment and is told the late-fee terms",
+      "recipient is told to check the bill and helpline number printed on the paper bill."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may repeat the UPI ID, add urgency, or claim the crew is already on the way. They must not switch to a different mechanism (for example a link, app install, or OTP). The legitimate caller must not name any personal payee or take payment details after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "bill amount and \"unpaid\" framing in both",
+      "personal UPI ID and same-night deadline (_F)",
+      "official consumer-number channels and \"only after written notice\" (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "bill month",
+      "exact amount within range",
+      "whether the recipient believes they already paid",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real utility names",
+      "working UPI handles",
+      "real helpline numbers",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "UPI\", \"disconnection\", and \"pay today\" can appear in both cases. The label depends on the payee: an individual UPI ID versus the utility's own billing channels.",
+    "Real fraud of this type often begins with an SMS asking the consumer to call an \"officer\". This family uses an outbound call so the pair shares a channel. An SMS-first variant would be a separate family.",
+    "A legitimate utility may send payment links by official SMS. The legitimate caller here sends none, so a link is not a confound in this pair.",
+    "The recipient's belief that they already paid is not evidence either way."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Disconnection for non-payment requires at least fifteen clear days' written notice (CB07)",
+      "source_ids": [
+        "SB08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Disconnection tonight, call the officer\" messages are fake per PIB Fact Check (CB08)",
+      "source_ids": [
+        "SB09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "reported"
+    },
+    {
+      "claim": "Impostors cite a penalty or urgency to extract payment or credentials (C02)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

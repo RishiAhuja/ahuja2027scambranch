@@ -1,0 +1,117 @@
+# ScamBranch generation defaults.
+# Review roles use Anthropic Haiku Message Batches (50% off).
+# OpenAI Sol reviews are optional (review.batch_provider: openai) or audit_sample only.
+
+seed: 42
+max_post_branch_turns: 6
+max_repair_rounds: 2
+budget_usd_cap: 3.00
+workers: 8
+audit_sample: 0.0
+history_ids:
+  - h1
+  - h2
+
+pairs:
+  - hi_en
+  - ta_en
+  - te_en
+
+conditions:
+  - cooperative
+  - clarifying
+  - resistant
+  - suspicious
+
+# Empty: use manifests/splits_v1.json if present, else all scenarios/json.
+families: []
+
+# Language-review acceptance:
+# hard_flags_only_no_scores (default) gates only confirmed hard flags
+# (script if deterministic unicode check agrees, wrong_language, artifact).
+# Scores never reject. hard_flags_only keeps the old score<=2 reject.
+# scores restores any-language-repair/reject gating.
+language_gate: hard_flags_only_no_scores
+
+review:
+  # anthropic (default) | openai
+  batch_provider: anthropic
+  chunk_size: 200
+  sync_repair_threshold: 20
+
+roles:
+  plan:
+    provider: openai
+    model: gpt-6-luna
+    reasoning_effort: medium
+    temperature: null
+    max_output_tokens: 2500
+  prefix:
+    provider: openai
+    model: gpt-6-luna
+    reasoning_effort: medium
+    temperature: null
+    max_output_tokens: 2500
+  caller:
+    provider: openai
+    model: gpt-6-luna
+    reasoning_effort: medium
+    temperature: null
+    max_output_tokens: 2000
+  recipient:
+    provider: openai
+    model: gpt-6-luna
+    reasoning_effort: medium
+    temperature: null
+    max_output_tokens: 2000
+  repair:
+    provider: openai
+    model: gpt-6-luna
+    reasoning_effort: medium
+    temperature: null
+    max_output_tokens: 800
+  semantic_review:
+    provider: anthropic
+    model: claude-haiku-4-5
+    reasoning_effort: null
+    temperature: null
+    max_output_tokens: 800
+  language_review:
+    provider: anthropic
+    model: claude-haiku-4-5
+    reasoning_effort: null
+    temperature: null
+    max_output_tokens: 800
+  audit:
+    provider: openai
+    model: gpt-6-sol
+    reasoning_effort: medium
+    temperature: null
+    max_output_tokens: 800
+
+# USD per million tokens. Sol short-context verified 2026-09-25 on
+# developers.openai.com/api/docs/pricing. Haiku 4.5 + batch 50% verified
+# on docs.anthropic.com (batch cache read = 50% of $0.10 = $0.05).
+prices:
+  gpt-6-luna:
+    input: 0.10
+    cached: 0.01
+    cache_write: 0.125
+    output: 0.50
+    batch_multiplier: 0.5
+  gpt-6-sol:
+    input: 2.00
+    cached: 0.20
+    cache_write: 2.50
+    output: 10.00
+    batch_multiplier: 0.5
+  claude-haiku-4-5:
+    input: 1.00
+    cache_write: 1.25
+    cache_read: 0.10
+    output: 5.00
+    batch:
+      input: 0.50
+      cache_write: 0.625
+      cache_read: 0.05
+      output: 2.50

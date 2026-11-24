@@ -1,0 +1,273 @@
+{
+  "family_id": "jr_11",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Cabin-crew \"selection\" after a phone interview with uniform and training fees vs. airline recruiter inviting to an in-person assessment",
+  "summary": "A recruiter from NeelGagan Airways calls an applicant for cabin crew. In the fraud case, the recruiter declares the applicant \"selected\" on the strength of a short phone conversation and asks for uniform, grooming, and training charges to a personal account before an appointment letter is sent. In the legitimate case, the recruiter invites the applicant to an in-person assessment day, lists the documents to bring, and states that the airline charges nothing at any stage.",
+  "shared_setting": {
+    "organisations": [
+      "NeelGagan Airways",
+      "NaukriHub"
+    ],
+    "pretext": "",
+    "recipient_profile": "a 19–27-year-old applicant with Class 12 or a degree; details sampled at generation.",
+    "other_facts": [
+      "Role: trainee cabin crew, base [CITY], stipend during training then salary [AMOUNT_1] (₹30,000–₹55,000 per month).",
+      "Both calls mention grooming standards, training, uniform, and documents."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_11_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller confirms selection without any face-to-face assessment and asks the applicant to pay for uniform and training to an individual's account before the appointment letter.",
+      "caller_objective": "Collect the charges and later ones (\"insurance\", \"agreement\"); there is no job.",
+      "stable_facts": [
+        "Charges: [AMOUNT_2] (₹8,000–₹30,000), itemised as uniform, grooming kit, and training registration.",
+        "Paid to [ACCT_LAST4] or [UPI_ID_1] in an individual's name.",
+        "The \"interview\" was a 10-minute phone call.",
+        "Appointment letter \"released within 24 hours of payment\" from a free email address."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and NeelGagan Airways HR, refers to the application",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they applied for cabin crew",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes the role, base, training period, and salary",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient expresses interest and asks about the selection process",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the applicant has been selected on the basis of the profile and this call",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what happens next",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says uniform, grooming kit, and training registration cost [AMOUNT_2], to be paid today to [ACCT_LAST4], after which the appointment letter is emailed",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the applicant to pay [AMOUNT_2] for uniform and training to an individual's account before the appointment letter",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller declares the applicant selected after only a phone conversation",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_11_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The airline invites the applicant to an in-person assessment and states that it charges no fee for any part of recruitment, uniform, or training.",
+      "caller_objective": "Invite the applicant to the assessment day.",
+      "stable_facts": [
+        "Assessment day at a stated venue in [CITY]: grooming check, group discussion, personal interview, English test.",
+        "Documents to bring: ID proof, educational certificates, passport-size photos, passport if available.",
+        "Confirmation email follows from @neelgagan.invalid.",
+        "Uniform and training are provided by the airline; a pre-employment medical is arranged and paid by the airline after selection."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and NeelGagan Airways HR, refers to the application",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they applied for cabin crew",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes the role, base, training period, and salary",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient expresses interest and asks about the selection process",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the profile has been shortlisted for an in-person assessment day and describes its stages",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what happens next",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says an email from the airline's domain will confirm the venue and documents to bring; uniform and training are provided by the airline, and there is no fee at any stage",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Face-to-face assessment before any selection"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller states the airline charges nothing for recruitment, uniform, or training"
+        },
+        {
+          "id": "L-M3",
+          "text": "Confirmation by official company email"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks for the account details",
+      "legitimate": "Confirms attendance and asks about dress code for the assessment"
+    },
+    "clarifying": {
+      "fraud": "Asks whether the uniform cost can be cut from salary",
+      "legitimate": "Asks about height and grooming requirements"
+    },
+    "resistant": {
+      "fraud": "Says they want to attend an in-person interview before paying",
+      "legitimate": "Says the date clashes with an exam and asks for another"
+    },
+    "suspicious": {
+      "fraud": "Says airlines do not charge candidates and asks for an official email",
+      "legitimate": "Asks how to confirm the call is from NeelGagan"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "applicant pays (cooperative only)",
+      "caller insists and applicant refuses",
+      "caller offers \"half now\" and applicant declines",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "attendance confirmed",
+      "date moved",
+      "applicant withdraws",
+      "caller tells a suspicious applicant to check the careers page and wait for the official email."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may reduce the amount, add urgency, or promise refund on joining. They must not switch to OTPs, bank logins, or app installs. The legitimate caller must not ask for any payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role, base, and salary identical across cases",
+      "_F selection-by-phone plus payment to an individual's account at turn 7",
+      "_L in-person assessment and explicit no-fee statement"
+    ],
+    "may_vary": [
+      "base city",
+      "training length",
+      "caller name",
+      "amount within range",
+      "assessment date"
+    ],
+    "must_not_emit": [
+      "real airline names",
+      "working account numbers",
+      "real email domains",
+      "narrator text",
+      "scam\" in caller lines",
+      "body-related remarks beyond neutral grooming standards"
+    ]
+  },
+  "ambiguities": [
+    "Uniform\", \"training\", and \"medical\" appear in both cases; none is evidence.",
+    "A phone call from the airline is normal; being declared selected after only a phone call is supporting evidence, not the core evidence.",
+    "Distinct from jr_01: this family impersonates the employer itself (not an agency) and ties the payment to post-\"selection\" items."
+  ],
+  "evidence_references": [
+    {
+      "claim": "At least one major Indian airline charges no money for interviews or recruitment and tells candidates not to pay for registration, uniform, training, or joining deposits (CJ04)",
+      "source_ids": [
+        "SJ02"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "The same airline advises not accepting offers after phone-only interviews without a face-to-face meeting (CJ05)",
+      "source_ids": [
+        "SJ02"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Upfront payment is a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

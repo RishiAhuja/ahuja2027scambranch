@@ -1,0 +1,269 @@
+{
+  "family_id": "ec_09",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "inbound_call",
+  "title": "Recipient calls fake support who asks for card details vs. genuine support raises a ticket",
+  "summary": "The recipient phones a \"ShopKart customer care\" number because the refund for a returned item has not arrived. In the fraud case, the number was taken from a web search result and belongs to an impostor, who says the refund must be \"re-credited\" to the card and asks for the full card number, expiry date, and CVV. In the legitimate case, the number is ShopKart's own; the agent checks the order, confirms the refund went to the card ending `[ACCT_LAST4]`, raises a ticket, and asks for nothing sensitive. Unlike most families, the recipient speaks first. Both agents mention the card, the refund, and \"verification\".",
+  "shared_setting": {
+    "organisations": [
+      "ShopKart"
+    ],
+    "pretext": "",
+    "recipient_profile": "a ShopKart customer who returned the item a week ago; profile sampled at generation.",
+    "other_facts": [
+      "Source of the number (private, not emitted in the prefix): _F from a search-engine result; _L from the Help section of the ShopKart app. The recipient does not say where they found the number, so the source cannot act as a cue.",
+      "Both agents greet politely, give an agent name, and ask for the order number."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_09_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The agent asks for the full card number, expiry date, and CVV to \"process\" a refund. Refunds to a card need none of these from the customer, and no genuine entity asks for CVV.",
+      "caller_objective": "Obtain card credentials (and a following OTP) to make a purchase or transfer.",
+      "stable_facts": [
+        "The agent says the refund \"bounced\" and must be re-credited manually.",
+        "The agent says the details are needed \"for verification\" and the refund will arrive \"within minutes\".",
+        "The agent does not raise or quote any ticket number."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "recipient",
+          "act": "Recipient says they are calling because the refund for returned order [ORDER_ID] has not arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "caller",
+          "act": "Agent greets them and asks for the order number and registered mobile number",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "recipient",
+          "act": "Recipient gives the order number",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "caller",
+          "act": "Agent says they can see the return and a refund of [AMOUNT_10] to the card",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "recipient",
+          "act": "Recipient says it has been a week and nothing has come",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "caller",
+          "act": "Agent says the refund bounced and asks for the card number, expiry date, and CVV to re-credit it now",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        },
+        {
+          "turn": 7,
+          "speaker": "recipient",
+          "act": "Recipient says \"one moment\" and asks the agent to hold (neutral)",
+          "evidence_ids": []
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Agent asks for the full card number, expiry date, and CVV to process the refund",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_09_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent checks the order, states the refund status from ShopKart's records, and raises a ticket. The recipient is asked only for the order number.",
+      "caller_objective": "Resolve the refund query and give the customer a trackable ticket.",
+      "stable_facts": [
+        "The refund was processed four working days ago to the card ending [ACCT_LAST4]; the agent reads these digits out, the recipient does not provide them.",
+        "The agent raises ticket [TICKET_ID] and says the bank may take a few more days.",
+        "The agent mentions a bank reference number visible on the order page that the recipient can quote to their bank."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "recipient",
+          "act": "Recipient says they are calling because the refund for returned order [ORDER_ID] has not arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "caller",
+          "act": "Agent greets them and asks for the order number and registered mobile number",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "recipient",
+          "act": "Recipient gives the order number",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "caller",
+          "act": "Agent says they can see the return and a refund of [AMOUNT_10] to the card",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "recipient",
+          "act": "Recipient says it has been a week and nothing has come",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "caller",
+          "act": "Agent says it was processed to the card ending [ACCT_LAST4], raises ticket [TICKET_ID], and points to the bank reference on the order page",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 7,
+          "speaker": "recipient",
+          "act": "Recipient says \"one moment\" and asks the agent to hold (neutral)",
+          "evidence_ids": []
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Agent states the refund status from records"
+        },
+        {
+          "id": "L-M2",
+          "text": "Agent reads the last four digits; asks for no card detail"
+        },
+        {
+          "id": "L-M3",
+          "text": "Ticket number and bank reference given"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Reads out the card details",
+      "legitimate": "Notes the ticket and says they will check with the bank"
+    },
+    "clarifying": {
+      "fraud": "Asks why the CVV is needed to receive money",
+      "legitimate": "Asks what to do if the bank says nothing arrived"
+    },
+    "resistant": {
+      "fraud": "Says they will wait for the refund instead",
+      "legitimate": "Asks for the refund as ShopKart credit instead"
+    },
+    "suspicious": {
+      "fraud": "Says real support never asks for CVV and asks if this is fraud",
+      "legitimate": "Asks how they can check the ticket is real"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient shares details (cooperative only), after which the agent may ask for \"the code that just came",
+      "recipient refuses and hangs up",
+      "agent disconnects."
+    ],
+    "legitimate": [
+      "ticket noted",
+      "agent explains how to escalate through the app",
+      "agent tells the recipient the ticket is visible in the app's Help section when suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud agent may press, reassure, or ask for the OTP that follows the card details (same card-payment mechanism). They must not switch to remote-access apps, QR codes, or collect requests. The legitimate agent must not ask for card number, expiry, CVV, PIN, OTP, or any payment.",
+  "generation_constraints": {
+    "must_preserve": [
+      "recipient speaks first in both",
+      "refund and card wording in both",
+      "full card details plus CVV request in _F",
+      "ticket and last-four digits read by the agent in _L",
+      "turn 7 neutral hold"
+    ],
+    "may_vary": [
+      "product",
+      "days since return",
+      "agent name",
+      "time of call"
+    ],
+    "must_not_emit": [
+      "where the number was found",
+      "real phone numbers",
+      "real card numbers",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "In reality the source of the number is the key risk factor, but it is kept private here so the text cannot be labelled from the recipient's words. A variant where the recipient says \"I found you on the internet\" is not used.",
+    "Both agents know the order and amount once the recipient gives the order number; knowledge is not a cue.",
+    "Verification\" is said in both cases."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Contact numbers found on search engines may be fraudulent (C07)",
+      "source_ids": [
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Genuine entities never ask for card details, CVV, or OTP (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "E-commerce platforms must display official customer-care and grievance contacts on the platform (CE11)",
+      "source_ids": [
+        "SE11"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Refund scams via fake customer-care numbers ask for OTPs or bank details (CE22)",
+      "source_ids": [
+        "SE23"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

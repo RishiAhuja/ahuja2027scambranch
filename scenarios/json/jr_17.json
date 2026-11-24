@@ -1,0 +1,277 @@
+{
+  "family_id": "jr_17",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "chat",
+  "title": "Chat-only \"interview\" followed by installing an app from a link and paying inside it vs. scheduling a video interview on a standard browser platform",
+  "summary": "A recruiter for Vistara Infotech messages a candidate who applied through NaukriHub for a remote customer-success role and runs a short screening over chat. In the fraud case, the recruiter declares the candidate selected on the basis of the chat alone and tells them to install an \"HR onboarding app\" from a direct download link and pay an \"employee ID activation\" charge inside it. In the legitimate case, the recruiter uses the chat only to schedule a panel video interview that opens in the browser from a link in an official email, with no install and no charge.",
+  "shared_setting": {
+    "organisations": [
+      "Vistara Infotech",
+      "NaukriHub"
+    ],
+    "pretext": "",
+    "recipient_profile": "a graduate with some customer-facing experience; details sampled at generation.",
+    "other_facts": [
+      "Role: remote customer-success associate, salary [AMOUNT_1] (₹22,000–₹40,000 per month).",
+      "Both chats contain 3–4 screening questions (experience, availability, notice period) and mention an \"app\" or \"link\", \"install\", and \"camera\"."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_17_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "After a chat-only screening, the recruiter asks the candidate to install software from a direct link outside any official app store and to pay an activation charge in it, as a condition of joining.",
+      "caller_objective": "Get the app installed (to harvest data) and collect the activation charge.",
+      "stable_facts": [
+        "Link: https://vistara-hrapp.invalid/onboard.apk, sent in chat.",
+        "Activation charge: [AMOUNT_2] (₹999–₹4,999), paid inside the app, \"refunded with first salary\".",
+        "The recruiter says the app needs camera, contacts, and SMS permissions \"for KYC\".",
+        "No voice or video interview at any point."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Recruiter messages that the candidate's NaukriHub application for the Vistara role is under review",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Candidate replies, interested",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Recruiter asks three screening questions (experience, availability, notice period)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Candidate answers them",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Recruiter says the candidate has been selected based on the chat",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Candidate asks what the next step is",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Recruiter sends the direct download link, tells them to install the HR onboarding app, allow camera, contacts, and SMS permissions, and pay [AMOUNT_2] inside it to activate the employee ID",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Recruiter tells the candidate to install the app from the direct download link and pay [AMOUNT_2] inside it to activate the employee ID",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Recruiter declares selection after a text-only chat",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_17_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The chat is used only for scheduling; the interview is a live video panel on a browser-based platform, arranged through official email, with nothing to install and nothing to pay.",
+      "caller_objective": "Schedule a video interview.",
+      "stable_facts": [
+        "Invitation email from Vistara's company domain with a browser link https://meet.vistara-infotech.invalid/[TICKET_ID].",
+        "Panel: team lead and HR, 45 minutes.",
+        "The candidate only needs to allow camera and microphone in the browser when the meeting opens.",
+        "No fee at any stage."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Recruiter messages that the candidate's NaukriHub application for the Vistara role is under review",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Candidate replies, interested",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Recruiter asks three screening questions (experience, availability, notice period)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Candidate answers them",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Recruiter says the candidate is shortlisted for a video interview with a panel",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Candidate asks what the next step is",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Recruiter says an invitation will come from Vistara's email with a meeting link that opens in the browser; nothing needs installing, only camera and microphone access when it opens; there is no charge at any stage",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "A live interview with people, not selection by chat"
+        },
+        {
+          "id": "L-M2",
+          "text": "Link arrives by official email and opens in the browser; nothing to install"
+        },
+        {
+          "id": "L-M3",
+          "text": "Recruiter states there is no charge at any stage"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are installing the app",
+      "legitimate": "Proposes a time slot for the interview"
+    },
+    "clarifying": {
+      "fraud": "Asks why the app needs SMS and contacts access",
+      "legitimate": "Asks what the panel will ask and how long it lasts"
+    },
+    "resistant": {
+      "fraud": "Says they will not install apps from links and asks for a video interview",
+      "legitimate": "Says they only have a phone and asks if that works"
+    },
+    "suspicious": {
+      "fraud": "Says real companies do not select by chat and asks for an official email",
+      "legitimate": "Asks how to confirm this chat is from Vistara"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "candidate installs and pays (cooperative only)",
+      "recruiter insists the app is mandatory and candidate leaves",
+      "recruiter lowers the charge and candidate declines",
+      "recruiter stops replying."
+    ],
+    "legitimate": [
+      "slot confirmed",
+      "recruiter confirms phone browsers work",
+      "candidate declines",
+      "recruiter asks a suspicious candidate to wait for the company-domain email before doing anything."
+    ]
+  },
+  "caller_continuation_limits": "The fraud recruiter may reduce the charge or press urgency. They must not switch to asking for OTPs, bank logins, or deposits for tasks. The legitimate recruiter must not ask the candidate to install anything from a link or pay anything after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role, salary, and screening questions identical across cases",
+      "_F install-from-link plus in-app charge at turn 7",
+      "_L browser video interview via official email with no install and no charge"
+    ],
+    "may_vary": [
+      "screening question content",
+      "candidate background",
+      "charge within range"
+    ],
+    "must_not_emit": [
+      "real app names",
+      "real video-meeting products",
+      "working download links",
+      "details of what the app does technically",
+      "narrator text",
+      "scam\" in recruiter lines"
+    ]
+  },
+  "ambiguities": [
+    "App\", \"link\", \"install\", \"permissions\", and \"camera\" appear in both cases. Only the request to install from a direct link, plus the charge, is evidence.",
+    "Chat-based screening itself is normal (it appears in _L); selection by chat alone is supporting evidence only.",
+    "Distinct from jr_13 (OTP disclosure) and jr_18 (net-banking login): here the mechanism is software installation plus payment."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Do not install screen-sharing or SMS-forwarding apps at an unknown person's request (C09)",
+      "source_ids": [
+        "S06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fake offers arrive via unsolicited messaging-app messages followed by registration forms and appointment letters (CJ03)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "An airline advises not accepting offers without a face-to-face meeting (CJ05; cited as one employer's guidance)",
+      "source_ids": [
+        "SJ02"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Genuine recruiters do not require installing an app from a direct link for interviews or onboarding (CJ19)",
+      "source_ids": [],
+      "retrieved": "2026-09-25",
+      "status": "VERIFY"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

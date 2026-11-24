@@ -1,0 +1,272 @@
+{
+  "family_id": "jr_04",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "dev",
+  "channel": "chat",
+  "title": "Laptop \"security deposit\" after an offer vs. company-shipped laptop at company cost",
+  "summary": "Someone from Vistara Infotech's HR messages a candidate who has just received an offer for a remote junior developer role, to arrange the work laptop. In the fraud case, HR says the laptop is issued only after the candidate pays a \"refundable security deposit\" to a vendor's UPI ID. In the legitimate case, HR confirms the company ships the laptop at its own cost, asks for the delivery address, and explains that the candidate will sign an asset acknowledgement and return the laptop on exit.",
+  "shared_setting": {
+    "organisations": [
+      "Vistara Infotech",
+      "NaukriHub"
+    ],
+    "pretext": "",
+    "recipient_profile": "a fresher or early-career developer; details sampled at generation.",
+    "other_facts": [
+      "Role: remote junior software developer, CTC [AMOUNT_1] (₹3,50,000–₹6,00,000 per year), joining date in about two weeks.",
+      "The candidate has an offer letter; both chats start from it.",
+      "Both chats use the words \"laptop\", \"asset\", \"policy\", and \"return on exit\"."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_04_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The \"employer\" makes the candidate pay money before joining, to a third party's personal UPI, as a condition for receiving work equipment.",
+      "caller_objective": "Collect the deposit; the offer is fake.",
+      "stable_facts": [
+        "Deposit: [AMOUNT_2] (₹8,000–₹25,000), called \"refundable laptop security deposit\", refunded \"with the first salary\".",
+        "Paid to [UPI_ID_1], described as the \"IT asset vendor\".",
+        "The offer letter was sent from a free email address, not a company domain.",
+        "HR says the joining date will be cancelled if the deposit is not paid within 24 hours."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "HR messages congratulations on the offer and says it is time to arrange the work laptop",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Candidate thanks them and asks what is needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "HR says the laptop comes pre-configured from the IT asset vendor and remains company property",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Candidate asks when it will arrive",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "HR says dispatch happens within three days of the asset policy being completed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Candidate asks what the asset policy involves",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "HR says a refundable security deposit of [AMOUNT_2] must be paid to [UPI_ID_1] within 24 hours, or the joining date will lapse",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "HR tells the candidate to pay [AMOUNT_2] to [UPI_ID_1] before the laptop is dispatched",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "HR threatens cancellation of the joining date if unpaid within 24 hours",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_04_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The employer ships equipment at its own cost and asks only for a delivery address and a signed asset acknowledgement.",
+      "caller_objective": "Arrange laptop delivery before the joining date.",
+      "stable_facts": [
+        "The laptop is couriered by the company to the candidate's address; the company pays shipping.",
+        "The candidate signs an asset acknowledgement on the onboarding portal https://onboard.vistara-infotech.invalid.",
+        "On exit, the laptop is returned; the handbook states that only an unreturned laptop is recovered from final settlement.",
+        "All email comes from the company domain."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "HR messages congratulations on the offer and says it is time to arrange the work laptop",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Candidate thanks them and asks what is needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "HR says the laptop comes pre-configured from the IT team and remains company property",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Candidate asks when it will arrive",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "HR says dispatch happens within three days of the asset policy being completed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Candidate asks what the asset policy involves",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "HR says the candidate only signs the asset acknowledgement on the portal and confirms the delivery address; the company pays for the laptop and shipping and takes no deposit",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "HR states there is no deposit or charge for the laptop"
+        },
+        {
+          "id": "L-M2",
+          "text": "Only delivery address and an acknowledgement signature are requested"
+        },
+        {
+          "id": "L-M3",
+          "text": "Communication points to the company domain and portal"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks for the vendor's details again",
+      "legitimate": "Shares the delivery address and says they will sign the acknowledgement"
+    },
+    "clarifying": {
+      "fraud": "Asks whether the deposit can be deducted from salary instead",
+      "legitimate": "Asks what happens if the laptop is damaged in transit"
+    },
+    "resistant": {
+      "fraud": "Says they will use their own laptop until joining",
+      "legitimate": "Says they would rather collect the laptop from the office"
+    },
+    "suspicious": {
+      "fraud": "Says real companies do not charge deposits and asks for an official email",
+      "legitimate": "Asks how they can be sure this chat is really from Vistara HR"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "candidate pays (cooperative only)",
+      "HR insists and candidate refuses",
+      "HR offers to \"reduce\" the deposit and candidate declines",
+      "HR stops replying."
+    ],
+    "legitimate": [
+      "address shared",
+      "office pickup arranged",
+      "candidate asks HR to confirm by company email and HR agrees",
+      "candidate delays until they can check the portal."
+    ]
+  },
+  "caller_continuation_limits": "The fraud HR may lower the deposit, extend the deadline, or promise refund with salary. They must not switch to asking for OTPs, net-banking details, or app installation. The legitimate HR must not introduce any payment, deposit, or charge after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role, CTC, and joining date identical across cases",
+      "_F deposit to [UPI_ID_1] at turn 7",
+      "_L explicit no-deposit statement with address and acknowledgement only"
+    ],
+    "may_vary": [
+      "laptop brand (generic, unnamed)",
+      "candidate profile",
+      "deposit within range",
+      "courier timing"
+    ],
+    "must_not_emit": [
+      "real company or courier names",
+      "working UPI IDs",
+      "real email domains",
+      "narrator text",
+      "scam\" in HR lines"
+    ]
+  },
+  "ambiguities": [
+    "The word \"deposit\" and the idea of recovery for unreturned equipment appear in _L (handbook clause) as a deliberate confound. Only a payment by the candidate before joining is evidence.",
+    "Refundable\" does not make _F legitimate.",
+    "The free email address in _F is a stable fact but not required evidence; generation may omit mentioning it.",
+    "Chat turns are short messages, as in jr_02."
+  ],
+  "evidence_references": [
+    {
+      "claim": "At least one major Indian IT employer states it never asks candidates for payment or a security deposit at any stage (CJ01)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "The same employer never sends offers from free email services (CJ02)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Upfront payment is a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "family_id": "ec_07",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "chat",
+  "title": "Seller demands advance to personal UPI vs. seller ships cash on delivery",
+  "summary": "The recipient is a buyer who marked interest in a used camera listed on BechoBazaar by a seller in another city. The seller messages back, confirms the item, and offers to ship it through SwiftShip Couriers. In the legitimate case, the seller books the parcel as cash on delivery so the buyer pays the courier on arrival after checking the item. In the fraud case, the seller demands the full price to a personal UPI ID before shipping and refuses any pay-on-delivery option. Both sellers mention UPI, shipping, and payment; the difference is who bears the risk and when money moves.",
+  "shared_setting": {
+    "organisations": [
+      "SwiftShip Couriers",
+      "BechoBazaar",
+      "PaySetu"
+    ],
+    "pretext": "",
+    "recipient_profile": "the buyer; profile sampled at generation.",
+    "other_facts": [
+      "Item: a used camera or laptop with charger and bill, price [AMOUNT_8] (₹8,000–₹35,000).",
+      "Seller is in [CITY]; buyer is in a different city.",
+      "Both sellers share photos and agree the listed price without haggling."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_07_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The seller requires full payment to a personal UPI ID before dispatch and refuses cash on delivery, so the buyer carries all the risk for goods they cannot inspect. This is the standard advance-payment pattern of classifieds fraud.",
+      "caller_objective": "Receive [AMOUNT_8] and never ship.",
+      "stable_facts": [
+        "Payment is to [UPI_ID_7], a personal handle with a name different from the listing.",
+        "The seller says COD is \"not possible because of fake buyers\".",
+        "The seller promises a SwiftShip tracking number \"after payment\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Seller messages that the camera is still available and sends photos",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Buyer asks about condition and accessories",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Seller confirms condition, the bill, and the price [AMOUNT_8]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Buyer says they live in another city",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Seller says they will ship it through SwiftShip",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Buyer asks how payment will work",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Seller says the buyer must first send the full amount to [UPI_ID_7]; COD is not possible; tracking comes after payment",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Seller tells the buyer to transfer the full price to a personal UPI ID before shipping and rules out cash on delivery",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_07_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The seller ships cash on delivery through SwiftShip. The buyer pays only when the parcel arrives and can check it first. No advance is taken.",
+      "caller_objective": "Sell the camera to a distant buyer safely for both sides.",
+      "stable_facts": [
+        "The seller books a SwiftShip COD parcel for [AMOUNT_8] plus a shipping charge stated upfront.",
+        "The buyer pays the SwiftShip delivery agent in cash or by UPI at the door.",
+        "The seller shares the SwiftShip tracking number [AWB_ID] after booking."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Seller messages that the camera is still available and sends photos",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Buyer asks about condition and accessories",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Seller confirms condition, the bill, and the price [AMOUNT_8]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Buyer says they live in another city",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Seller says they will ship it through SwiftShip",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Buyer asks how payment will work",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Seller says they will book it cash on delivery; the buyer pays the SwiftShip agent at the door after checking it, and gets tracking once booked",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Seller chooses cash on delivery and declines advance"
+        },
+        {
+          "id": "L-M2",
+          "text": "Payment goes to the courier at delivery, after inspection"
+        },
+        {
+          "id": "L-M3",
+          "text": "Tracking number shared before any payment"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they will send the amount now",
+      "legitimate": "Agrees and shares the delivery address"
+    },
+    "clarifying": {
+      "fraud": "Asks why the UPI name differs from the listing",
+      "legitimate": "Asks whether they can open the box before paying the agent"
+    },
+    "resistant": {
+      "fraud": "Offers half now and half on delivery",
+      "legitimate": "Offers to pay in advance by UPI to speed things up"
+    },
+    "suspicious": {
+      "fraud": "Says advance to a stranger is risky and asks for COD or a video call",
+      "legitimate": "Asks for a photo of the bill with the seller's name"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "buyer pays (cooperative only)",
+      "seller accepts a \"token\" advance instead and presses for the rest",
+      "buyer refuses and seller stops replying."
+    ],
+    "legitimate": [
+      "COD booked and tracking shared",
+      "seller politely declines the offered advance and keeps COD",
+      "seller shares a bill photo when asked."
+    ]
+  },
+  "caller_continuation_limits": "The fraud seller may lower the advance, add urgency (\"another buyer is ready\"), or send an ID photo. A partial advance is the same mechanism. They must not switch to QR codes for receiving, OTPs, or links. The legitimate seller must not ask for any advance, code, or payment outside the COD parcel.",
+  "generation_constraints": {
+    "must_preserve": [
+      "UPI and shipping wording in both cases",
+      "full advance to personal UPI and refusal of COD in _F",
+      "COD with payment at the door in _L",
+      "identical item and price"
+    ],
+    "may_vary": [
+      "item (camera, laptop, tablet)",
+      "the seller's city",
+      "shipping charge",
+      "reason for selling"
+    ],
+    "must_not_emit": [
+      "real platform or courier names",
+      "real UPI handles",
+      "real ID documents",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "A request for advance is not proof of fraud in every real market; in this family the fraud seller also refuses the protected option (COD), which the legitimate seller offers.",
+    "Photos, a bill, and polite language appear in both cases and are not cues.",
+    "The legitimate seller in _L declines an advance even when offered, so that \"advance\" words can appear in _L as a confound."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Police advise avoiding advance payments in classifieds deals (CE08)",
+      "source_ids": [
+        "SE08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Financial cyber fraud can be reported on 1930 or cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09",
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

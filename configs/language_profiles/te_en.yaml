@@ -1,0 +1,2024 @@
+# Released profile: corpus example sentences (reference_utterances, unnatural_examples and
+# per-pattern examples) are removed because the source licences allow statistics only.
+# Counts, bands and word forms are kept. scripts/calibration/ rebuilds the full profile.
+pair: te_en
+script: roman
+version: 0.1-auto
+status_note: automatically derived from human-written corpora; not yet reviewed by
+  a fluent speaker
+known_gaps:
+- Calibration sources are social media, QA, or restaurant-bot translations — not authentic
+  Indian fraud or care calls.
+- 'known_gap: no Roman Telugu-English service dialogue exists publicly.'
+- Only 14 strict service candidates survived the domain filter; remaining reference
+  rows are CMTET/ICON request-marked social text and CMQA trivia questions.
+- CMTET and ICON have no clear redistribution licence.
+brand_placeholder_replacements:
+  n_replacements: 5
+  n_utterances_touched: 5
+  note: original brand/company/app strings are not stored; mapping count only
+sources:
+- source_id: cmtet_sentiment
+  url: https://github.com/ksubbu199/cmtet-sentiment
+  license_status: UNCLEAR - stats only, do not redistribute
+  redistributable: 'no'
+  used_for: stats, reference_utterances, romanization
+- source_id: cmtet_lid
+  url: https://github.com/ksubbu199/cmtet-lid
+  license_status: UNCLEAR - stats only, do not redistribute
+  redistributable: 'no'
+  used_for: stats, reference_utterances, romanization
+- source_id: icon_2016
+  url: https://github.com/LCS2-IIITD/HIT-ACL2021-Codemixed-Representation
+  license_status: UNCLEAR - stats only, do not redistribute
+  redistributable: 'no'
+  used_for: stats, reference_utterances, romanization
+- source_id: chandu_cmqa
+  url: https://github.com/khyathiraghavi/code_switched_QA
+  license_status: CMU 2018 COPYING — retain copyright notice
+  redistributable: 'yes'
+  used_for: stats, reference_utterances, romanization
+- source_id: dakshina
+  url: https://github.com/google-research-datasets/dakshina
+  license_status: CC BY-SA 4.0
+  redistributable: 'yes'
+  used_for: romanization
+mixing_bands:
+  origin: gold
+  n_utterances: 52239
+  note: gold-tagged utterances n=52239
+  english_share:
+    p10: 0.0
+    p25: 0.2
+    p50: 0.4
+    p75: 0.6667
+    p90: 1.0
+  cmi:
+    p10: 0.0
+    p25: 0.0
+    p50: 25.0
+    p75: 37.5
+    p90: 45.4545
+  switches_per_utterance:
+    p10: 0.0
+    p25: 0.0
+    p50: 2.0
+    p75: 4.0
+    p90: 8.0
+  monolingual_turn_share: 0.2609
+service_register_bands:
+  origin: auto
+  n_utterances: 14
+  note: 'computed on service / dialog / assistant reference utterances (not social-media
+    mixing_bands). Selection-biased upward: candidates required CMI > 0 and English
+    service terms. Upper reference only, not a generation target.'
+  english_share:
+    p10: 0.2558
+    p25: 0.2857
+    p50: 0.4248
+    p75: 0.5
+    p90: 0.6467
+  cmi:
+    p10: 25.5769
+    p25: 28.5714
+    p50: 36.6667
+    p75: 42.6692
+    p90: 48.8461
+  switches_per_utterance:
+    p10: 1.0
+    p25: 2.0
+    p50: 3.5
+    p75: 7.0
+    p90: 8.0
+  monolingual_turn_share: 0.0
+lexical_insertions:
+- en_word: movie
+  count: 2185
+- en_word: bro
+  count: 1350
+- en_word: cinema
+  count: 1266
+- en_word: and
+  count: 1051
+- en_word: review
+  count: 858
+- en_word: movies
+  count: 680
+- en_word: fans
+  count: 601
+- en_word: time
+  count: 550
+- en_word: hero
+  count: 550
+- en_word: chillar
+  count: 483
+- en_word: me
+  count: 450
+- en_word: a
+  count: 442
+- en_word: reply
+  count: 422
+- en_word: first
+  count: 381
+- en_word: but
+  count: 380
+- en_word: video
+  count: 357
+- en_word: release
+  count: 350
+- en_word: fan
+  count: 338
+- en_word: song
+  count: 337
+- en_word: hit
+  count: 327
+- en_word: sir
+  count: 318
+- en_word: party
+  count: 313
+- en_word: story
+  count: 312
+- en_word: tweet
+  count: 309
+- en_word: so
+  count: 300
+- en_word: support
+  count: 295
+- en_word: start
+  count: 285
+- en_word: super
+  count: 261
+- en_word: pk
+  count: 258
+- en_word: last
+  count: 257
+- en_word: to
+  count: 251
+- en_word: tweets
+  count: 232
+- en_word: of
+  count: 230
+- en_word: twitter
+  count: 228
+- en_word: next
+  count: 218
+- en_word: songs
+  count: 216
+- en_word: family
+  count: 211
+- en_word: comedy
+  count: 210
+- en_word: team
+  count: 208
+- en_word: character
+  count: 208
+- en_word: the
+  count: 203
+- en_word: try
+  count: 202
+- en_word: ha
+  count: 201
+- en_word: voice
+  count: 198
+- en_word: love
+  count: 198
+- en_word: english
+  count: 194
+- en_word: years
+  count: 192
+- en_word: fake
+  count: 190
+- en_word: range
+  count: 190
+- en_word: i
+  count: 188
+- en_word: life
+  count: 186
+- en_word: happy
+  count: 184
+- en_word: feel
+  count: 183
+- en_word: correct
+  count: 182
+- en_word: director
+  count: 182
+- en_word: best
+  count: 180
+- en_word: batch
+  count: 180
+- en_word: year
+  count: 177
+- en_word: just
+  count: 175
+- en_word: is
+  count: 174
+- en_word: or
+  count: 170
+- en_word: set
+  count: 170
+- en_word: mass
+  count: 168
+- en_word: match
+  count: 168
+- en_word: full
+  count: 163
+- en_word: place
+  count: 163
+- en_word: scene
+  count: 159
+- en_word: ok
+  count: 156
+- en_word: troll
+  count: 156
+- en_word: better
+  count: 156
+- en_word: days
+  count: 152
+- en_word: food
+  count: 149
+- en_word: 'no'
+  count: 147
+- en_word: lone
+  count: 147
+- en_word: show
+  count: 147
+- en_word: direct
+  count: 146
+- en_word: comment
+  count: 145
+- en_word: politics
+  count: 145
+- en_word: same
+  count: 142
+- en_word: tag
+  count: 142
+- en_word: govt
+  count: 142
+- en_word: acting
+  count: 141
+- en_word: film
+  count: 141
+- en_word: m
+  count: 140
+- en_word: block
+  count: 140
+- en_word: theatre
+  count: 139
+- en_word: cm
+  count: 137
+- en_word: follow
+  count: 134
+- en_word: use
+  count: 131
+- en_word: like
+  count: 131
+- en_word: star
+  count: 130
+- en_word: for
+  count: 128
+- en_word: loki
+  count: 128
+- en_word: comments
+  count: 125
+- en_word: work
+  count: 124
+- en_word: friends
+  count: 124
+- en_word: it
+  count: 123
+- en_word: pic
+  count: 123
+- en_word: ap
+  count: 122
+- en_word: cheap
+  count: 122
+light_verb_constructions:
+- pattern: start chesaru
+  examples: []
+  count: 32
+- pattern: try cheyandi
+  examples: []
+  count: 20
+- pattern: work chesaru
+  examples: []
+  count: 14
+- pattern: comment cheyandi
+  examples: []
+  count: 11
+- pattern: troll chesaru
+  examples: []
+  count: 10
+- pattern: try chesaru
+  examples: []
+  count: 10
+- pattern: try chey
+  examples: []
+  count: 10
+- pattern: delete chey
+  examples: []
+  count: 8
+- pattern: create chesaru
+  examples: []
+  count: 8
+- pattern: introduce chesaru
+  examples: []
+  count: 8
+- pattern: prove chesaru
+  examples: []
+  count: 7
+- pattern: cut chesaru
+  examples: []
+  count: 7
+- pattern: reply ivvu
+  examples: []
+  count: 7
+- pattern: announce chesaru
+  examples: []
+  count: 7
+- pattern: shoot chesaru
+  examples: []
+  count: 7
+- pattern: movies chesaru
+  examples: []
+  count: 7
+- pattern: invent chesaru
+  examples: []
+  count: 7
+- pattern: suggest cheyandi
+  examples: []
+  count: 6
+- pattern: add chesaru
+  examples: []
+  count: 6
+- pattern: complete chesaru
+  examples: []
+  count: 6
+- pattern: prove chey
+  examples: []
+  count: 6
+- pattern: produce chesaru
+  examples: []
+  count: 6
+- pattern: explain cheyandi
+  examples: []
+  count: 5
+- pattern: support chesaru
+  examples: []
+  count: 5
+- pattern: post chey
+  examples: []
+  count: 5
+- pattern: donate cheyandi
+  examples: []
+  count: 5
+- pattern: try chestha
+  examples: []
+  count: 5
+- pattern: list pettu
+  examples: []
+  count: 5
+- pattern: boil cheyyali
+  examples: []
+  count: 5
+- pattern: compose chesaru
+  examples: []
+  count: 5
+- pattern: design chesaru
+  examples: []
+  count: 4
+- pattern: delete chesaru
+  examples: []
+  count: 4
+- pattern: set ayyindi
+  examples: []
+  count: 4
+- pattern: support cheyandi
+  examples: []
+  count: 4
+- pattern: encourage cheyandi
+  examples: []
+  count: 4
+- pattern: suggest chey
+  examples: []
+  count: 4
+- pattern: trend chesaru
+  examples: []
+  count: 4
+- pattern: plan chesaru
+  examples: []
+  count: 4
+- pattern: dub chesaru
+  examples: []
+  count: 4
+- pattern: suggest chesaru
+  examples: []
+  count: 4
+excluded_domain_specific:
+- pattern: video cheyandi
+  examples: []
+  count: 39
+- pattern: video chey
+  examples: []
+  count: 33
+- pattern: review cheyandi
+  examples: []
+  count: 27
+- pattern: release chesaru
+  examples: []
+  count: 24
+- pattern: act chesaru
+  examples: []
+  count: 20
+- pattern: review chey
+  examples: []
+  count: 15
+- pattern: review ivvu
+  examples: []
+  count: 13
+- pattern: review pettu
+  examples: []
+  count: 12
+- pattern: review ivvandi
+  examples: []
+  count: 9
+- pattern: review pettandi
+  examples: []
+  count: 9
+- pattern: release cheyandi
+  examples: []
+  count: 6
+- pattern: upload chesaru
+  examples: []
+  count: 6
+- pattern: video cheyyi
+  examples: []
+  count: 5
+- pattern: upload chey
+  examples: []
+  count: 4
+- pattern: release ayyindi
+  examples: []
+  count: 4
+- pattern: share cheyandi
+  examples: []
+  count: 4
+- pattern: play chesaru
+  examples: []
+  count: 4
+- pattern: review cheyyi
+  examples: []
+  count: 3
+- pattern: video pettu
+  examples: []
+  count: 3
+- pattern: video cheyyali
+  examples: []
+  count: 2
+- pattern: videos cheyyi
+  examples: []
+  count: 2
+- pattern: share chey
+  examples: []
+  count: 2
+- pattern: reviews ivvandi
+  examples: []
+  count: 2
+- pattern: like cheyandi
+  examples: []
+  count: 2
+- pattern: share chesaru
+  examples: []
+  count: 2
+- pattern: upload chestha
+  examples: []
+  count: 1
+- pattern: videos cheyandi
+  examples: []
+  count: 1
+- pattern: subscribe chestha
+  examples: []
+  count: 1
+- pattern: videos chestha
+  examples: []
+  count: 1
+- pattern: reviews cheyandi
+  examples: []
+  count: 1
+- pattern: subscribe cheyandi
+  examples: []
+  count: 1
+- pattern: release cheyyali
+  examples: []
+  count: 1
+- pattern: video chesaru
+  examples: []
+  count: 1
+- pattern: tweet chesaru
+  examples: []
+  count: 1
+- pattern: subscribe chesanu
+  examples: []
+  count: 1
+- pattern: reviews chey
+  examples: []
+  count: 1
+- pattern: out avvu
+  examples: []
+  count: 1
+- pattern: like chey
+  examples: []
+  count: 1
+- pattern: upload ayyindi
+  examples: []
+  count: 1
+- pattern: out chesaru
+  examples: []
+  count: 1
+mixed_morphology:
+- form: timelo
+  stem: time
+  suffix: lo
+  count: 13
+- form: rangelo
+  stem: range
+  suffix: lo
+  count: 8
+- form: varietyga
+  stem: variety
+  suffix: ga
+  count: 8
+- form: periodlo
+  stem: period
+  suffix: lo
+  count: 7
+- form: roadlo
+  stem: road
+  suffix: lo
+  count: 6
+- form: bangkoklo
+  stem: bangkok
+  suffix: lo
+  count: 6
+- form: storyni
+  stem: story
+  suffix: ni
+  count: 4
+- form: industrylo
+  stem: industry
+  suffix: lo
+  count: 4
+- form: careerlo
+  stem: career
+  suffix: lo
+  count: 4
+- form: careerni
+  stem: career
+  suffix: ni
+  count: 4
+- form: listlo
+  stem: list
+  suffix: lo
+  count: 4
+- form: performerga
+  stem: performer
+  suffix: ga
+  count: 4
+- form: kindaki
+  stem: kinda
+  suffix: ki
+  count: 3
+- form: suddenga
+  stem: sudden
+  suffix: ga
+  count: 3
+- form: twitterlo
+  stem: twitter
+  suffix: lo
+  count: 3
+- form: concepttho
+  stem: concept
+  suffix: tho
+  count: 3
+- form: superga
+  stem: super
+  suffix: ga
+  count: 3
+- form: filmslo
+  stem: films
+  suffix: lo
+  count: 3
+- form: characterlo
+  stem: character
+  suffix: lo
+  count: 3
+- form: specialga
+  stem: special
+  suffix: ga
+  count: 3
+- form: lightsni
+  stem: lights
+  suffix: ni
+  count: 3
+- form: characterni
+  stem: character
+  suffix: ni
+  count: 3
+- form: mythologyni
+  stem: mythology
+  suffix: ni
+  count: 3
+- form: classicga
+  stem: classic
+  suffix: ga
+  count: 3
+- form: islandlo
+  stem: island
+  suffix: lo
+  count: 3
+- form: happyga
+  stem: happy
+  suffix: ga
+  count: 2
+- form: actualga
+  stem: actual
+  suffix: ga
+  count: 2
+- form: totalga
+  stem: total
+  suffix: ga
+  count: 2
+- form: mangala
+  stem: manga
+  suffix: la
+  count: 2
+- form: teamlo
+  stem: team
+  suffix: lo
+  count: 2
+- form: differentga
+  stem: different
+  suffix: ga
+  count: 2
+- form: placeslo
+  stem: places
+  suffix: lo
+  count: 2
+- form: currylo
+  stem: curry
+  suffix: lo
+  count: 2
+- form: placeni
+  stem: place
+  suffix: ni
+  count: 2
+- form: confirmga
+  stem: confirm
+  suffix: ga
+  count: 2
+- form: particularga
+  stem: particular
+  suffix: ga
+  count: 2
+- form: superbga
+  stem: superb
+  suffix: ga
+  count: 2
+- form: monkeysni
+  stem: monkeys
+  suffix: ni
+  count: 2
+- form: generationlo
+  stem: generation
+  suffix: lo
+  count: 2
+- form: itemni
+  stem: item
+  suffix: ni
+  count: 2
+romanization_variants:
+- canonical: kuda
+  variants:
+  - kuda
+  - kooda
+  - koodaa
+  - kudaa
+  - kudha
+  - kuuda
+  - kudda
+  - kuddaa
+  - khuda
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 3710
+- canonical: oka
+  variants:
+  - oka
+  - okka
+  - okaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 2925
+- canonical: gaa
+  variants:
+  - gaa
+  - gaaa
+  - gha
+  - gaaaa
+  - ghaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 2918
+- canonical: chala
+  variants:
+  - chala
+  - chaala
+  - chaalaa
+  - challa
+  - chalaa
+  - chaaala
+  - cala
+  - chaaaaala
+  - chaaaaaaaaaaaala
+  - chaalaaa
+  - chaaaaaaala
+  - chalaaa
+  - chaaaaalaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 2712
+- canonical: antha
+  variants:
+  - antha
+  - anta
+  - anthaa
+  - antaa
+  - annta
+  - aantha
+  - anthaaa
+  - antaaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1919
+- canonical: undi
+  variants:
+  - undi
+  - undhi
+  - undii
+  - undhii
+  - unndhi
+  - unnadi
+  - unnadhi
+  - unadi
+  - undee
+  - undhiii
+  - undiii
+  - unadhi
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1773
+- canonical: kani
+  variants:
+  - kani
+  - kaani
+  - kanni
+  - kaanee
+  - kanii
+  - kaaani
+  - kanee
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1515
+- canonical: gadu
+  variants:
+  - gadu
+  - gaadu
+  - gadhu
+  - gaduu
+  - gadhuu
+  - gaddu
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1514
+- canonical: inka
+  variants:
+  - inka
+  - inkaa
+  - inkaaa
+  - innka
+  - inkka
+  - inkaaaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1496
+- canonical: manchi
+  variants:
+  - manchi
+  - manchii
+  - manchhi
+  - maanchi
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1430
+- canonical: kadu
+  variants:
+  - kadu
+  - kadhu
+  - kaadu
+  - kaadhu
+  - kaduu
+  - kaadhuu
+  - kaduuu
+  - kaddu
+  - kaadoo
+  - kadhuu
+  - kaduuuuuuuu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1374
+- canonical: ledu
+  variants:
+  - ledu
+  - ledhu
+  - ledhuu
+  - ledoo
+  - leduu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1324
+- canonical: kada
+  variants:
+  - kada
+  - kadha
+  - kadhaa
+  - kadaa
+  - kaada
+  - kaadha
+  - khada
+  - kaadhaa
+  - kkadha
+  - kadaaa
+  - kaadaaa
+  - kadaaaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1239
+- canonical: nuvvu
+  variants:
+  - nuvvu
+  - nuvu
+  - nuvuu
+  - nuvuuu
+  - nuvvuu
+  - nuvvoo
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1228
+- canonical: asalu
+  variants:
+  - asalu
+  - assalu
+  - aasalu
+  - asallu
+  - asaluu
+  - assaluu
+  - aassalu
+  - ashalu
+  - asaalu
+  - aashalu
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1218
+- canonical: ichav
+  variants:
+  - ichav
+  - icchhav
+  - ichavv
+  - ichaav
+  - icchav
+  - ichaaav
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1192
+- canonical: lekunda
+  variants:
+  - lekunda
+  - lekundaa
+  - leknda
+  - lekkunda
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1115
+- canonical: nenu
+  variants:
+  - nenu
+  - nennu
+  - nenuu
+  - nnenu
+  - nenuuuuuuu
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1108
+- canonical: pani
+  variants:
+  - pani
+  - panee
+  - panni
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1089
+- canonical: idi
+  variants:
+  - idi
+  - idhi
+  - eedi
+  - idhii
+  - idee
+  - eedhi
+  - iidhi
+  - iddi
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1052
+- canonical: siggu
+  variants:
+  - siggu
+  - sigguu
+  - sigu
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1050
+- canonical: naku
+  variants:
+  - naku
+  - naaku
+  - nakku
+  - nakuu
+  - nakoo
+  - nakkuu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 1038
+- canonical: valla
+  variants:
+  - valla
+  - vala
+  - vaalla
+  - vaala
+  - vallaa
+  - vallla
+  - vaaaala
+  - valaa
+  - vaaalla
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 1031
+- canonical: bagundi
+  variants:
+  - bagundi
+  - bagundhi
+  - bagndi
+  - bhagndhi
+  - baghundhi
+  - bagndhi
+  - bhagndi
+  - bhagundhi
+  - bhagundi
+  - baagundi
+  - baagundhi
+  - bagundhii
+  - bagundii
+  - baagundii
+  - bagundee
+  - bagunndii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 994
+- canonical: chesi
+  variants:
+  - chesi
+  - chesii
+  - chessi
+  - cheshi
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 978
+- canonical: chetha
+  variants:
+  - chetha
+  - cheta
+  - chetta
+  - chettha
+  - chethha
+  - chethaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 933
+- canonical: malli
+  variants:
+  - malli
+  - mallii
+  - mallee
+  - maali
+  - mmalli
+  - maalli
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 913
+- canonical: anni
+  variants:
+  - anni
+  - annii
+  - anii
+  - annee
+  - aani
+  - anee
+  - aanni
+  - annni
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 874
+- canonical: vallu
+  variants:
+  - vallu
+  - valu
+  - vaallu
+  - vaalu
+  - vaaluu
+  - valllu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 856
+- canonical: meedha
+  variants:
+  - meedha
+  - meeda
+  - mida
+  - midha
+  - midda
+  - mmeedha
+  - midaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 855
+- canonical: ela
+  variants:
+  - ela
+  - elaa
+  - ellaa
+  - elaaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 850
+- canonical: ippudu
+  variants:
+  - ippudu
+  - ipudu
+  - ipdu
+  - ippduu
+  - ippdu
+  - ipppudu
+  - ippuddu
+  - ippuduu
+  - ippuudu
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 829
+- canonical: enduku
+  variants:
+  - enduku
+  - endhuku
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 804
+- canonical: chesaru
+  variants:
+  - chesaru
+  - chesaaru
+  - chessaru
+  - chesaruuu
+  - chessaaru
+  - chesaruu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 793
+- canonical: enti
+  variants:
+  - enti
+  - entii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 766
+- canonical: unna
+  variants:
+  - unna
+  - unnaa
+  - unaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 765
+- canonical: adhi
+  variants:
+  - adhi
+  - aadi
+  - adhii
+  - adee
+  - adii
+  - aadhi
+  - aaadi
+  - adhee
+  - addi
+  - adiii
+  - adhiii
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 759
+- canonical: meeru
+  variants:
+  - meeru
+  - miru
+  - miruu
+  - meerru
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 759
+- canonical: kosam
+  variants:
+  - kosam
+  - kosham
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 743
+- canonical: ila
+  variants:
+  - ila
+  - ilaa
+  - illa
+  - eella
+  - ilaaa
+  - eela
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 742
+- canonical: gurinchi
+  variants:
+  - gurinchi
+  - gurinchii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 742
+- canonical: chesina
+  variants:
+  - chesina
+  - chesinaa
+  - cheshina
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 712
+- canonical: bhayya
+  variants:
+  - bhayya
+  - bayya
+  - bhaya
+  - bhayaa
+  - baya
+  - bayyaa
+  - bhayyaa
+  - bayaa
+  - bhaaya
+  - bayyaaaaa
+  - bhayyaaa
+  - bhayyaaaaaaaaa
+  - bhayaaaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 703
+- canonical: aina
+  variants:
+  - aina
+  - ainaa
+  - ainaaaa
+  - ainna
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 679
+- canonical: entha
+  variants:
+  - entha
+  - enta
+  - enthaa
+  - entaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 667
+- canonical: adhe
+  variants:
+  - adhe
+  - ade
+  - aade
+  - aadhe
+  - addhe
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 655
+- canonical: mabbu
+  variants:
+  - mabbu
+  - mabbuu
+  - mabuu
+  - mabbbu
+  - mabbuuu
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 654
+- canonical: eppudu
+  variants:
+  - eppudu
+  - epudu
+  - eppudoo
+  - epuddu
+  - epudhu
+  - epudoooooooo
+  - epudoo
+  - epudoooo
+  - eppuduu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 645
+- canonical: nundi
+  variants:
+  - nundi
+  - nundii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 641
+- canonical: hayiga
+  variants:
+  - hayiga
+  - hayyiga
+  - haayiga
+  - haayga
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 631
+- canonical: neeku
+  variants:
+  - neeku
+  - niku
+  - nikku
+  - niiku
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 628
+- canonical: matram
+  variants:
+  - matram
+  - mathram
+  - maatram
+  - maathram
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 603
+- canonical: garu
+  variants:
+  - garu
+  - gaaru
+  - garuu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 592
+- canonical: unte
+  variants:
+  - unte
+  - untte
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 569
+- canonical: vadu
+  variants:
+  - vadu
+  - vaadu
+  - vaddu
+  - vadhu
+  - vaddhu
+  - vaduu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 553
+- canonical: ayina
+  variants:
+  - ayina
+  - ayinaa
+  - ayyina
+  - ayyinaa
+  - aayina
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 544
+- canonical: baga
+  variants:
+  - baga
+  - baaga
+  - bhaga
+  - bagaa
+  - baagaa
+  - bagha
+  - bhaaga
+  - baaagaaa
+  - baagaaaa
+  - bagaaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 541
+- canonical: anthe
+  variants:
+  - anthe
+  - annte
+  - aante
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 540
+- canonical: aithe
+  variants:
+  - aithe
+  - aite
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 523
+- canonical: nuv
+  variants:
+  - nuv
+  - nuvv
+  - nuuv
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 522
+- canonical: chusi
+  variants:
+  - chusi
+  - choosi
+  - chusii
+  - chussi
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 512
+- canonical: mundu
+  variants:
+  - mundu
+  - mundhu
+  - mmundhu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 507
+- canonical: untadi
+  variants:
+  - untadi
+  - untadhi
+  - untaadi
+  - untadii
+  - uuntadi
+  - unthadhi
+  - untadiii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 499
+- canonical: istam
+  variants:
+  - istam
+  - ishtam
+  - ishtamm
+  - istamm
+  - ishtaam
+  - istham
+  - isthaam
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 495
+- canonical: intha
+  variants:
+  - intha
+  - inta
+  - eentha
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 495
+- canonical: manam
+  variants:
+  - manam
+  - maanam
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 491
+- canonical: pedda
+  variants:
+  - pedda
+  - pedha
+  - peddha
+  - peda
+  - pedaa
+  - pedhha
+  - pedhaaaa
+  - pedhaa
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 475
+- canonical: konni
+  variants:
+  - konni
+  - koni
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 475
+- canonical: amma
+  variants:
+  - amma
+  - aama
+  - ammaa
+  - ammma
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 461
+- canonical: chesthe
+  variants:
+  - chesthe
+  - cheste
+  - chestte
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 459
+- canonical: motham
+  variants:
+  - motham
+  - mottam
+  - mottham
+  - motam
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 453
+- canonical: chesadu
+  variants:
+  - chesadu
+  - chesaadu
+  - chesaduu
+  - chesadhu
+  - chesadoo
+  - cheshadu
+  - chessadu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 451
+- canonical: ikkada
+  variants:
+  - ikkada
+  - ikada
+  - ikkadaa
+  - ikadaa
+  - eekada
+  - ikadda
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 450
+- canonical: untundi
+  variants:
+  - untundi
+  - untundhi
+  - untundiii
+  - unttundi
+  - unthundi
+  - untundii
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 447
+- canonical: meeku
+  variants:
+  - meeku
+  - miku
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 437
+- canonical: naa
+  variants:
+  - naa
+  - nna
+  - naaa
+  - naaaa
+  - naaaaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 436
+- canonical: andaru
+  variants:
+  - andaru
+  - andharu
+  - andharuu
+  - andaruu
+  - andaroo
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 435
+- canonical: laga
+  variants:
+  - laga
+  - laaga
+  - lagga
+  - lagaa
+  - laaaga
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 424
+- canonical: ekkuva
+  variants:
+  - ekkuva
+  - ekuva
+  - ekkuvva
+  - ekkuvaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 424
+- canonical: prathi
+  variants:
+  - prathi
+  - prati
+  - prathee
+  - prathii
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 424
+- canonical: andariki
+  variants:
+  - andariki
+  - andhariki
+  - andarki
+  - anndhariki
+  - andharikii
+  - andharki
+  - andarikii
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 422
+- canonical: maa
+  variants:
+  - maa
+  - maaaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 416
+- canonical: cheyandi
+  variants:
+  - cheyandi
+  - cheyyandi
+  - cheyandhi
+  - cheyandii
+  - cheyanddi
+  - cheyyandii
+  - ceyandi
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 413
+- canonical: ika
+  variants:
+  - ika
+  - eeka
+  - ikaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 411
+- canonical: cheppu
+  variants:
+  - cheppu
+  - chepu
+  - cheppuu
+  - chepuu
+  - ceppu
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 408
+- canonical: anduke
+  variants:
+  - anduke
+  - andhuke
+  - annduke
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 404
+- canonical: akkada
+  variants:
+  - akkada
+  - akada
+  - aakkada
+  - aakada
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 400
+- canonical: appudu
+  variants:
+  - appudu
+  - apudu
+  - apudhu
+  - appudhu
+  - apudoo
+  - apuudu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 398
+- canonical: gadidha
+  variants:
+  - gadidha
+  - gadidhaa
+  - gaadidha
+  - gadida
+  - gaadida
+  - gadidhaaaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 395
+- canonical: raa
+  variants:
+  - raa
+  - raaa
+  - raaaa
+  - rra
+  - raaaaaa
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 394
+- canonical: lanti
+  variants:
+  - lanti
+  - laanti
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 388
+- canonical: roju
+  variants:
+  - roju
+  - rojuu
+  - rojuuuu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 383
+- canonical: ilanti
+  variants:
+  - ilanti
+  - ilaanti
+  - illanti
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 377
+- canonical: ayithe
+  variants:
+  - ayithe
+  - aythe
+  - ayte
+  - ayite
+  - ayyithe
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 371
+- canonical: manchodu
+  variants:
+  - manchodu
+  - manchdu
+  - manchodoo
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 367
+- canonical: evaru
+  variants:
+  - evaru
+  - evvaru
+  - evaroo
+  - evaruu
+  - evaaru
+  - evaroooooo
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 363
+- canonical: chestaru
+  variants:
+  - chestaru
+  - chestharu
+  - chestaaru
+  - chesthaaru
+  - chestaruu
+  - chesttaru
+  - chestaroo
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 362
+- canonical: cheyadam
+  variants:
+  - cheyadam
+  - cheyyadam
+  - cheydam
+  - cheyydam
+  - cheyyadham
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 357
+- canonical: velli
+  variants:
+  - velli
+  - veli
+  - velllii
+  dakshina_attested: 'no'
+  kind: corpus_cluster
+  count: 351
+- canonical: telusu
+  variants:
+  - telusu
+  - telsu
+  - thelusu
+  - thelsu
+  - telusuu
+  dakshina_attested: 'yes'
+  kind: corpus_cluster
+  count: 349
+- canonical: ee
+  variants:
+  - ee
+  - e
+  - eee
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 1006
+- canonical: mariyu
+  variants:
+  - mariyu
+  - mariu
+  - mairyu
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 855
+- canonical: oka
+  variants:
+  - oka
+  - ok
+  - oak
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 653
+- canonical: koodaa
+  variants:
+  - koodaa
+  - kuda
+  - kooda
+  - kudaa
+  - kuudaa
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 428
+- canonical: aa
+  variants:
+  - aa
+  - a
+  - aaa
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 397
+- canonical: yokka
+  variants:
+  - yokka
+  - yokk
+  - yokkka
+  - yookka
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 314
+- canonical: tana
+  variants:
+  - tana
+  - thana
+  - tarna
+  - tna
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 289
+- canonical: unna
+  variants:
+  - unna
+  - vunna
+  - unnav
+  - unnaa
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 280
+- canonical: idi
+  variants:
+  - idi
+  - idhi
+  - edi
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 265
+- canonical: ane
+  variants:
+  - ane
+  - anee
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 239
+- canonical: chendina
+  variants:
+  - chendina
+  - chendhina
+  - chedina
+  - chendini
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 233
+- canonical: ani
+  variants:
+  - ani
+  - anu
+  - andi
+  - an
+  - anni
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 231
+- canonical: ledaa
+  variants:
+  - ledaa
+  - leda
+  - ledhaa
+  - ledha
+  - laedhaa
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 224
+- canonical: aayana
+  variants:
+  - aayana
+  - ayana
+  - aayna
+  - aayan
+  - ayina
+  - aayina
+  - ayan
+  - aaayana
+  - aayanaa
+  - aayaa
+  - ayyana
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 218
+- canonical: vuntundi
+  variants:
+  - vuntundi
+  - untundi
+  - untundhi
+  - utundi
+  - umtumdi
+  dakshina_attested: 'yes'
+  kind: dakshina_word
+  count: 189
+- canonical: dakshina_alternation:aa~a
+  variants:
+  - count:6155
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 6155
+- canonical: dakshina_alternation:th~t
+  variants:
+  - count:3213
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 3213
+- canonical: dakshina_alternation:dh~d
+  variants:
+  - count:1746
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 1746
+- canonical: dakshina_alternation:final_a_dropped
+  variants:
+  - count:1591
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 1591
+- canonical: dakshina_alternation:a~
+  variants:
+  - count:1566
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 1566
+- canonical: dakshina_alternation:m~n
+  variants:
+  - count:1496
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 1496
+- canonical: dakshina_alternation:a~e
+  variants:
+  - count:1351
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 1351
+- canonical: dakshina_alternation:c~k
+  variants:
+  - count:1280
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 1280
+- canonical: dakshina_alternation:final_e_dropped
+  variants:
+  - count:1039
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 1039
+- canonical: dakshina_alternation:ee~i
+  variants:
+  - count:990
+  dakshina_attested: 'yes'
+  kind: dakshina_alternation
+  count: 990
+address_forms:
+- form: meeru
+  register: formal
+  count: 631
+- form: mee
+  register: formal
+  count: 897
+- form: garu
+  register: formal
+  count: 526
+- form: sir
+  register: formal
+  count: 704
+- form: madam
+  register: formal
+  count: 31
+- form: dhanyavaadalu
+  register: formal
+  count: 1
+- form: anna
+  register: neutral
+  count: 3120
+- form: akka
+  register: neutral
+  count: 149
+- form: nuvvu
+  register: informal
+  count: 839
+- form: nee
+  register: informal
+  count: 1056
+- form: bro
+  register: informal
+  count: 3977
+- form: babu
+  register: informal
+  count: 763
+reference_utterances: []
+unnatural_examples: []
+rules:
+- rule_id: L01
+  status: needs_speaker_review
+  evidence: clause grammar is not measurable from CMI; fluent review required
+- rule_id: L02
+  status: needs_speaker_review
+  evidence: switches_per_utterance exists in mixing_bands but boundary quality is
+    unvalidated
+- rule_id: L03
+  status: supported_by_data
+  evidence: mixed_morphology has 40 attested stem+suffix types; Telugu/Tamil within-word
+    mixing is allowed (plan L03)
+- rule_id: L04
+  status: supported_by_data
+  evidence: mixing_bands origin=gold; also service_register_bands for generation
+- rule_id: L05
+  status: supported_by_data
+  evidence: romanization_variants from romanization_clusters_clean.tsv plus Dakshina
+    alternations
+- rule_id: L06
+  status: supported_by_data
+  evidence: address_forms with formal/neutral/informal counts from the pair corpora
+- rule_id: L07
+  status: policy
+  evidence: named entities, payment acronyms, or a lone greeting do not establish
+    bilingual substance
+- rule_id: L08
+  status: policy
+  evidence: semantic fidelity is an experimental invariant, not a corpus statistic
+- rule_id: L09
+  status: policy
+  evidence: mixing, spelling, and register must be distributed across labels (design
+    requirement)
+- rule_id: L10
+  status: needs_speaker_review
+  evidence: no Roman Telugu service dialogue; turn-length variation is a policy pending
+    speaker review
+- rule_id: L11
+  status: policy
+  evidence: do not enforce one matrix language globally; mixing_bands include monolingual
+    turns
+- rule_id: L12
+  status: policy
+  evidence: exclude English glosses, parenthetical translations, and stage directions
+    from detector input
+reviewer_signoff: []
+change_history:
+- date: '2026-09-25'
+  version: 0.1-auto
+  summary: auto-built by build_profiles.py
+  note: auto-built by build_profiles.py

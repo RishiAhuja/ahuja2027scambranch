@@ -1,0 +1,278 @@
+{
+  "family_id": "bp_13",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "\"Won cashback, pay a fee to claim\" vs. campaign cashback credited automatically",
+  "summary": "A caller from PaySetu congratulates the recipient on winning cashback in a festive campaign. In the fraud case, the caller says the cashback will be released only after the recipient pays a small \"processing fee\" to a UPI ID. In the legitimate case, the caller says the cashback has already been credited to the recipient's linked bank account, shows where to see it in the app, and says nothing needs to be paid or approved.",
+  "shared_setting": {
+    "organisations": [
+      "PaySetu"
+    ],
+    "pretext": "a festive campaign in which users who made several payments were eligible for cashback of [AMOUNT_1] (₹500–₹10,000).",
+    "recipient_profile": "an adult PaySetu user who made payments during the campaign; profile sampled at generation.",
+    "other_facts": [
+      "Both callers say \"congratulations\" and name the campaign."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_13_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller makes a reward conditional on the recipient paying a fee to a caller-named payee. Genuine cashback is credited, not bought.",
+      "caller_objective": "Get the recipient to send [AMOUNT_2] (₹199–₹2,000) to [UPI_ID_1].",
+      "stable_facts": [
+        "The caller calls the cashback a \"lucky draw win\" larger than the usual campaign reward.",
+        "The fee is described as GST or processing that must be paid before release.",
+        "[UPI_ID_1] is described as \"the rewards desk\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from PaySetu's rewards team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the recipient has won [AMOUNT_1] cashback in the festive campaign",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (pleased, asks how to get it)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the cashback is ready but needs a small fee for GST processing, and must be claimed within the hour",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to pay",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller reads out [UPI_ID_1] and asks the recipient to send [AMOUNT_2] now",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to pay [AMOUNT_2] to [UPI_ID_1] so the cashback can be released",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the win must be claimed within the hour",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_13_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller informs the recipient of a reward that has already been credited and asks for no payment, approval, or credential.",
+      "caller_objective": "Tell the recipient the cashback has been credited and where to see it, and remind them of the next campaign.",
+      "stable_facts": [
+        "The cashback of [AMOUNT_1] was credited to the linked bank account the previous day.",
+        "It shows in the app's Rewards section and in the bank statement.",
+        "The caller says PaySetu never charges a fee for cashback or asks users to approve a request to receive it."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from PaySetu's rewards team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the recipient earned [AMOUNT_1] cashback in the festive campaign",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (pleased, asks how to get it)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it was already credited to the bank account ending [ACCT_LAST4] yesterday",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they need to do anything or pay GST",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says there is no fee or request to approve, and they can see it in the Rewards section and bank statement",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Cashback already credited, with no action needed"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says there is no fee and no request to approve"
+        },
+        {
+          "id": "L-M3",
+          "text": "Recipient is told to check the Rewards section and bank statement themselves"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens their UPI app and asks the caller to repeat the ID",
+      "legitimate": "Checks the app and confirms they can see it"
+    },
+    "clarifying": {
+      "fraud": "Asks why the fee cannot be deducted from the cashback",
+      "legitimate": "Asks when the next campaign starts"
+    },
+    "resistant": {
+      "fraud": "Says they do not want the prize if they must pay",
+      "legitimate": "Says they cannot see it yet and will check later"
+    },
+    "suspicious": {
+      "fraud": "Says real cashback does not need a fee and asks if this is a scam",
+      "legitimate": "Asks why PaySetu is calling about something already credited"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller lowers the fee or pressures and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will check the Rewards section."
+    ],
+    "legitimate": [
+      "recipient confirms the credit",
+      "recipient cannot see it and is told to raise a query in the app's Help section",
+      "the call ends with a brief mention of the next campaign."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the fee, raise the prize, or add a deadline. They must not switch to a different mechanism (for example a payment request to \"receive\", a link, or OTP). The legitimate caller must not ask for any payment, approval, or credential after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "cashback amount and campaign in both",
+      "fee to [UPI_ID_1] before release (_F)",
+      "already-credited cashback and \"no fee\" (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "campaign name (fictional)",
+      "amount within range",
+      "fee amount within range",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real app, brand, or festival sponsor names",
+      "working UPI handles",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Congratulations\", \"cashback\", and \"GST\" appear in both cases. The label depends on the fee demand.",
+    "The legitimate call is a courtesy or marketing call, which is less common than an app notification. Reviewers should judge whether it is plausible enough.",
+    "Cross-domain overlap: ec_06 (lucky draw from a shopping app, pay tax to claim) is nearly the same mechanism. Mechanism overlap within the domain: bp_10 (fee to release a bonus)."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Prize fraudsters ask for taxes or processing fees to release a prize (CB13)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors cite \"an attractive discount\" or similar to extract payment (C02)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "No PIN or approval is needed to receive money (CB01)",
+      "source_ids": [
+        "S03",
+        "SB28"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

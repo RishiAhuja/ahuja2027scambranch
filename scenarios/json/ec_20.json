@@ -1,0 +1,254 @@
+{
+  "family_id": "ec_20",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Token amount before viewing a used vehicle vs. viewing first, token at the meeting",
+  "summary": "The recipient enquired on BechoBazaar about a used motorcycle listed in their city. The seller calls back, describes the bike, and says other buyers are interested. In the legitimate case, the seller arranges a viewing and test ride with the registration papers, and says a token can be paid at the viewing against a written receipt if the buyer likes the bike, with the rest at handover. In the fraud case, the seller asks for a token amount by UPI now to \"hold\" the bike before the buyer has seen it. This differs from `ec_07` (item shipped from another city, full advance) because the vehicle is local and the request is a smaller \"token\" before an in-person viewing. The word \"token\" and the same amount range appear in both cases.",
+  "shared_setting": {
+    "organisations": [
+      "BechoBazaar",
+      "PaySetu"
+    ],
+    "pretext": "",
+    "recipient_profile": "the buyer; profile sampled at generation.",
+    "other_facts": [
+      "Vehicle: a used 125–150 cc motorcycle, listed at [AMOUNT_27] (₹25,000–₹1,50,000), in [CITY].",
+      "Token amount in both cases: [AMOUNT_26] (₹1,000–₹10,000).",
+      "Both sellers describe the bike's year, mileage, and condition, and say several people have called."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_20_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The seller asks the buyer to pay a token by UPI before seeing the vehicle or its papers. Paying for an unseen vehicle to a stranger is the core advance-fee pattern in vehicle listings.",
+      "caller_objective": "Collect [AMOUNT_26] (then further \"charges\") with no vehicle to sell.",
+      "stable_facts": [
+        "The seller says they are \"out of town this week\" but the bike can be \"held\" for the buyer.",
+        "Token is to [UPI_ID_11]; the seller promises to send the RC photo \"after the token\".",
+        "The seller avoids fixing a viewing date."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Seller says they are calling back about the buyer's enquiry on the motorcycle listing",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Buyer says they are interested and asks about the bike",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Seller gives year, mileage, and condition, and says many people have called",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Buyer asks when they can see it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Seller says they are out of town this week but can hold the bike for the buyer",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Buyer asks how holding it works",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Seller says to send a token of [AMOUNT_26] to [UPI_ID_11] now; the RC photo will follow after the token",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Seller asks the buyer to send [AMOUNT_26] by UPI now to hold the bike, before any viewing",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_20_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The seller arranges an in-person viewing with papers. A token is mentioned only as something the buyer may pay at the viewing, against a receipt, after seeing the bike.",
+      "caller_objective": "Sell the bike to a serious buyer.",
+      "stable_facts": [
+        "Viewing is fixed for the weekend at the seller's home or a public place.",
+        "The seller will show the RC, insurance, and service records and allow a short test ride.",
+        "Full payment happens at handover, together with signed transfer forms."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Seller says they are calling back about the buyer's enquiry on the motorcycle listing",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Buyer says they are interested and asks about the bike",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Seller gives year, mileage, and condition, and says many people have called",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Buyer asks when they can see it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Seller offers Saturday morning for a viewing and test ride and says they will have the RC and insurance ready",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Buyer asks how holding it works if others are interested",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Seller says if the buyer likes it on Saturday, they can pay a token of [AMOUNT_26] there with a written receipt, and the rest at handover",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Viewing and test ride arranged before any payment"
+        },
+        {
+          "id": "L-M2",
+          "text": "Papers shown in person"
+        },
+        {
+          "id": "L-M3",
+          "text": "Token only at the viewing, with a written receipt"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they will send the token now",
+      "legitimate": "Confirms Saturday and asks for the address"
+    },
+    "clarifying": {
+      "fraud": "Asks why they cannot see the bike first",
+      "legitimate": "Asks whether the insurance is transferable"
+    },
+    "resistant": {
+      "fraud": "Says they will pay only after seeing the bike",
+      "legitimate": "Says they want a mechanic to inspect it first"
+    },
+    "suspicious": {
+      "fraud": "Asks for the RC photo and a video call before paying anything",
+      "legitimate": "Asks for the RC photo before coming"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "buyer pays (cooperative only), after which the seller asks for a \"transport\" or \"paperwork\" charge",
+      "buyer refuses and seller stops answering",
+      "seller lowers the token and buyer declines."
+    ],
+    "legitimate": [
+      "viewing fixed",
+      "seller agrees to a mechanic inspection",
+      "seller sends an RC photo with sensitive numbers covered."
+    ]
+  },
+  "caller_continuation_limits": "The fraud seller may lower the token, add urgency, or send photos. A reduced token is the same mechanism. They must not switch to QR codes, links, or OTPs. The legitimate seller must not ask for any payment before the viewing.",
+  "generation_constraints": {
+    "must_preserve": [
+      "token\" and the same amount range in both cases",
+      "token by UPI before viewing in _F",
+      "viewing, papers, and token-at-meeting in _L",
+      "identical bike and listed price"
+    ],
+    "may_vary": [
+      "vehicle type (motorcycle, scooter, small car with a price range adjusted in both)",
+      "viewing day",
+      "reason for selling"
+    ],
+    "must_not_emit": [
+      "real vehicle registration numbers",
+      "real brands",
+      "real UPI handles",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Token payments are normal in Indian vehicle sales; the word \"token\" is not evidence. Timing (before vs. after viewing) and route (UPI to a stranger vs. in person with a receipt) decide the label.",
+    "Competition from \"other buyers\" is mentioned in both cases.",
+    "A seller who is genuinely out of town is plausible; in this family only the fraud seller is, so absence is a supporting cue, not the label rule."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Police advise avoiding advance payments in classifieds deals and verifying buyers/sellers (CE08)",
+      "source_ids": [
+        "SE08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Financial cyber fraud can be reported on 1930 or cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09",
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

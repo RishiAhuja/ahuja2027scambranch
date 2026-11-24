@@ -1,0 +1,280 @@
+{
+  "family_id": "bp_14",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "outbound_call",
+  "title": "Pension \"verification\" with account number and OTP vs. life-certificate reminder",
+  "summary": "A caller from Kaveri Bank, where the recipient draws their pension, says the annual life certificate is due. In the fraud case, the caller says pension will stop this month unless it is \"verified online now\", asks for the full account number, and then asks the recipient to read out the OTP that arrives. In the legitimate case, the caller reminds the recipient that the life certificate is due in November and explains the options: a branch visit, doorstep service, or a digital life certificate. The caller asks for nothing on the call. Both callers say pension may be held if the certificate is not submitted.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "the annual life certificate for continued pension; monthly pension of about [AMOUNT_1] (₹8,000–₹60,000).",
+    "recipient_profile": "a retired pensioner, aged 60 or older; other profile details sampled at generation.",
+    "other_facts": [
+      "Both callers speak slowly and politely and mention that pension may be held if the certificate is missing."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_14_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the recipient to disclose an OTP, framed as pension verification. An OTP authorises a transaction or credential change; no life-certificate process uses an OTP read to a caller.",
+      "caller_objective": "Obtain the account number and the OTP sent to the recipient's phone.",
+      "stable_facts": [
+        "The caller says the pension \"will stop from this month\" unless verified today.",
+        "An SMS containing an OTP arrives during the call.",
+        "The caller may cite the pensioner's name and last four digits. That does not prove legitimacy."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's pension cell",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the life certificate has not been received and pension will stop this month",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (worried, says they are unable to travel easily)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it can be done on the phone now and asks for the full account number",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient gives the number or says an SMS has arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to read out the OTP that has come to their phone",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to read out the OTP that just arrived to \"complete pension verification",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller asks for the full account number and threatens that pension stops this month",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_14_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller reminds the recipient of a routine requirement and lists official ways to meet it, asking for no credential or number on the call.",
+      "caller_objective": "Make sure the recipient submits the life certificate on time.",
+      "stable_facts": [
+        "Submission window: November, or from 1 October for pensioners aged 80 or over.",
+        "Options: any Kaveri Bank branch; the bank's doorstep-banking service; or a digital life certificate generated at a common service centre or with the official app. A digital certificate reaches the bank electronically.",
+        "The caller says no one from the bank will ask for an OTP or PIN for this."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's pension section",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the annual life certificate is due in November, and pension may be held if it is not received",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (worried, says they are unable to travel easily)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller explains doorstep service and the digital life certificate as alternatives to a branch visit",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient responds (asks which is easiest)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says nothing needs to be shared on this call and the bank will never ask for an OTP or PIN for the certificate",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Deadline is the annual window, weeks away"
+        },
+        {
+          "id": "L-M2",
+          "text": "Options are branch, doorstep service, or a digital life certificate; nothing is done on the call"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller says they will not ask for any OTP, PIN, or account number"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Starts reading the OTP digits",
+      "legitimate": "Asks the caller to book a doorstep visit"
+    },
+    "clarifying": {
+      "fraud": "Asks why an OTP is needed for a life certificate",
+      "legitimate": "Asks what documents the doorstep visit needs"
+    },
+    "resistant": {
+      "fraud": "Says their son or daughter will take them to the branch instead",
+      "legitimate": "Says they will go to the branch themselves next month"
+    },
+    "suspicious": {
+      "fraud": "Says the bank never asks for OTPs and asks for the caller's branch",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient shares the OTP (cooperative only)",
+      "caller pressures and recipient hangs up",
+      "caller disconnects",
+      "recipient says a family member will call the branch."
+    ],
+    "legitimate": [
+      "doorstep visit requested through the official channel",
+      "recipient plans a branch visit",
+      "recipient is told to verify by calling the number in the passbook."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may repeat the OTP request, add urgency, or give up. They must not switch to a different mechanism (for example a link, app install, or payment). The legitimate caller must not ask for any OTP, PIN, account number, or payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "pensioner profile and life-certificate topic in both",
+      "account-number and OTP request (_F)",
+      "November window, official options, and explicit \"no OTP\" (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "recipient's age (60+) and former occupation",
+      "pension amount within range",
+      "whether a family member is mentioned",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank or government portal names",
+      "working numbers",
+      "real Aadhaar or PPO number formats",
+      "narrator text",
+      "label words in caller lines",
+      "content that mocks or patronises older people"
+    ]
+  },
+  "ambiguities": [
+    "Pension may be held\" appears in both cases. It is supporting evidence in _F only when tied to the OTP request.",
+    "The November window applies to central government pensioners (CB24). Other pension schemes may differ; generators should not state a rule for all pensions.",
+    "The mechanism (OTP under urgency) is the same as bp_01 with a different pretext and an older recipient profile. Keep it only if recipient-profile variety is a goal.",
+    "The recipient's age is part of the setting and must not be used to infer the label."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Central Government pensioners submit an annual life certificate in November; 80+ from 1 October (CB24)",
+      "source_ids": [
+        "SB16"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A digital life certificate reaches the pension agency electronically (CB25)",
+      "source_ids": [
+        "SB17"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Banks never ask for OTP or PIN (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

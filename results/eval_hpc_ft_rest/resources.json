@@ -1,0 +1,1650 @@
+{
+  "hardware": {
+    "platform": "Linux-6.8.0-110-generic-x86_64-with-glibc2.35",
+    "system": "Linux",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "python": "3.12.7",
+    "cpu_count": 128,
+    "cpu_brand": null,
+    "ram_total_bytes": 1081686540288,
+    "ram_available_bytes": 603727249408,
+    "torch": "2.6.0+cu124",
+    "mps_built": false,
+    "mps_available": false,
+    "cuda_available": true
+  },
+  "models": {
+    "qwen2.5-0.5b+unbranched-seed2": {
+      "short_id": "qwen2.5-0.5b+unbranched-seed2",
+      "hf_id": "Qwen/Qwen2.5-0.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-0.5b/unbranched/seed2/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 502830976,
+      "load_time_s": 4.008307496085763,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1743937536,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.08372555407178071,
+        "median_s": 0.08182353992015123,
+        "p95_s": 0.10119825853034854,
+        "min_s": 0.07353289984166622,
+        "max_s": 0.22176518477499485
+      }
+    },
+    "qwen2.5-1.5b+branched-seed0": {
+      "short_id": "qwen2.5-1.5b+branched-seed0",
+      "hf_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-1.5b/branched/seed0/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 1562179072,
+      "load_time_s": 4.547172272577882,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1775816704,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.10369469802136774,
+        "median_s": 0.1023962190374732,
+        "p95_s": 0.12028332818299532,
+        "min_s": 0.08974874205887318,
+        "max_s": 0.16686321422457695
+      }
+    },
+    "qwen2.5-1.5b+branched-seed1": {
+      "short_id": "qwen2.5-1.5b+branched-seed1",
+      "hf_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-1.5b/branched/seed1/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 1562179072,
+      "load_time_s": 3.5576785802841187,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1810489344,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.09897066854216434,
+        "median_s": 0.09771693404763937,
+        "p95_s": 0.11088668499141933,
+        "min_s": 0.08894186839461327,
+        "max_s": 0.15836024284362793
+      }
+    },
+    "qwen2.5-1.5b+branched-seed2": {
+      "short_id": "qwen2.5-1.5b+branched-seed2",
+      "hf_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-1.5b/branched/seed2/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 1562179072,
+      "load_time_s": 3.649456111714244,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1812729856,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.10201893250664903,
+        "median_s": 0.09668963868170977,
+        "p95_s": 0.1203356514684856,
+        "min_s": 0.08817123621702194,
+        "max_s": 0.5243990160524845
+      }
+    },
+    "qwen2.5-1.5b+branched_consistency-seed0": {
+      "short_id": "qwen2.5-1.5b+branched_consistency-seed0",
+      "hf_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-1.5b/branched_consistency/seed0/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 1562179072,
+      "load_time_s": 3.6442539375275373,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1814867968,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.09954937816580274,
+        "median_s": 0.09821979980915785,
+        "p95_s": 0.11174274086952211,
+        "min_s": 0.0894475169479847,
+        "max_s": 0.15907817520201206
+      }
+    },
+    "qwen2.5-1.5b+branched_consistency-seed1": {
+      "short_id": "qwen2.5-1.5b+branched_consistency-seed1",
+      "hf_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-1.5b/branched_consistency/seed1/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 1562179072,
+      "load_time_s": 4.160697408020496,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1837150208,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.10692773653168439,
+        "median_s": 0.10497962776571512,
+        "p95_s": 0.13026431808248162,
+        "min_s": 0.0891291368752718,
+        "max_s": 0.17861748300492764
+      }
+    },
+    "qwen2.5-1.5b+branched_consistency-seed2": {
+      "short_id": "qwen2.5-1.5b+branched_consistency-seed2",
+      "hf_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-1.5b/branched_consistency/seed2/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 1562179072,
+      "load_time_s": 3.5697691440582275,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1860128768,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.1171054716157313,
+        "median_s": 0.09967636875808239,
+        "p95_s": 0.24778810823336245,
+        "min_s": 0.09042279794812202,
+        "max_s": 0.2961305882781744
+      }
+    },
+    "qwen2.5-1.5b+unbranched-seed0": {
+      "short_id": "qwen2.5-1.5b+unbranched-seed0",
+      "hf_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-1.5b/unbranched/seed0/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 1562179072,
+      "load_time_s": 3.8119742572307587,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1837613056,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.1033376085459841,
+        "median_s": 0.10136279836297035,
+        "p95_s": 0.12211085557937623,
+        "min_s": 0.08924025297164917,
+        "max_s": 0.36873875744640827
+      }
+    },
+    "qwen2.5-1.5b+unbranched-seed1": {
+      "short_id": "qwen2.5-1.5b+unbranched-seed1",
+      "hf_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-1.5b/unbranched/seed1/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 1562179072,
+      "load_time_s": 3.813591158017516,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1851379712,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.10751742337726884,
+        "median_s": 0.10444284230470657,
+        "p95_s": 0.13478759070858362,
+        "min_s": 0.08910085633397102,
+        "max_s": 0.20330830104649067
+      }
+    },
+    "qwen2.5-1.5b+unbranched-seed2": {
+      "short_id": "qwen2.5-1.5b+unbranched-seed2",
+      "hf_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "adapter_path": "outputs/ft/qwen2.5-1.5b/unbranched/seed2/adapter",
+      "skipped": false,
+      "skip_reason": null,
+      "gated": false,
+      "params": 1562179072,
+      "load_time_s": 3.754836557433009,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "peak_mps_allocated_bytes": 0,
+      "peak_rss_bytes": 1862516736,
+      "verbalizer_tokenization": {
+        "method": "prompt_continuation",
+        "chosen": {
+          "variant": {
+            "fraud": "fraud",
+            "legitimate": "legitimate"
+          },
+          "verbalizers": {
+            "fraud": {
+              "surface": "fraud",
+              "token_ids": [
+                42289,
+                661
+              ],
+              "tokens": [
+                "fra",
+                "ud"
+              ],
+              "first_token_id": 42289,
+              "first_token": "fra"
+            },
+            "legitimate": {
+              "surface": "legitimate",
+              "token_ids": [
+                1937,
+                70750
+              ],
+              "tokens": [
+                "leg",
+                "itimate"
+              ],
+              "first_token_id": 1937,
+              "first_token": "leg"
+            }
+          },
+          "first_tokens_distinct": true
+        },
+        "attempts": [
+          {
+            "variant": {
+              "fraud": "fraud",
+              "legitimate": "legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "fraud",
+                "token_ids": [
+                  42289,
+                  661
+                ],
+                "tokens": [
+                  "fra",
+                  "ud"
+                ],
+                "first_token_id": 42289,
+                "first_token": "fra"
+              },
+              "legitimate": {
+                "surface": "legitimate",
+                "token_ids": [
+                  1937,
+                  70750
+                ],
+                "tokens": [
+                  "leg",
+                  "itimate"
+                ],
+                "first_token_id": 1937,
+                "first_token": "leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": "Fraud",
+              "legitimate": "Legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": "Fraud",
+                "token_ids": [
+                  78056,
+                  661
+                ],
+                "tokens": [
+                  "Fra",
+                  "ud"
+                ],
+                "first_token_id": 78056,
+                "first_token": "Fra"
+              },
+              "legitimate": {
+                "surface": "Legitimate",
+                "token_ids": [
+                  18910,
+                  70750
+                ],
+                "tokens": [
+                  "Leg",
+                  "itimate"
+                ],
+                "first_token_id": 18910,
+                "first_token": "Leg"
+              }
+            },
+            "first_tokens_distinct": true
+          },
+          {
+            "variant": {
+              "fraud": " fraud",
+              "legitimate": " legitimate"
+            },
+            "verbalizers": {
+              "fraud": {
+                "surface": " fraud",
+                "token_ids": [
+                  16124
+                ],
+                "tokens": [
+                  "Ġfraud"
+                ],
+                "first_token_id": 16124,
+                "first_token": "Ġfraud"
+              },
+              "legitimate": {
+                "surface": " legitimate",
+                "token_ids": [
+                  22745
+                ],
+                "tokens": [
+                  "Ġlegitimate"
+                ],
+                "first_token_id": 22745,
+                "first_token": "Ġlegitimate"
+              }
+            },
+            "first_tokens_distinct": true
+          }
+        ]
+      },
+      "latency": {
+        "n": 4320.0,
+        "mean_s": 0.09981828938600504,
+        "median_s": 0.09905879851430655,
+        "p95_s": 0.1113765273243189,
+        "min_s": 0.08845173940062523,
+        "max_s": 0.25206528417766094
+      }
+    }
+  },
+  "eval_run_id": "eval_hpc_ft_rest"
+}

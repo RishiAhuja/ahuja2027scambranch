@@ -1,0 +1,273 @@
+{
+  "family_id": "jr_09",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "dev",
+  "channel": "inbound_call",
+  "title": "Forfeitable \"security deposit\" for data-entry work vs. contract data-entry project with quality checks",
+  "summary": "A job seeker calls the number on a NaukriHub listing for home-based data-entry work posted under TalentBridge Staffing. In the fraud case, the coordinator says work files are released only after a \"refundable security deposit\", which the contract says is forfeited if accuracy falls below a threshold. In the legitimate case, the coordinator explains the same accuracy standard, an NDA, and quality checks, and states that low accuracy means rework or removal from the project, never a charge or deposit.",
+  "shared_setting": {
+    "organisations": [
+      "TalentBridge Staffing",
+      "NaukriHub"
+    ],
+    "pretext": "",
+    "recipient_profile": "a homemaker, student, or retiree seeking home-based work; details sampled at generation.",
+    "other_facts": [
+      "Work: typing scanned forms into a spreadsheet, about 3–4 hours a day, paid per completed batch, stated as [AMOUNT_1] (₹8,000–₹20,000 per month).",
+      "Both coordinators mention an \"agreement\", a \"security\" requirement, and a 95% accuracy target.",
+      "Channel: the recipient places the call. Turn 1 is the coordinator answering."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_09_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The worker must pay money in before receiving work, and the terms are set up so the money is kept by claiming accuracy failures.",
+      "caller_objective": "Collect the deposit, then keep it by declaring the work below standard (and possibly demand \"penalty\" payments).",
+      "stable_facts": [
+        "Deposit: [AMOUNT_2] (₹2,000–₹8,000), called \"refundable security deposit\" against \"data confidentiality\".",
+        "Paid to [UPI_ID_1] before the login and first batch are issued.",
+        "The agreement says the deposit is forfeited if accuracy is below 95%.",
+        "The coordinator describes the deposit as \"standard for all home-based projects\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Coordinator answers, names themselves and TalentBridge",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they saw the data-entry listing on NaukriHub and asks if it is still open",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Coordinator describes the work, hours, and monthly earnings",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks whether any experience is needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Coordinator says no experience is needed but accuracy must be at least 95%, under a signed agreement",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to get started",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Coordinator says the recipient must pay a refundable security deposit of [AMOUNT_2] to [UPI_ID_1] before the login is issued, forfeited if accuracy falls below 95%",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Coordinator says the login and first batch are issued only after the recipient pays [AMOUNT_2] to [UPI_ID_1]",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Coordinator says the deposit is forfeited if accuracy is below 95%",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_09_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The worker signs an agreement and an NDA, receives a paid trial batch, and pays nothing; quality failures have non-monetary consequences only.",
+      "caller_objective": "Enrol the recipient on the project.",
+      "stable_facts": [
+        "Agreement and NDA sent by email from TalentBridge's domain for e-signature.",
+        "A paid trial batch; pay is by bank transfer to the recipient's account monthly.",
+        "Below-target accuracy means the batch is returned for correction; repeated failure means removal from the project.",
+        "Security\" means data security: no downloading or sharing files, work only in the browser portal https://work.talentbridge.invalid."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Coordinator answers, names themselves and TalentBridge",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they saw the data-entry listing on NaukriHub and asks if it is still open",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Coordinator describes the work, hours, and monthly earnings",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks whether any experience is needed",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Coordinator says no experience is needed but accuracy must be at least 95%, under a signed agreement and NDA",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to get started",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Coordinator says the agreement comes by email; there is no deposit or fee; the security requirement means data security; below-target batches are returned for correction, never charged",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Coordinator states there is no deposit, fee, or penalty payment"
+        },
+        {
+          "id": "L-M2",
+          "text": "Quality failure leads to rework or removal, not a charge"
+        },
+        {
+          "id": "L-M3",
+          "text": "Written agreement and NDA before work"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks for the UPI ID again",
+      "legitimate": "Says they will sign the agreement and asks when the trial batch comes"
+    },
+    "clarifying": {
+      "fraud": "Asks who checks the accuracy and how it is measured",
+      "legitimate": "Asks how accuracy is measured and how often pay is sent"
+    },
+    "resistant": {
+      "fraud": "Says they will do a free trial batch first, without a deposit",
+      "legitimate": "Says they cannot commit to four hours a day"
+    },
+    "suspicious": {
+      "fraud": "Says they have heard data-entry deposits are never returned",
+      "legitimate": "Asks why an NDA is needed and whether TalentBridge is genuine"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "coordinator lowers the deposit and recipient declines",
+      "coordinator refuses a free trial and recipient ends the call",
+      "coordinator hangs up."
+    ],
+    "legitimate": [
+      "recipient enrols",
+      "recipient asks for fewer hours and coordinator agrees or declines",
+      "recipient declines the work",
+      "coordinator suggests checking TalentBridge's official site."
+    ]
+  },
+  "caller_continuation_limits": "The fraud coordinator may lower the deposit, offer a \"discount\", or stress refundability. They must not switch to OTPs, remote access, or pay-to-unlock tasks (that is jr_02). The legitimate coordinator must not introduce any payment or penalty after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "work description, hours, pay, and 95% target identical across cases",
+      "_F deposit before login with forfeiture clause at turn 7",
+      "_L explicit no-deposit statement and non-monetary quality consequences"
+    ],
+    "may_vary": [
+      "form type (insurance forms, survey sheets, invoices)",
+      "coordinator name",
+      "pay within range",
+      "deposit within range"
+    ],
+    "must_not_emit": [
+      "real companies",
+      "working UPI IDs",
+      "legal-threat scripts",
+      "narrator text",
+      "scam\" in coordinator lines"
+    ]
+  },
+  "ambiguities": [
+    "Security\", \"agreement\", and \"accuracy\" appear in both cases; none is evidence.",
+    "Distinct from jr_01: here there is no placement or job guarantee; the payment is collateral against the recipient's own work output, with a built-in forfeiture condition.",
+    "Distinct from jr_02: jr_02 pays small commissions then asks for repeated deposits to unlock earnings; here there is one deposit before any work, recovered through an accuracy clause.",
+    "The recipient initiating the call does not make _F less of a fraud attempt."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Upfront payment and denied withdrawals are red flags in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fake recruiters ask job seekers to pay in advance for \"verification & registration\" (CJ09)",
+      "source_ids": [
+        "SJ06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,271 @@
+{
+  "family_id": "jr_13",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "OTP requested \"to verify documents\" vs. HR asking the candidate to upload documents to the onboarding portal",
+  "summary": "Someone from Vistara Infotech's onboarding team calls a candidate who has accepted an offer, about verifying identity documents before joining. In the fraud case, the caller says an OTP has just been sent \"for document verification\" and asks the candidate to read it out. In the legitimate case, HR asks the candidate to log in to the onboarding portal themselves and upload the documents, mentioning that the portal sends a login OTP which the candidate enters on the portal and never shares with anyone, including HR.",
+  "shared_setting": {
+    "organisations": [
+      "Vistara Infotech"
+    ],
+    "pretext": "",
+    "recipient_profile": "a candidate who has accepted the offer; details sampled at generation.",
+    "other_facts": [
+      "Role: QA test engineer, CTC [AMOUNT_1] (₹4,00,000–₹8,00,000 per year), joining in one to two weeks.",
+      "Both calls mention PAN, Aadhaar, educational certificates, \"verification\", and an OTP."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_13_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the candidate to disclose a one-time password received on their phone. Genuine entities do not ask for OTPs, and the OTP could authorise access or a transaction the candidate cannot see.",
+      "caller_objective": "Obtain the OTP to take over an account or authorise a transaction.",
+      "stable_facts": [
+        "Caller claims documents must be \"verified with the government database\" before joining.",
+        "An OTP arrives on the candidate's phone during the call; the caller asks for it.",
+        "Caller already knows the candidate's name, role, and joining date.",
+        "Caller warns that joining is \"on hold\" until verification completes today."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and Vistara onboarding, confirms the candidate's role and joining date",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says identity documents must be verified before joining",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks which documents",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller names PAN, Aadhaar, and certificates, and says verification is done \"with the government database\" from their side",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says an OTP has just been sent to the candidate's phone and asks them to read it out to complete verification, or joining stays on hold",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the candidate to read out the OTP just received on their phone",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says joining is on hold until verification is done today",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_13_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "HR asks the candidate to upload documents themselves on the company portal and explicitly says never to share the portal OTP.",
+      "caller_objective": "Get documents uploaded before the joining date.",
+      "stable_facts": [
+        "Portal: https://onboard.vistara-infotech.invalid, link also in the offer email.",
+        "The portal sends a login OTP to the candidate's registered mobile; the candidate types it on the portal.",
+        "Aadhaar may be uploaded masked (only last four digits visible).",
+        "HR will review the upload and call back only if something is unclear."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and Vistara onboarding, confirms the candidate's role and joining date",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says identity documents must be verified before joining",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks which documents",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller names PAN, Aadhaar (masked is fine), and certificates, and says the candidate uploads them on the onboarding portal",
+          "evidence_ids": [
+            "L-M1",
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says to open the portal link from the offer email; the portal will send a login OTP which the candidate enters there themselves and must not share with anyone, including HR",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Candidate uploads documents themselves on the company portal"
+        },
+        {
+          "id": "L-M2",
+          "text": "HR says the OTP is for the candidate's own login and must not be shared with anyone, including HR"
+        },
+        {
+          "id": "L-M3",
+          "text": "Masked Aadhaar acceptable"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Reads out the OTP or starts to",
+      "legitimate": "Says they will upload the documents tonight"
+    },
+    "clarifying": {
+      "fraud": "Asks what the OTP message says and why it is needed",
+      "legitimate": "Asks what file format and size the portal accepts"
+    },
+    "resistant": {
+      "fraud": "Says they will not share the OTP and will upload documents instead",
+      "legitimate": "Says they cannot find the portal link in their email"
+    },
+    "suspicious": {
+      "fraud": "Says OTPs should never be shared and asks for an official email",
+      "legitimate": "Asks how they can be sure the call is from Vistara"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "candidate shares the OTP (cooperative only)",
+      "caller insists and candidate refuses",
+      "caller says a \"second OTP\" is coming and candidate hangs up",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "candidate agrees to upload",
+      "HR resends the portal link by email",
+      "candidate asks to call back through the number in the offer letter and HR agrees."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may insist, reassure (\"it is only for verification\"), or claim a new OTP is coming. They must not switch to asking for payments or app installs. The legitimate caller must not ask for the OTP or any password, PIN, or payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role, CTC, joining date, and document list identical across cases",
+      "_F request to read out the OTP at turn 7",
+      "_L self-upload with explicit \"do not share the OTP"
+    ],
+    "may_vary": [
+      "document list order",
+      "caller name",
+      "joining date",
+      "whether Aadhaar or voter ID is mentioned"
+    ],
+    "must_not_emit": [
+      "real government databases or app names",
+      "real OTP message text or sender IDs",
+      "what the OTP was actually for",
+      "narrator text",
+      "scam\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "The word \"OTP\" appears in both cases. Only a request to disclose it is evidence.",
+    "The fraud caller knowing personal details is not evidence of legitimacy (C03).",
+    "The card never states what the OTP authorises; generation must not explain it.",
+    "Near jr_18 (net-banking credentials for a joining bonus): both harvest credentials during onboarding. Here the credential is an OTP and the pretext is identity verification; in jr_18 it is a net-banking login and the pretext is a payment credit. Flagged for deduplication review."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Genuine entities never ask customers for OTP, PIN, CVV, or passwords (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Impostors share a few real personal details to gain confidence (C03)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

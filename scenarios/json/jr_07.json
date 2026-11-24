@@ -1,0 +1,269 @@
+{
+  "family_id": "jr_07",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Candidate-paid \"verification fee\" vs. background-verification vendor collecting documents at no charge",
+  "summary": "A caller from VeriTrust Screening Services phones a candidate who has accepted an offer from Vistara Infotech, saying they run the pre-joining background verification. In the fraud case, the caller says verification cannot start until the candidate pays a \"verification fee\" through a payment link, and the offer will lapse otherwise. In the legitimate case, the caller explains which documents to upload through the link in Vistara's onboarding email, asks for a previous-employer HR contact and consent, and says the candidate pays nothing.",
+  "shared_setting": {
+    "organisations": [
+      "VeriTrust Screening Services",
+      "Vistara Infotech"
+    ],
+    "pretext": "",
+    "recipient_profile": "an experienced professional who has accepted the offer and is serving notice; details sampled at generation.",
+    "other_facts": [
+      "Role: business analyst, CTC [AMOUNT_1] (₹6,00,000–₹10,00,000 per year), joining in three to four weeks.",
+      "Both calls mention documents (education certificates, relieving letter, ID proof), previous employer, and an address check. Asking for documents is normal in both."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_07_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller makes the candidate pay to have their own pre-employment check done, through a link outside the employer's process, and ties the offer to the payment.",
+      "caller_objective": "Collect the fee and personal details.",
+      "stable_facts": [
+        "Fee: [AMOUNT_2] (₹1,500–₹6,000), called \"verification and address-visit charges\".",
+        "Payment through https://veritrust-pay.invalid/[TICKET_ID], sent by SMS during the call.",
+        "Caller says the fee is \"standard\" and \"refunded by Vistara after joining\".",
+        "Caller says the case closes in 24 hours and the offer is withdrawn if verification is not started."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and VeriTrust, says they handle Vistara's background verification",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they accepted the Vistara offer",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller lists the checks: education, previous employment, address, identity",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to provide",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller names the documents: certificates, relieving letter, ID proof",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says they have them and asks how to submit",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says a verification fee [AMOUNT_2] must first be paid through the link just sent, or the case closes and the offer lapses",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the candidate to pay [AMOUNT_2] through the link before verification can begin",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the offer is withdrawn if the fee is not paid within 24 hours",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_07_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The vendor collects documents and consent through the employer's own process and charges the candidate nothing.",
+      "caller_objective": "Get the candidate to complete the verification form and upload documents.",
+      "stable_facts": [
+        "The upload link is in the onboarding email from Vistara's company domain: https://onboard.vistara-infotech.invalid/bgv.",
+        "The candidate signs a consent form and gives a previous-employer HR contact.",
+        "A field executive may visit the address; the candidate is told in advance.",
+        "Vistara pays VeriTrust; the candidate pays nothing."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and VeriTrust, says they handle Vistara's background verification",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they accepted the Vistara offer",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller lists the checks: education, previous employment, address, identity",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to provide",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller names the documents: certificates, relieving letter, ID proof, plus a signed consent form",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says they have them and asks how to submit",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says to upload them through the link in Vistara's onboarding email, not by phone or chat, and that there is no charge to the candidate",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Upload happens through the link in the employer's own email"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller states there is no charge to the candidate"
+        },
+        {
+          "id": "L-M3",
+          "text": "Consent form before checks begin"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks whether card or UPI works on the link",
+      "legitimate": "Says they will upload tonight and asks about the address visit"
+    },
+    "clarifying": {
+      "fraud": "Asks why the fee is not paid by Vistara directly",
+      "legitimate": "Asks whether their current employer will be contacted before they resign"
+    },
+    "resistant": {
+      "fraud": "Says they will ask Vistara HR before paying anything",
+      "legitimate": "Says they cannot get the relieving letter until their last day"
+    },
+    "suspicious": {
+      "fraud": "Says companies do not make candidates pay for checks",
+      "legitimate": "Asks how they can confirm VeriTrust is really Vistara's vendor"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "candidate pays (cooperative only)",
+      "caller insists and candidate refuses",
+      "caller claims Vistara HR \"already approved\" it and candidate still declines",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "candidate agrees to upload",
+      "candidate asks to delay the current-employer check and caller agrees",
+      "caller suggests confirming with Vistara HR by email."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the fee, extend the deadline, or claim reimbursement. They must not switch to asking for OTPs, passwords, or remote access. The legitimate caller must not ask for any payment after the branch and must not ask for documents to be sent over chat.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role, CTC, and list of checks identical across cases",
+      "_F fee through the .invalid payment link at turn 7",
+      "_L employer-email upload link and explicit no-charge statement"
+    ],
+    "may_vary": [
+      "which documents are listed",
+      "caller name",
+      "joining date",
+      "fee within range"
+    ],
+    "must_not_emit": [
+      "real background-verification company names",
+      "working links",
+      "real ID numbers",
+      "narrator text",
+      "scam\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Requests for identity and education documents are not evidence; they appear in both cases.",
+    "Address visits and contacting previous employers are normal and appear in both.",
+    "Near jr_19 (paying for a pre-joining medical): here the vendor itself charges the candidate, and _L has no candidate payment at all. In jr_19_L the candidate pays a lab against a receipt and is reimbursed.",
+    "The employer pays the vendor\" is a fictional fact about Vistara and VeriTrust, not a verified general rule (CJ20 is unverified)."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Fake recruiters ask job seekers to pay money for \"verification & registration\" (CJ09)",
+      "source_ids": [
+        "SJ06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A major IT employer never asks candidates for payment at any stage of recruitment (CJ01)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Employers or their BGV vendors do not charge candidates for checks, as a general rule (CJ20)",
+      "source_ids": [],
+      "retrieved": "2026-09-25",
+      "status": "VERIFY"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

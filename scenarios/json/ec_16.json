@@ -1,0 +1,262 @@
+{
+  "family_id": "ec_16",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "chat",
+  "title": "Discounted phone pre-booking paid to a UPI ID vs. pre-order at the platform checkout",
+  "summary": "The recipient gets a chat message from \"ShopKart\" about the upcoming launch of a Voltrix phone with an early pre-booking discount and a booking amount. In the legitimate case, the agent explains that pre-orders open on the product page in the ShopKart app on launch day and the booking amount is paid at the normal checkout, refundable on cancellation. In the fraud case, the sender says bookings are handled \"directly by the launch desk\" and tells the recipient to send the booking amount to a UPI ID and share a screenshot. Both messages say \"pre-book\", \"booking amount\", \"limited units\", and mention PaySetu.",
+  "shared_setting": {
+    "organisations": [
+      "ShopKart",
+      "PaySetu",
+      "Voltrix"
+    ],
+    "pretext": "",
+    "recipient_profile": "a ShopKart customer who has browsed phones recently; profile sampled at generation.",
+    "other_facts": [
+      "Phone price: [AMOUNT_21] (₹15,000–₹40,000); booking amount: [AMOUNT_20] (₹1,000–₹5,000).",
+      "Both senders write in the same friendly, promotional style and mention a launch date."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_16_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The sender asks for the booking amount to be sent to a UPI ID over chat instead of through the platform's checkout. Money sent this way has no order, no buyer protection, and no refund path.",
+      "caller_objective": "Collect [AMOUNT_20] from as many recipients as possible.",
+      "stable_facts": [
+        "The sender says app bookings are \"not open yet\" and early buyers \"book through us\".",
+        "Payment is to [UPI_ID_10]; the sender asks for a payment screenshot \"for confirmation\".",
+        "The sender promises the order \"will appear in your account on launch day\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Sender says a new Voltrix phone launches soon and ShopKart customers can pre-book at a launch discount",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are interested and asks the price",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Sender gives the price [AMOUNT_21], the booking amount [AMOUNT_20], and says units are limited",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how to pre-book",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Sender says app bookings are not open yet, so early bookings are taken directly by the launch desk",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to pay the booking amount",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Sender tells them to send [AMOUNT_20] to [UPI_ID_10] through PaySetu and share the screenshot",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Sender tells the recipient to send the booking amount to a UPI ID over chat and share a screenshot",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_16_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The sender directs the recipient to the product page and checkout inside the ShopKart app. No payment is taken in chat.",
+      "caller_objective": "Promote the launch and drive pre-orders through the app.",
+      "stable_facts": [
+        "Pre-orders open on the Voltrix product page in the ShopKart app at a stated time on launch day.",
+        "The booking amount is paid at checkout with any method, including PaySetu; it is refundable if cancelled before dispatch.",
+        "The sender does not ask for a screenshot or payment in chat."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Sender says a new Voltrix phone launches soon and ShopKart customers can pre-book at a launch discount",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are interested and asks the price",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Sender gives the price [AMOUNT_21], the booking amount [AMOUNT_20], and says units are limited",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how to pre-book",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Sender says pre-orders open on the Voltrix product page in the ShopKart app at noon on launch day",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to pay the booking amount",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Sender says to pay it at checkout in the app, by PaySetu or any method; it is refunded if they cancel before dispatch",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Pre-order placed on the product page in the app"
+        },
+        {
+          "id": "L-M2",
+          "text": "Booking amount paid at the normal checkout"
+        },
+        {
+          "id": "L-M3",
+          "text": "Cancellation and refund terms stated"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they have sent the amount and shares a screenshot",
+      "legitimate": "Says they have set a reminder for launch day"
+    },
+    "clarifying": {
+      "fraud": "Asks why they cannot pay in the app",
+      "legitimate": "Asks whether bank offers apply on pre-orders"
+    },
+    "resistant": {
+      "fraud": "Says they will wait for the app pre-order instead",
+      "legitimate": "Says they will wait for reviews first"
+    },
+    "suspicious": {
+      "fraud": "Says payments to a personal UPI ID are not how ShopKart works",
+      "legitimate": "Asks how to confirm the message is really from ShopKart"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only), after which the sender may ask for a \"delivery charge",
+      "recipient refuses and sender stops replying",
+      "sender adds urgency and recipient blocks."
+    ],
+    "legitimate": [
+      "reminder set",
+      "sender shares offer terms",
+      "sender suggests checking the launch banner in the app when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud sender may add urgency (\"last five units\"), lower the booking amount, or ask for a second payment of the same kind. They must not switch to links, OTPs, card details, or QR codes for receiving. The legitimate sender must not ask for any payment, screenshot, or code in chat.",
+  "generation_constraints": {
+    "must_preserve": [
+      "pre-book, booking amount, limited units, and PaySetu in both cases",
+      "UPI transfer plus screenshot in _F",
+      "app product page and checkout in _L",
+      "identical prices"
+    ],
+    "may_vary": [
+      "phone model name within Voltrix",
+      "launch date and time",
+      "discount size",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real phone brands",
+      "real UPI handles",
+      "working links",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Genuine pre-orders do take a booking amount; the payment request itself is not the evidence, the route (UPI ID in chat vs. checkout) is.",
+    "The sender name \"ShopKart\" appears in both cases and cannot predict the label.",
+    "A legitimate message that includes a link to the product page would also be legitimate, but that variant is not used here to keep links out of _L."
+  ],
+  "evidence_references": [
+    {
+      "claim": "A major marketplace advises paying only inside its app or website and never asks for payment via phone or email (CE14)",
+      "source_ids": [
+        "SE14"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Police advise avoiding advance payments to unknown parties (CE08)",
+      "source_ids": [
+        "SE08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Scam messages offer deals that seem too good to be true and push payment through links or messages (CE17)",
+      "source_ids": [
+        "SE17"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

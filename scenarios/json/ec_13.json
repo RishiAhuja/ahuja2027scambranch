@@ -1,0 +1,273 @@
+{
+  "family_id": "ec_13",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Cancel membership auto-renewal by screen sharing vs. support explains cancel steps",
+  "summary": "The recipient has a ShopKart Plus membership that renews automatically through a PaySetu AutoPay mandate. A caller from \"ShopKart\" phones to say the membership renews tomorrow and asks whether they want to cancel. In the legitimate case, the agent talks the recipient through the cancel steps in the ShopKart app and, if they want, where to stop the mandate in their own PaySetu app. In the fraud case, the caller says cancellation must be done \"together\" and asks the recipient to turn on screen sharing and then open PaySetu while the caller watches. This differs from `ec_11` in the mechanism (sharing the live screen through a feature already on the phone, not installing a new app from a link) and the pretext (a recurring mandate, not a one-off refund). In both cases the recipient opens their payment app.",
+  "shared_setting": {
+    "organisations": [
+      "ShopKart Plus",
+      "ShopKart",
+      "PaySetu"
+    ],
+    "pretext": "",
+    "recipient_profile": "a ShopKart Plus member who may or may not want to renew; profile sampled at generation.",
+    "other_facts": [
+      "Renewal amount: [AMOUNT_17] (₹299–₹1,499), due the next day.",
+      "Both callers know the renewal date and amount."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_13_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the recipient to share their phone screen and then open their payment app. Screen sharing lets the caller see PINs, OTPs, and balances as the recipient types; no cancellation needs anyone else to watch the screen.",
+      "caller_objective": "Observe the UPI PIN and incoming OTPs while the recipient navigates PaySetu, then use them.",
+      "stable_facts": [
+        "The caller says the mandate can \"only be stopped from our side\" while they can see the screen.",
+        "Screen sharing is started through a video-call or screen-share feature already on the phone; no app name is given.",
+        "The caller asks the recipient to open PaySetu after sharing starts."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart, calling because ShopKart Plus renews tomorrow for [AMOUNT_17]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are not sure they want to renew",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller offers to cancel it now",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says yes and asks how",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it must be done together and asks them to turn on screen sharing so the caller can see their screen",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says sharing is on",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks them to open PaySetu so the caller can \"stop the AutoPay\"",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to turn on screen sharing so the caller can see their phone",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller then asks the recipient to open PaySetu while sharing",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_13_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent explains the cancel steps and the recipient carries them out alone on their own phone. Nothing is shared with the caller.",
+      "caller_objective": "Give the customer a clear choice about renewal.",
+      "stable_facts": [
+        "Cancel path: ShopKart app, Account, ShopKart Plus, Cancel auto-renew.",
+        "The agent adds that the recipient can also see and stop the mandate under AutoPay in their own PaySetu app, without entering a PIN to cancel (fictional PaySetu behaviour).",
+        "Benefits stay active until the end of the current period."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart, calling because ShopKart Plus renews tomorrow for [AMOUNT_17]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are not sure they want to renew",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller offers to explain how to cancel",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says yes and asks how",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller gives the steps in the ShopKart app: Account, ShopKart Plus, Cancel auto-renew",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says they have found the option",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says they can also check AutoPay in their own PaySetu app, and they do not need to share anything with the caller",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Agent describes steps; recipient acts alone"
+        },
+        {
+          "id": "L-M2",
+          "text": "Agent says there is no need to share anything with them"
+        },
+        {
+          "id": "L-M3",
+          "text": "Membership remains until period end"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens PaySetu with sharing on",
+      "legitimate": "Taps cancel and confirms it worked"
+    },
+    "clarifying": {
+      "fraud": "Asks why the caller needs to see the screen",
+      "legitimate": "Asks whether benefits end immediately"
+    },
+    "resistant": {
+      "fraud": "Says they will cancel in the app themselves",
+      "legitimate": "Says they will decide later and keep it for now"
+    },
+    "suspicious": {
+      "fraud": "Says they will not share their screen with anyone",
+      "legitimate": "Asks how to know the call is really from ShopKart"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient opens PaySetu while sharing (cooperative only)",
+      "caller insists it cannot be done otherwise and recipient hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "auto-renew cancelled",
+      "recipient keeps membership",
+      "agent says the renewal date and cancel option are visible in the app, when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may reassure that they \"cannot see passwords\" or add urgency about tomorrow's charge. They must not switch to asking the recipient to install an app from a link, read out OTPs, or pay money. The legitimate agent must not ask for screen sharing, codes, PINs, or payment.",
+  "generation_constraints": {
+    "must_preserve": [
+      "renewal amount and date in both",
+      "opening PaySetu is mentioned in both",
+      "screen-share request followed by \"open PaySetu\" in _F",
+      "self-service steps and \"no need to share\" in _L"
+    ],
+    "may_vary": [
+      "renewal amount within range",
+      "the membership benefits mentioned",
+      "whether the recipient cancels or keeps it"
+    ],
+    "must_not_emit": [
+      "names of real screen-sharing or remote-access apps",
+      "real phone menu paths",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Mentioning PaySetu or AutoPay is not evidence; the legitimate agent also points to PaySetu. The label rests on the caller watching the screen.",
+    "Some real support desks use screen sharing on computers for technical help; in this family the request is on a phone during a payment action, which is the fraud-establishing part.",
+    "If the fraud caller never asks to open a payment app (F-E2 missing), the prefix is not eligible."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Do not install or use screen-sharing apps at an unknown person's request (C09)",
+      "source_ids": [
+        "S06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Never share PIN or OTP with anyone (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Membership-renewal scams ask for payment details over the phone; genuine status is checked in the account (CE13)",
+      "source_ids": [
+        "SE13"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "UPI AutoPay mandates can be viewed and cancelled by the customer in their UPI app",
+      "source_ids": [],
+      "retrieved": "",
+      "status": "VERIFY"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

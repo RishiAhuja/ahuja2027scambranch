@@ -1,0 +1,285 @@
+{
+  "family_id": "bp_18",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "dev",
+  "channel": "outbound_call",
+  "title": "Dormant-account \"reactivation fee\" and OTP vs. free reactivation with KYC at a branch",
+  "summary": "A caller from Kaveri Bank tells the recipient that their old savings account has become inoperative because it has not been used for over two years. In the fraud case, the caller says it can be reactivated on the phone if the recipient pays a reactivation fee to a UPI ID and then reads out an OTP. In the legitimate case, the caller says the account can be reactivated free of charge by submitting fresh KYC at any branch or through video KYC. The caller asks for nothing on the call and says the bank will confirm reactivation by SMS.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "the account has had no customer transactions for over two years and holds a balance of about [AMOUNT_1] (₹2,000–₹1,50,000).",
+    "recipient_profile": "an adult who opened the account years ago (for example for a former job) and now banks elsewhere; profile sampled at generation.",
+    "other_facts": [
+      "Both callers say the balance is safe but cannot be used until the account is reactivated."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_18_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller demands a payment to a caller-named payee to reactivate the account and then asks for an OTP. Reactivation of inoperative accounts is free, and no bank asks for an OTP on a call.",
+      "caller_objective": "Get [AMOUNT_2] (₹500–₹3,000) sent to [UPI_ID_1], and obtain an OTP to take over the account or authorise a transaction.",
+      "stable_facts": [
+        "The caller says the balance will be \"transferred to the government\" within days unless reactivated today.",
+        "The recipient is asked to pay from another bank's UPI app, since the Kaveri account is inoperative.",
+        "An SMS with an OTP arrives after the fee is discussed."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's account services",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges, perhaps surprised to hear about the old account",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says account [ACCT_LAST4] is inoperative, holds about [AMOUNT_1], and will be transferred away soon if not reactivated today",
+          "evidence_ids": [
+            "F-E3"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how to reactivate it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says it can be done on the phone for a reactivation fee of [AMOUNT_2], paid to [UPI_ID_1]",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient responds (agrees, hesitates, or says an SMS has arrived)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to read out the OTP to finish reactivation",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to pay a reactivation fee of [AMOUNT_2] to [UPI_ID_1]",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller asks the recipient to read out the OTP that arrives to \"complete reactivation",
+          "role": "required"
+        },
+        {
+          "id": "F-E3",
+          "text": "Caller says the balance will be lost within days if not done today",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_18_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller informs the recipient of inoperative status and directs them to the free, official reactivation route. No payment, OTP, or credential is asked.",
+      "caller_objective": "Get the recipient to reactivate the account, or close it, through proper KYC.",
+      "stable_facts": [
+        "The bank sent a letter and SMS a year earlier warning the account would become inoperative.",
+        "Reactivation: submit fresh KYC (photo ID and address proof) at any Kaveri Bank branch, including non-home branches, or through video KYC in the app. There is no charge.",
+        "The bank sends an SMS once the account is reactivated. The balance and interest remain in the account."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's account services",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges, perhaps surprised to hear about the old account",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says account [ACCT_LAST4] is inoperative and holds about [AMOUNT_1], which is safe and still earning interest",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how to reactivate it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says there is no charge; fresh KYC at any branch or by video KYC is enough",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient responds (asks which documents, or says they now bank elsewhere)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the bank will confirm by SMS once done, and nobody from the bank will ask for an OTP, PIN, or fee for this",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Caller says reactivation is free"
+        },
+        {
+          "id": "L-M2",
+          "text": "Reactivation is done with KYC at any branch or by video KYC, not on the call"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller says they will not ask for any OTP, PIN, or payment"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Pays the fee and starts reading the OTP",
+      "legitimate": "Says they will visit a nearby branch with ID this week"
+    },
+    "clarifying": {
+      "fraud": "Asks why a fee is needed to access their own money",
+      "legitimate": "Asks whether they can close the account and move the balance instead"
+    },
+    "resistant": {
+      "fraud": "Says they will go to a branch rather than pay on the phone",
+      "legitimate": "Says they do not need the account and will deal with it later"
+    },
+    "suspicious": {
+      "fraud": "Says reactivation should be free and asks for the caller's branch",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays and/or shares the OTP (cooperative only)",
+      "caller pressures and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will visit a branch."
+    ],
+    "legitimate": [
+      "recipient plans a branch or video KYC",
+      "recipient asks about closure and is told it also needs KYC",
+      "recipient is told to verify by calling the number on their old passbook."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the fee, repeat the OTP request, or raise urgency. Fee and OTP are both part of this card's mechanism. The caller must not switch to a link, app install, or screen sharing. The legitimate caller must not ask for any payment, OTP, PIN, or document by message after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "inoperative status, account last-four, and balance in both",
+      "fee to [UPI_ID_1] and OTP request (_F)",
+      "free reactivation via branch or video KYC and explicit \"no OTP, PIN, or fee\" (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "why the account went unused",
+      "balance within range",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank or fund names",
+      "working UPI handles",
+      "specific real rules on unclaimed-deposit transfers stated as fact",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Reactivation\", \"KYC\", and \"SMS\" appear in both cases. The label depends on the fee and the OTP request.",
+    "The fraud caller's claim that the balance goes to \"the government\" twists a real rule on long-unclaimed deposits. Generators must not explain that rule.",
+    "This card has two sufficient evidence items (fee and OTP). A generated _F conversation must contain at least F-E1 before branch_after, and F-E2 in the prefix as planned.",
+    "Mechanism overlap: OTP request is shared with bp_01 and bp_14; fee to UPI ID with bp_06, bp_10, bp_13."
+  ],
+  "evidence_references": [
+    {
+      "claim": "An account is inoperative after two years without customer-induced transactions; banks must warn in writing (CB26)",
+      "source_ids": [
+        "SB01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "No charge may be levied for activating an inoperative account; KYC available at all branches and V-CIP (CB27)",
+      "source_ids": [
+        "SB01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Banks never ask for OTP or PIN (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

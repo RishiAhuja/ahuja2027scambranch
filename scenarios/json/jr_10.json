@@ -1,0 +1,269 @@
+{
+  "family_id": "jr_10",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Fake campus drive with per-student registration payment vs. placement cell announcing a genuine drive",
+  "summary": "A caller who says they are from the training and placement cell of Nilgiri Crest Institute of Technology phones a final-year student about a Vistara Infotech campus drive. In the fraud case, the caller asks each student to pay a \"drive registration\" amount to a UPI ID to receive the test link and admit card. In the legitimate case, the placement coordinator tells the student to register on the college placement portal, states the eligibility criteria, and says there is no charge.",
+  "shared_setting": {
+    "organisations": [
+      "Nilgiri Crest Institute of Technology",
+      "Vistara Infotech"
+    ],
+    "pretext": "",
+    "recipient_profile": "a final-year B.Tech / BCA / MCA student at the college; branch and CGPA sampled at generation.",
+    "other_facts": [
+      "Role: graduate engineer trainee, CTC [AMOUNT_1] (₹3,50,000–₹5,50,000 per year).",
+      "Both calls mention the drive date, eligibility, the online aptitude test, and the words \"registration\" and \"last date\"."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_10_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller requires the student to pay to register for a recruitment drive, to a personal UPI handle outside the college's own systems.",
+      "caller_objective": "Collect small payments from many students; there is no drive.",
+      "stable_facts": [
+        "Amount: [AMOUNT_2] (₹500–₹2,500), called \"drive registration and test platform charge\".",
+        "Paid to [UPI_ID_1]; the caller says the admit card and test link come by SMS after payment.",
+        "Caller says registration closes tonight and \"only paid students will be allowed in the test\".",
+        "Registration link is on a non-college domain: https://vistara-campusdrive.invalid."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, says they are from the college placement cell, confirms the student's name and branch",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they are a final-year student",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller announces the Vistara Infotech drive, role, and CTC",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks about eligibility",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller states the eligibility (no active backlogs, minimum CGPA) and says the first round is an online aptitude test",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to register",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the student must pay [AMOUNT_2] to [UPI_ID_1] by tonight to get the admit card and test link; unpaid students cannot sit the test",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the student to pay [AMOUNT_2] to [UPI_ID_1] to receive the admit card and test link",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says registration closes tonight",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_10_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The placement coordinator directs students to the college's own portal and states that registration is free.",
+      "caller_objective": "Make sure eligible students register before the deadline.",
+      "stable_facts": [
+        "Registration on https://placements.nilgiricrest.invalid, using the student's college login.",
+        "Test link comes from Vistara's company domain after the college shares the registered list.",
+        "Students bring their college ID card on the drive day.",
+        "There is no charge to students for the drive."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, says they are from the college placement cell, confirms the student's name and branch",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they are a final-year student",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller announces the Vistara Infotech drive, role, and CTC",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks about eligibility",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller states the eligibility (no active backlogs, minimum CGPA) and says the first round is an online aptitude test",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to register",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says to register on the placement portal by tonight with the college login; there is no charge, and the test link will come from Vistara's email",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Registration through the college's own portal"
+        },
+        {
+          "id": "L-M2",
+          "text": "Coordinator states registration is free"
+        },
+        {
+          "id": "L-M3",
+          "text": "Test link comes from the recruiter's company domain"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks whether classmates should pay the same UPI ID",
+      "legitimate": "Says they will register tonight and asks about the test pattern"
+    },
+    "clarifying": {
+      "fraud": "Asks why this drive is not on the placement portal",
+      "legitimate": "Asks whether students with one backlog can apply"
+    },
+    "resistant": {
+      "fraud": "Says they will ask the placement officer in person tomorrow",
+      "legitimate": "Says they are preparing for higher studies and may skip the drive"
+    },
+    "suspicious": {
+      "fraud": "Asks why the college would collect money through a personal UPI",
+      "legitimate": "Asks how they know this call is really from the placement cell"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "student pays (cooperative only)",
+      "caller insists and student refuses",
+      "caller says the portal is \"down\" and student still declines",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "student registers",
+      "student opts out",
+      "caller tells a suspicious student to check the notice on the portal or visit the placement office."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the amount, claim a \"group discount\", or press the deadline. They must not switch to OTPs, remote access, or bank logins. The legitimate caller must not introduce any charge after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "drive date, role, CTC, and eligibility identical across cases",
+      "_F payment to [UPI_ID_1] at turn 7",
+      "_L college-portal registration with explicit no-charge statement"
+    ],
+    "may_vary": [
+      "branch",
+      "CGPA cutoff",
+      "test platform description (generic)",
+      "caller name",
+      "amount within range"
+    ],
+    "must_not_emit": [
+      "real college or company names",
+      "working UPI IDs or links",
+      "narrator text",
+      "scam\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Some colleges charge a placement or training fee as part of official semester fees, receipted by the college. That is not modelled; _L states no charge for this drive.",
+    "Close to jr_01 in mechanism (pay to enter a selection process). The difference is the impersonated institution (the student's own college) and the collective, low-amount pattern. Flagged for deduplication review.",
+    "A caller knowing the student's name and branch is not evidence; both callers know it."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Fake offers are followed by registration forms/admit cards and arrive through unsolicited messages (CJ03)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A major IT employer never asks candidates for payment at any stage (CJ01)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Upfront payment is a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

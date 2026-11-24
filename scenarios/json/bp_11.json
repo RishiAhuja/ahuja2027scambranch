@@ -1,0 +1,279 @@
+{
+  "family_id": "bp_11",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Tax-refund \"claim\" link vs. bank note on a failed refund-account validation",
+  "summary": "A caller from Kaveri Bank phones about the recipient's pending income-tax refund. In the fraud case, the caller says the refund is stuck, sends a link to \"claim\" it, and asks the recipient to enter their debit card number, CVV, and the OTP that follows. In the legitimate case, the caller says the tax portal's request to validate the recipient's Kaveri Bank account for refunds failed because the name on the account does not match. The recipient is asked to correct the name at a branch and then re-validate on the official tax portal themselves.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "the recipient filed an income-tax return and is expecting a refund of about [AMOUNT_1] (₹2,000–₹60,000).",
+    "recipient_profile": "an adult salaried or self-employed taxpayer; profile sampled at generation.",
+    "other_facts": [
+      "Both callers say the refund \"cannot be credited yet\" and needs \"validation\"."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_11_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller directs the recipient to an unofficial link and asks for card credentials and an OTP to receive a refund. Receiving a refund never needs card details or an OTP.",
+      "caller_objective": "Capture the recipient's debit card number, CVV, and the OTP that authorises a payment.",
+      "stable_facts": [
+        "Link: https://kaveri-taxrefund-claim.invalid/validate (sent by SMS during the call).",
+        "The caller says the refund \"expires\" if not claimed within 24 hours.",
+        "The page asks for card number, expiry, CVV, and then the OTP."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's tax-refund desk",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says a refund of about [AMOUNT_1] is pending and cannot be credited until the account is validated",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (asks what is wrong)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says a validation link has been sent and the refund lapses in 24 hours",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient confirms the SMS arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to open it and enter the debit card number and CVV, then the OTP that arrives",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to open the link and enter their debit card number and CVV to claim the refund",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says the refund will lapse within 24 hours",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_11_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller explains a real validation problem, tells the recipient how to fix it at the branch, and leaves the tax-portal step to the recipient. No link, card detail, or OTP is requested.",
+      "caller_objective": "Get the recipient to correct the account name so the refund account validates.",
+      "stable_facts": [
+        "The tax portal's validation request for this account was rejected because the account name differs from the name on the recipient's PAN (for example, a missing middle name).",
+        "Fix: visit any Kaveri Bank branch with PAN and ID to correct the name, then re-validate the account on the official tax portal by typing its address themselves.",
+        "The refund is credited only after validation succeeds. The caller does not say how long that takes or give any deadline."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank customer service",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says a tax-refund validation request for the account was rejected, so the refund of about [AMOUNT_1] cannot be credited yet",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (asks what is wrong)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller explains the name on the account does not match the PAN",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient responds",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says to correct the name at a branch and re-validate on the official tax portal, and that they need no card number, CVV, or OTP",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "No link is sent; the recipient uses the branch and the official portal themselves"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says the bank does not need card details, CVV, or OTP for this"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller explains a specific, checkable reason (name mismatch)"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens the link and asks whether to use the debit or credit card",
+      "legitimate": "Says they will visit the branch this week with PAN"
+    },
+    "clarifying": {
+      "fraud": "Asks why a card is needed to receive money",
+      "legitimate": "Asks how long re-validation takes after the name is fixed"
+    },
+    "resistant": {
+      "fraud": "Says they will check on the tax portal instead",
+      "legitimate": "Says they will use a different bank account for the refund"
+    },
+    "suspicious": {
+      "fraud": "Says the tax department does not send such links and asks if this is phishing",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient enters details (cooperative only)",
+      "caller pushes and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will check the portal directly."
+    ],
+    "legitimate": [
+      "recipient agrees to visit",
+      "recipient chooses another pre-validated account",
+      "recipient is told to verify by calling the number on the passbook."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may insist on the link, resend it, or raise urgency. They must not switch to a different mechanism (for example a payment to a UPI ID or an app install). The legitimate caller must not send a link or ask for any credential after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "refund amount and \"cannot be credited yet\" in both",
+      "link plus card/CVV/OTP request (_F)",
+      "name-mismatch reason, branch fix, and self-typed portal (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "refund amount within range",
+      "assessment year",
+      "type of name mismatch",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real tax-portal URLs or e-mail addresses",
+      "working links",
+      "real PAN formats beyond a placeholder",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "The catalog's legitimate case (\"bank says refund credited, no action needed\") gave the caller no reason to call and no parallel to the \"validation\" pretext. This card uses a failed account validation instead.",
+    "Banks do not usually phone customers about tax-portal validation; they may send an SMS. The call is a simplification for pairing, and reviewers should decide whether it is plausible enough.",
+    "Whether a pending refund can lapse was not verified. The legitimate caller must not make claims about refund deadlines.",
+    "Validation\" and \"refund\" appear in both cases. The label depends on the link and the card-detail request."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Refunds are credited only to a bank account pre-validated on the e-filing portal (CB20)",
+      "source_ids": [
+        "SB11"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "The Income Tax Department does not ask by e-mail for PINs or passwords (CB19)",
+      "source_ids": [
+        "SB10"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Banks and genuine entities never ask for card details, CVV, or OTP (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

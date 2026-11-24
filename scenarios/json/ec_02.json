@@ -1,0 +1,239 @@
+{
+  "family_id": "ec_02",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": true,
+  "split": "dev",
+  "channel": "inbound_call",
+  "title": "Marketplace \"scan to receive\" QR vs. ordinary buyer payment",
+  "summary": "The recipient is selling a used item on BechoBazaar. A buyer calls, agrees the price, and offers to pay by UPI. In the fraud case, the buyer sends a QR code and tells the seller to scan it and enter their UPI PIN to \"receive\" the money; scanning it actually sends money. In the legitimate case, the buyer asks for the seller's UPI ID or phone number and sends the payment, and the seller only has to check the credit.",
+  "shared_setting": {
+    "organisations": [
+      "BechoBazaar",
+      "PaySetu"
+    ],
+    "pretext": "",
+    "recipient_profile": "the seller; profile sampled at generation.",
+    "other_facts": [
+      "Item: a used household item (for example a study table or a cycle), price [AMOUNT_7] (₹2,500–₹12,000).",
+      "Both buyers are polite, agree the listed price quickly, and say they will pay in advance before pickup."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_02_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The buyer instructs the seller to scan a QR code and enter their UPI PIN in order to receive money. Entering a UPI PIN authorises a payment from the seller's account.",
+      "caller_objective": "Make the seller pay [AMOUNT_7] via the QR code.",
+      "stable_facts": [
+        "The buyer sends a QR image in chat during the call.",
+        "The buyer says \"scan this, enter your PIN, and the money will come to you\".",
+        "The buyer claims to be busy and unable to come before paying."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Buyer says they saw the listing and asks if the item is available",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Seller confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Buyer agrees the listed price and says they will pay in advance",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Seller agrees",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Buyer says they have sent a QR code in chat",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Seller says they can see it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Buyer tells the seller to scan it and enter their PIN so the money comes to their account",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Buyer tells the seller to scan the QR code and enter their UPI PIN to receive the payment",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_02_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The buyer pays by sending money to the seller's UPI ID. The seller takes no authorising action.",
+      "caller_objective": "Pay in advance and arrange pickup.",
+      "stable_facts": [
+        "The buyer asks for the seller's UPI ID or phone number.",
+        "The buyer sends the payment; the seller sees a credit notification.",
+        "Pickup is arranged for later that day."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Buyer says they saw the listing and asks if the item is available",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Seller confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Buyer agrees the listed price and says they will pay in advance",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Seller agrees",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Buyer asks for the seller's UPI ID or number",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Seller shares [UPI_ID_3]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Buyer says they have sent the payment and asks the seller to check",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Buyer asks for the seller's UPI ID to send money"
+        },
+        {
+          "id": "L-M2",
+          "text": "Seller is told only to check that the money arrived"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are scanning and opening the PIN screen",
+      "legitimate": "Says the money has arrived and confirms pickup time"
+    },
+    "clarifying": {
+      "fraud": "Asks why a PIN is needed to receive money",
+      "legitimate": "Asks whether the buyer will bring a vehicle for pickup"
+    },
+    "resistant": {
+      "fraud": "Asks the buyer to send to their UPI ID instead",
+      "legitimate": "Says they want cash at pickup instead of advance"
+    },
+    "suspicious": {
+      "fraud": "Says scanning a QR to receive money is a known trick",
+      "legitimate": "Asks if the buyer is genuine and why they are paying before seeing the item"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "seller enters PIN (cooperative only)",
+      "buyer insists and seller refuses",
+      "buyer stops responding."
+    ],
+    "legitimate": [
+      "payment confirmed and pickup arranged",
+      "seller asks for cash instead and buyer agrees",
+      "buyer explains they trust the photos."
+    ]
+  },
+  "caller_continuation_limits": "The fraud buyer may resend the QR, claim a technical problem, or send a second QR \"for the refund\". A second QR of the same kind is the same mechanism and allowed. They must not switch to OTP or link requests. The legitimate buyer must not send any QR or ask the seller for any PIN.",
+  "generation_constraints": {
+    "must_preserve": [
+      "QR plus PIN instruction in _F",
+      "UPI ID request and outgoing payment in _L",
+      "identical item and price"
+    ],
+    "may_vary": [
+      "item type",
+      "price within range",
+      "buyer's excuse for paying in advance",
+      "time of pickup"
+    ],
+    "must_not_emit": [
+      "real QR contents",
+      "real UPI handles",
+      "real platform names",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Advance payment by a buyer is not evidence of fraud; both buyers offer it.",
+    "A legitimate buyer who pays by scanning the seller's QR is also legitimate, but that variant is not used here to keep the contrast clean.",
+    "If the fraud buyer only sends a QR without the PIN instruction, the prefix is not eligible for the branch-invariance experiment."
+  ],
+  "evidence_references": [
+    {
+      "claim": "UPI PIN is never needed to receive money; QR scanning is only for paying (C08)",
+      "source_ids": [
+        "S06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-24",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

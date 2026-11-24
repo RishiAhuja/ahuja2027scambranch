@@ -1,0 +1,287 @@
+{
+  "family_id": "ec_04",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "\"Contraband parcel\" arrest threat vs. genuine customs duty notice",
+  "summary": "A caller from SwiftShip Couriers phones about an international parcel addressed to the recipient that is held at customs. In the legitimate case, the parcel is a gift from a relative abroad, customs has assessed duty on it, and the agent explains that the duty is paid through SwiftShip's official duty-payment process (or the parcel can be refused). In the fraud case, the caller says the parcel contains illegal items, that a case is being registered against the recipient, and that the recipient must transfer money to a given account to \"verify\" themselves and avoid arrest. Both callers say \"customs\", \"parcel held\", and ask the recipient to pay. The words do not decide the label.",
+  "shared_setting": {
+    "organisations": [
+      "SwiftShip Couriers"
+    ],
+    "pretext": "",
+    "recipient_profile": "an adult who is not sure whether a relative has sent them something; profile sampled at generation.",
+    "other_facts": [
+      "Parcel: an international parcel addressed to the recipient; sender described vaguely (\"from abroad\").",
+      "Amount range for both cases: [AMOUNT_3] (₹3,000–₹20,000).",
+      "Both callers give an agent name and the airway bill number."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_04_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller claims the recipient faces arrest over a parcel and demands a money transfer to an account to settle or \"verify\" the matter. Customs duty is not paid to settle criminal allegations, and no genuine agency asks for a transfer over a phone call to avoid arrest.",
+      "caller_objective": "Frighten the recipient into transferring [AMOUNT_3].",
+      "stable_facts": [
+        "The caller says the parcel contains prohibited items and that a case will be registered in the recipient's name.",
+        "The caller says the matter is \"confidential\" and says an officer will \"handle\" it; any officer persona is described, not scripted.",
+        "The account is given as [ACCT_LAST4] at Kaveri Bank or as [UPI_ID_4], described as a \"verification\" or \"security\" account, with a promise that the money will be returned."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, calling about international parcel [AWB_ID] in the recipient's name",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are not sure who sent it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says customs found prohibited items in it and a case is being registered against the recipient",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says they have nothing to do with it and asks what happens now",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the matter is confidential and must be resolved today to avoid arrest",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how they can resolve it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller tells them to transfer [AMOUNT_3] to a \"verification account\", which will be refunded once they are cleared",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller says the recipient faces a case or arrest over the parcel's contents",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller tells the recipient to transfer [AMOUNT_3] to a given account to \"verify\" themselves or close the case",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_04_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent tells the recipient that customs has assessed duty on a gift parcel and explains how to pay it through SwiftShip's official process, with a receipt, or to refuse the parcel. There is no threat, no personal account, and the recipient can decline.",
+      "caller_objective": "Get the duty paid (or a refusal recorded) so the parcel can be delivered or returned.",
+      "stable_facts": [
+        "The parcel was declared as a gift; customs has assessed duty of [AMOUNT_3].",
+        "The duty appears against [AWB_ID] on SwiftShip's tracking page with a customs reference; payment is made there, or to the delivery agent against a printed receipt.",
+        "The agent says the recipient may refuse the parcel, in which case it is returned to the sender."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, calling about international parcel [AWB_ID] in the recipient's name",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient says they are not sure who sent it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says it was declared as a gift and customs has assessed import duty on it",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says a relative may have sent it and asks why they must pay for a gift",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says gifts are dutiable and gives the amount and customs reference",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how they can pay",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says to pay on SwiftShip's tracking page for [AWB_ID] or to the delivery agent against a receipt, or to refuse the parcel if they prefer",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Agent explains duty as a tax on the parcel's declared value, with a customs reference"
+        },
+        {
+          "id": "L-M2",
+          "text": "Payment only through SwiftShip's tracking page or against a receipt at delivery"
+        },
+        {
+          "id": "L-M3",
+          "text": "Agent offers the option of refusing the parcel"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Asks for the account details again to make the transfer",
+      "legitimate": "Says they will pay on the tracking page today"
+    },
+    "clarifying": {
+      "fraud": "Asks why a courier is handling a police case",
+      "legitimate": "Asks what the duty is calculated on"
+    },
+    "resistant": {
+      "fraud": "Says they will go to the local police station themselves",
+      "legitimate": "Says they will refuse the parcel"
+    },
+    "suspicious": {
+      "fraud": "Says real officials do not ask for money on calls and asks if this is fraud",
+      "legitimate": "Asks how to confirm the duty is genuine before paying"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient agrees to transfer (cooperative only)",
+      "caller repeats pressure and recipient hangs up",
+      "caller disconnects when recipient mentions the police or 1930."
+    ],
+    "legitimate": [
+      "duty paid through the tracking page",
+      "recipient refuses parcel and agent records the refusal",
+      "agent suggests checking the reference on SwiftShip's tracking page when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may restate urgency, insist on confidentiality, or say the money is refundable. Intimidation must stay at the level described in this card: no detailed impersonation of named agencies, no scripted interrogation, no instructions to stay on video. They must not switch to asking for OTPs, remote-access apps, or card details. The legitimate agent must not mention police, arrest, or any account outside SwiftShip's process.",
+  "generation_constraints": {
+    "must_preserve": [
+      "customs\" and payment wording in both cases",
+      "arrest/case threat and transfer to an account in _F",
+      "duty, receipt, and refusal option in _L",
+      "same amount range"
+    ],
+    "may_vary": [
+      "parcel's declared contents in _L (clothes, sweets, small electronics)",
+      "the recipient's guess about the sender",
+      "time of day"
+    ],
+    "must_not_emit": [
+      "real agency names",
+      "real officer names or badge numbers",
+      "real account numbers",
+      "detailed coercion scripts",
+      "narrator commentary"
+    ]
+  },
+  "ambiguities": [
+    "Genuine international parcels do attract duty that the consignee must pay; a payment request about customs is not evidence of fraud.",
+    "The recipient's uncertainty about the sender is the same in both cases and must not be used as a cue.",
+    "Real duty rates vary; the amount is kept in the same range for both cases so that amount cannot predict the label.",
+    "If generation shows only the threat (F-E1) and ends before the payment demand, the prefix must be rejected."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Fraudsters call about a parcel \"containing drugs or contraband\" and demand money to settle the \"case\" (CE03)",
+      "source_ids": [
+        "SE03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Callers threatening arrest are not police/CBI/Customs; report on 1930 or cybercrime.gov.in (CE04, C12)",
+      "source_ids": [
+        "SE04",
+        "SE03",
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Gifts imported through courier are dutiable and consignees pay or refuse (CE05)",
+      "source_ids": [
+        "SE05"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Couriers file the entry and duty is paid online through the customs courier system (CE06)",
+      "source_ids": [
+        "SE06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "The customs courier portal warns of phishing calls from unauthorised persons (CE07)",
+      "source_ids": [
+        "SE07"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review; check intimidation stays at awareness level"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

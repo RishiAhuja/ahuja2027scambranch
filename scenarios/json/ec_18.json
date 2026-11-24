@@ -1,0 +1,260 @@
+{
+  "family_id": "ec_18",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "outbound_call",
+  "title": "Address \"confirmation\" by dialling a code vs. agent confirms the address verbally",
+  "summary": "A SwiftShip Couriers caller phones about a ShopKart parcel that is out for delivery and says the address is hard to locate. In the legitimate case, the agent asks for a landmark and whether someone is home, and says they will call on reaching the gate. In the fraud case, the caller says the address must be \"confirmed\" by dialling a short code followed by a phone number the caller reads out; this kind of code can switch on call forwarding so the recipient's calls, including voice OTPs, reach the caller. The catalog originally described this family as \"link to update address and pay\". It was changed to a dial-code request because the link-and-fee mechanism is already covered by `ec_03`. Both callers use the words \"confirm your address\" and \"your number\".",
+  "shared_setting": {
+    "organisations": [
+      "SwiftShip Couriers",
+      "ShopKart"
+    ],
+    "pretext": "",
+    "recipient_profile": "a ShopKart customer at home or at work; profile sampled at generation.",
+    "other_facts": [
+      "The parcel is prepaid, worth [AMOUNT_24] (₹500–₹8,000), and out for delivery today.",
+      "Both callers give an agent name, the order, and say they are in the recipient's area."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_18_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the recipient to dial a network code followed by a phone number to \"confirm\" an address. Address confirmation needs no dialling; such codes can divert the recipient's incoming calls to the caller.",
+      "caller_objective": "Activate call forwarding to intercept verification calls and voice OTPs.",
+      "stable_facts": [
+        "The caller says the \"system\" needs the recipient's number \"linked\" to the delivery.",
+        "The code is described only as a short code starting with a symbol, followed by a 10-digit number [PHONE_2]; the actual code is never emitted.",
+        "The caller does not ask for a landmark."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, with ShopKart order [ORDER_ID] out for delivery",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they are expecting it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says they are in the area but the address is not showing correctly",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the address must be confirmed against the recipient's number in the system",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller tells them to dial a short code followed by [PHONE_2] on their keypad and press call, then the address will be confirmed",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to dial a short code followed by a phone number to confirm the address",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_18_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent confirms the address by asking questions and plans to call on arrival. The recipient does nothing on their phone.",
+      "caller_objective": "Find the address and hand over the parcel.",
+      "stable_facts": [
+        "The agent's map pin is on the wrong lane; the agent needs a landmark.",
+        "The agent asks whether someone will be at home to receive it.",
+        "The agent will call the recipient's number from the gate."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, with ShopKart order [ORDER_ID] out for delivery",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they are expecting it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says they are in the area but the address is not showing correctly",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says they just need to confirm the address and asks for a nearby landmark",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient gives a landmark",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks whether someone is home and says they will call this number from the gate",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Address confirmed by verbal questions"
+        },
+        {
+          "id": "L-M2",
+          "text": "Agent asks who will receive the parcel"
+        },
+        {
+          "id": "L-M3",
+          "text": "Recipient is asked to do nothing on the phone"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are dialling the code",
+      "legitimate": "Says someone is at home and will come down"
+    },
+    "clarifying": {
+      "fraud": "Asks why dialling a code confirms an address",
+      "legitimate": "Asks roughly what time they will arrive"
+    },
+    "resistant": {
+      "fraud": "Offers to give the landmark instead of dialling",
+      "legitimate": "Asks to deliver to their office instead"
+    },
+    "suspicious": {
+      "fraud": "Says they will not dial codes and asks if this is a scam",
+      "legitimate": "Asks how to confirm the caller is from SwiftShip"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient dials (cooperative only)",
+      "caller insists the parcel will be returned and recipient hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "parcel delivered",
+      "agent explains how to change the address in the app",
+      "agent suggests checking the agent's name on the tracking page when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may repeat the code, say the parcel will be returned, or claim it is a new \"security step\". They must not switch to links, payments, OTP requests, or app installation. The legitimate agent must not ask the recipient to dial, install, pay, or share any code.",
+  "generation_constraints": {
+    "must_preserve": [
+      "confirm your address\" and \"your number\" in both cases",
+      "dial-code instruction in _F",
+      "verbal landmark and call on arrival in _L"
+    ],
+    "may_vary": [
+      "product",
+      "landmark type",
+      "time of arrival",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "any real USSD or network code",
+      "real phone numbers",
+      "narrator explanations of what the code does"
+    ]
+  },
+  "ambiguities": [
+    "A caller mentioning \"your number\" or \"the system\" is not evidence; the legitimate agent also refers to calling the recipient's number.",
+    "If generation writes a real network code, the prefix must be rejected for safety.",
+    "The legitimate half resembles ec_03_L (verbal address confirmation); the fraud halves differ clearly (dial code vs. paid link)."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Callers have tricked mobile users into dialling codes that activate call forwarding; DoT suspended USSD call forwarding from April 2024 (CE19)",
+      "source_ids": [
+        "SE19",
+        "SE20"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Courier impersonators have asked recipients to dial codes to \"confirm\" or \"unlock\" delivery (CE20)",
+      "source_ids": [
+        "SE21"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Real courier agents never ask recipients to dial network codes",
+      "source_ids": [
+        "SE21"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "VERIFY"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review; confirm dial-code description stays non-operational"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+{
+  "family_id": "bp_10",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Fee to \"release\" a policy bonus vs. maturity reminder with payout to the registered account",
+  "summary": "A caller from Suraksha Life phones about the recipient's endowment policy, which matures soon. In the fraud case, the caller says an extra bonus is waiting and will be released only after the recipient pays a \"release charge\" to a UPI ID. In the legitimate case, the caller reminds the recipient of the maturity date and says the payout, including any bonus declared under the policy, will be credited to the bank account already registered with the insurer. The recipient only needs to confirm the account details through the Suraksha Life portal or a branch.",
+  "shared_setting": {
+    "organisations": [
+      "Suraksha Life"
+    ],
+    "pretext": "an endowment policy maturing in the coming weeks, with a maturity value of about [AMOUNT_1] (₹50,000–₹5,00,000).",
+    "recipient_profile": "an adult policyholder, often middle-aged or older; profile sampled at generation.",
+    "other_facts": [
+      "Both callers mention \"bonus\" and \"tax\" in relation to the payout."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_10_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller makes a payout conditional on an upfront payment to a caller-named payee. Insurers pay policy benefits under the policy terms and do not collect fees to release them.",
+      "caller_objective": "Get the recipient to send [AMOUNT_2] (₹2,000–₹25,000) to [UPI_ID_1].",
+      "stable_facts": [
+        "The caller claims a \"special loyalty bonus\" on top of the maturity value that is not in the policy document.",
+        "The \"release charge\" is described as tax or processing to be paid in advance.",
+        "The caller may say the offer comes via the regulator or a \"claims settlement cell\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Suraksha Life's claims department",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says policy [TICKET_ID] matures soon and a special extra bonus has been approved",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (pleased, asks how much)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller gives an inflated figure and says tax must be cleared before release",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to clear it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller reads out [UPI_ID_1] and asks the recipient to pay [AMOUNT_2] today to release the amount",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to pay [AMOUNT_2] to [UPI_ID_1] so the bonus can be released",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller promises a bonus beyond what the policy states",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_10_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller gives a maturity reminder, says the payout goes to the registered bank account, and asks for no payment or credential.",
+      "caller_objective": "Make sure the payout reaches the correct bank account on the maturity date.",
+      "stable_facts": [
+        "Maturity date: three to six weeks away.",
+        "The payout includes bonuses already declared under the policy, as shown in the policy statement.",
+        "Any tax deduction, if applicable, is made from the payout by the insurer and not paid separately (fictional Suraksha Life process).",
+        "The recipient can confirm or update bank details by logging into the Suraksha Life portal they already use, or at a branch with a cancelled cheque."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Suraksha Life's customer service",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says policy [TICKET_ID] matures on a date weeks away, including declared bonus, total about [AMOUNT_1]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient reacts (pleased, asks how much)",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the amount will go to the bank account registered with Suraksha Life",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they need to pay any tax or charges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says nothing needs to be paid; any tax deduction is made from the payout, and bank details can be checked in the portal or at a branch",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Payout goes to the bank account already registered with the insurer"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says nothing needs to be paid to receive the maturity amount"
+        },
+        {
+          "id": "L-M3",
+          "text": "Bank details are updated only through the portal or a branch, not on the call"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens their UPI app and asks the caller to confirm the ID",
+      "legitimate": "Says they will check the bank details in the portal this week"
+    },
+    "clarifying": {
+      "fraud": "Asks why the tax cannot be deducted from the payout",
+      "legitimate": "Asks whether they can reinvest the amount"
+    },
+    "resistant": {
+      "fraud": "Says they will visit the branch before paying anything",
+      "legitimate": "Says they have changed banks and will update later"
+    },
+    "suspicious": {
+      "fraud": "Says the policy document shows no such bonus and asks for a letter",
+      "legitimate": "Asks how they can know this call is really from Suraksha Life"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller raises the bonus figure and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will call the number in the policy document."
+    ],
+    "legitimate": [
+      "recipient confirms details in the portal",
+      "recipient plans a branch visit to update the account",
+      "recipient is told to verify by calling the number on the policy document."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may raise the bonus figure, lower the charge, or add a deadline. They must not switch to a different mechanism (for example asking for OTP or sending a link). The legitimate caller must not ask for any payment, account number, or credential by phone after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "policy number and maturity framing in both",
+      "bonus plus release charge to [UPI_ID_1] (_F)",
+      "payout to registered account and \"nothing to pay\" (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "policy type (endowment or money-back)",
+      "maturity value within range",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real insurer or regulator names",
+      "real policy numbers",
+      "working UPI handles",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Bonus\" and \"tax\" appear in both cases. The label depends on whether a payment is demanded before release.",
+    "The real rules on tax deduction from insurance payouts were not checked. The legitimate card treats deduction as a fictional Suraksha Life process and must not quote rates.",
+    "Real fraud of this type often impersonates the regulator. This card keeps the insurer name in both cases for brand parity.",
+    "Near-duplicate mechanism with bp_13 (fee to claim a prize) and bp_19 (penalty to release FD proceeds)."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Spurious callers offer unclaimed bonus or benefits for an upfront fee; insurers cannot offer benefits beyond the policy (CB21)",
+      "source_ids": [
+        "SB12",
+        "SB13"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "The regulator does not announce bonuses (CB21)",
+      "source_ids": [
+        "SB12",
+        "SB13"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Insurers pay maturity claims to the registered bank account",
+      "source_ids": [],
+      "retrieved": "2026-09-25",
+      "status": "VERIFY"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

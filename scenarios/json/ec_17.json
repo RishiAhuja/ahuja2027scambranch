@@ -1,0 +1,267 @@
+{
+  "family_id": "ec_17",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Paid \"warranty activation\" through a link vs. free warranty registration reminder",
+  "summary": "The recipient bought a Voltrix television on ShopKart last week. A caller from \"Voltrix customer care\" phones about warranty registration. In the legitimate case, the agent reminds the recipient that registration is free, done by entering the serial number and invoice in the Voltrix app, and mentions that an optional extended warranty can be bought in the app later. In the fraud case, the caller says the standard warranty will be void unless an \"activation fee\" is paid today through a link sent by SMS. Both callers say \"warranty\", \"registration\", and quote the same price; in `_L` the price belongs to an optional extended warranty.",
+  "shared_setting": {
+    "organisations": [
+      "ShopKart",
+      "Voltrix"
+    ],
+    "pretext": "",
+    "recipient_profile": "the buyer; profile sampled at generation.",
+    "other_facts": [
+      "Product: a Voltrix LED television worth [AMOUNT_23] (₹12,000–₹45,000), delivered and installed last week.",
+      "Price quoted in both cases: [AMOUNT_22] (₹499–₹2,999).",
+      "Both callers know the model and purchase date."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_17_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller claims the free standard warranty will not apply unless a fee is paid through a link sent by SMS. Charging to \"activate\" a warranty that comes with the product, through an off-platform link, is a payment scam.",
+      "caller_objective": "Collect [AMOUNT_22] and card details through the link.",
+      "stable_facts": [
+        "The caller says the warranty \"lapses tonight\" without activation.",
+        "The link arrives from a mobile number as https://voltrix-warranty.invalid/activate.",
+        "The caller does not ask for the serial number or invoice."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from Voltrix customer care, calling about the Voltrix TV bought on ShopKart last week",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the warranty registration for the TV is still pending",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what that means",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the standard warranty will not be active unless an activation fee of [AMOUNT_22] is paid today",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they really have to pay anything",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says yes, and tells them to pay on the link just sent by SMS before tonight",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller says the standard warranty will be void unless an activation fee is paid",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller tells the recipient to pay the fee on a link sent by SMS",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_17_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent reminds the recipient to register the product for free in the official app. The paid extended warranty is optional, offered for later, and bought only in the app.",
+      "caller_objective": "Get the product registered and mention the optional extended warranty.",
+      "stable_facts": [
+        "Registration is free: serial number (on the back of the TV) plus a photo of the invoice, entered in the Voltrix app.",
+        "The standard warranty runs from the invoice date whether or not the recipient registers; registering speeds up service visits (fictional Voltrix rule).",
+        "An optional extended warranty costs [AMOUNT_22] and can be bought in the app at any time within the first year."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from Voltrix customer care, calling about the Voltrix TV bought on ShopKart last week",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the warranty registration for the TV is still pending",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what that means",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the standard warranty is already valid from the invoice date; registering the serial number and invoice in the Voltrix app is free and speeds up service",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks whether they really have to pay anything",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says no; there is an optional extended warranty for [AMOUNT_22] in the app if they want it later",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Registration is free and done by the recipient in the app"
+        },
+        {
+          "id": "L-M2",
+          "text": "Standard warranty stated as already valid from invoice date"
+        },
+        {
+          "id": "L-M3",
+          "text": "Paid option is described as optional and in-app only"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are opening the link to pay",
+      "legitimate": "Says they will register tonight"
+    },
+    "clarifying": {
+      "fraud": "Asks why the invoice does not mention an activation fee",
+      "legitimate": "Asks what the extended warranty covers"
+    },
+    "resistant": {
+      "fraud": "Says they will ask the ShopKart seller instead",
+      "legitimate": "Says they are not interested in the extended warranty"
+    },
+    "suspicious": {
+      "fraud": "Says warranties do not need payment to start",
+      "legitimate": "Asks how to confirm the caller is from Voltrix"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller repeats the deadline and recipient hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "recipient agrees to register",
+      "recipient declines the extended warranty and the agent accepts",
+      "agent suggests checking warranty status in the Voltrix app when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may reduce the fee, resend the link, or stress the deadline. They must not switch to OTPs, remote access, or card details read out on the call. The legitimate agent must not send any payment link or press the recipient to buy the extended warranty now.",
+  "generation_constraints": {
+    "must_preserve": [
+      "warranty\" and \"registration\" in both",
+      "the same price [AMOUNT_22] in both",
+      "void-unless-paid claim and SMS link in _F",
+      "free in-app registration and optional extended warranty in _L"
+    ],
+    "may_vary": [
+      "appliance type (TV, refrigerator, washing machine)",
+      "model name within Voltrix",
+      "purchase date",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real brands",
+      "working links",
+      "real serial numbers",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Paid extended warranties are real and can be sold by phone; the price mention is a deliberate confound in _L.",
+    "In this family the label rests on the claim that the standard warranty needs a fee and on payment through an SMS link.",
+    "The rule that the Voltrix standard warranty runs from the invoice date without registration is a fictional fact of this card."
+  ],
+  "evidence_references": [
+    {
+      "claim": "A major marketplace never asks for payment information over the phone; verify in the account (CE13)",
+      "source_ids": [
+        "SE13"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Do not make payments through links in unsolicited messages (CE17)",
+      "source_ids": [
+        "SE17"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "A standard manufacturer warranty is free and starts from invoice date",
+      "source_ids": [],
+      "retrieved": "",
+      "status": "VERIFY"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

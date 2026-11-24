@@ -1,0 +1,259 @@
+{
+  "family_id": "jr_01",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": true,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Registration fee for guaranteed job vs. fee-free interview scheduling",
+  "summary": "A recruiter from TalentBridge Staffing calls about the recipient's profile on NaukriHub for a customer-support role at Vistara Infotech. In the fraud case, the recruiter promises a guaranteed offer and asks for a \"registration fee\" to a personal UPI ID before any interview. In the legitimate case, the recruiter schedules an interview and states that candidates never pay anything.",
+  "shared_setting": {
+    "organisations": [
+      "TalentBridge Staffing",
+      "Vistara Infotech",
+      "NaukriHub"
+    ],
+    "pretext": "",
+    "recipient_profile": "a job seeker with a recent profile on NaukriHub; education and experience sampled at generation.",
+    "other_facts": [
+      "Role: customer-support executive, salary [AMOUNT_2] (₹18,000–₹35,000 per month), location [CITY].",
+      "Both callers mention the recipient's portal profile and the role."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_01_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller demands payment from a candidate before any selection process, to a personal account, in exchange for a guaranteed job.",
+      "caller_objective": "Collect the registration fee; there is no job.",
+      "stable_facts": [
+        "Fee: [AMOUNT_3] (₹1,500–₹4,000), called \"registration\" or \"file charge\".",
+        "Payment to [UPI_ID_1], a personal-looking handle, not a company account.",
+        "The caller says the offer letter is \"guaranteed\" and will be sent after payment.",
+        "The caller claims \"limited seats\" closing today."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and TalentBridge, mentions the NaukriHub profile",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges, says they are looking for work",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes the Vistara Infotech role and salary",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient expresses interest",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the selection is guaranteed and the offer letter will come directly",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what the next step is",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says a registration fee of [AMOUNT_3] must be paid today to [UPI_ID_1] to reserve the seat",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to pay the registration fee to [UPI_ID_1] before any interview",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller guarantees selection without interview",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_01_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller arranges an interview through the normal process and asks for no payment.",
+      "caller_objective": "Schedule a first-round interview.",
+      "stable_facts": [
+        "Interview: phone or video round with Vistara Infotech HR on a stated date and time.",
+        "The caller asks the recipient to reply to an email from the agency's official address with an updated resume.",
+        "The employer pays the agency; candidates pay nothing."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and TalentBridge, mentions the NaukriHub profile",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges, says they are looking for work",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller describes the Vistara Infotech role and salary",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient expresses interest",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the first step is an interview with Vistara HR and proposes a slot",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what the next step is, or whether anything is required",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says an email will follow with details and that candidates do not pay any fee at any stage",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "An interview is part of the process; selection is not promised"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller states explicitly there is no fee for candidates"
+        },
+        {
+          "id": "L-M3",
+          "text": "Follow-up is by official email"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks for the UPI ID again",
+      "legitimate": "Confirms the interview slot"
+    },
+    "clarifying": {
+      "fraud": "Asks why a fee is needed and whether it is refundable",
+      "legitimate": "Asks what the interview will cover and about shift timings"
+    },
+    "resistant": {
+      "fraud": "Says they will not pay before an interview",
+      "legitimate": "Says the slot does not suit them and asks for another"
+    },
+    "suspicious": {
+      "fraud": "Says genuine companies do not charge candidates and asks if this is fraud",
+      "legitimate": "Asks how they can verify the agency is genuine"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient pays (cooperative only)",
+      "caller insists and recipient refuses",
+      "caller offers a \"discount\" and recipient declines",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "interview confirmed",
+      "interview rescheduled",
+      "recipient declines the role",
+      "caller suggests checking the agency's official website and email."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the fee, add urgency, or claim the fee is refundable. They must not switch to asking for bank credentials. The legitimate caller must not mention any payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role and salary identical across _F and _L",
+      "fee request to personal UPI at turn 7 in _F",
+      "explicit no-fee statement in _L"
+    ],
+    "may_vary": [
+      "caller name",
+      "candidate's education and experience",
+      "city",
+      "salary within range",
+      "interview date"
+    ],
+    "must_not_emit": [
+      "real company names",
+      "working UPI IDs",
+      "the words \"scam\" or \"fraud\" in caller lines",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Both calls are unsolicited and both reference the job portal profile. Unsolicited contact is not evidence.",
+    "Refundable\" fees are still fraud_attempt in this family. Legitimate paid services (for example resume writing sold openly) belong in jr_15, not here.",
+    "Salary above market is not used as evidence; it is held identical across cases."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Upfront payment is a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-24",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

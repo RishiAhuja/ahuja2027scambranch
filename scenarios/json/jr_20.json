@@ -1,0 +1,262 @@
+{
+  "family_id": "jr_20",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Upfront \"tutor registration\" fee for guaranteed students vs. tutor platform verification call with commission on earnings",
+  "summary": "A caller from PadhaiMitra, a home-tutoring platform, phones a teacher who created a tutor profile. In the fraud case, the caller promises a guaranteed number of students in the tutor's area and asks for a \"registration and verification\" fee to a personal UPI ID before any verification or demo class. In the legitimate case, the caller verifies subjects and qualifications, schedules a demo class, and explains that PadhaiMitra takes a stated commission from fees that students pay through the platform, so the tutor pays nothing upfront.",
+  "shared_setting": {
+    "organisations": [
+      "PadhaiMitra"
+    ],
+    "pretext": "",
+    "recipient_profile": "a teacher, graduate, or college student who signed up as a tutor; subjects sampled at generation.",
+    "other_facts": [
+      "Work: home or online tuition for school students, [AMOUNT_1] (₹300–₹800 per hour) paid by parents.",
+      "Both calls mention students in the tutor's area, demo classes, verification, and PadhaiMitra's earnings model.",
+      "Unlike employee families, the recipient here is a self-employed service provider."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_20_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller demands an upfront payment to an individual's handle in exchange for guaranteed students, before any verification of the tutor.",
+      "caller_objective": "Collect the fee; no students will be sent.",
+      "stable_facts": [
+        "Fee: [AMOUNT_2] (₹1,000–₹5,000), called \"registration and profile verification\".",
+        "Paid to [UPI_ID_1], a personal handle.",
+        "Caller guarantees [N] students (3–5) within a week, \"or full refund\".",
+        "Caller says the verification is \"done automatically once fee is received\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and PadhaiMitra, refers to the tutor profile",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they signed up to teach",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says there is high demand for the tutor's subjects in their area",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how students are matched",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says verified tutors get guaranteed students, [N] within a week",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what verification involves",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says verification is done automatically once the registration fee [AMOUNT_2] is paid to [UPI_ID_1], with a full refund if the students do not come",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the tutor to pay [AMOUNT_2] to [UPI_ID_1] before verification, in exchange for guaranteed students",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller says verification completes automatically on payment",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_20_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The platform verifies the tutor first and earns only a disclosed commission from student payments made through the platform; the tutor pays nothing upfront.",
+      "caller_objective": "Verify the tutor and schedule a demo class.",
+      "stable_facts": [
+        "Verification: subjects, qualifications, ID upload in the PadhaiMitra app, and a recorded demo class reviewed by an academic coordinator.",
+        "Commission: a fixed percentage stated on the call (sampled from 15–25% of each fee; not a rupee placeholder) deducted from what parents pay through the platform; tutor earnings paid weekly to the tutor's bank account.",
+        "No guarantee of students; matching depends on demand and demo ratings."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, names themselves and PadhaiMitra, refers to the tutor profile",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they signed up to teach",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says there is high demand for the tutor's subjects in their area",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks how students are matched",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says matching depends on demand and demo ratings; no number of students can be guaranteed",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what verification involves",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the tutor uploads ID and certificates in the app and records a demo class; PadhaiMitra keeps its stated commission percentage of each fee parents pay through the platform, and the tutor pays nothing upfront",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Verification (documents and demo) happens before any matching"
+        },
+        {
+          "id": "L-M2",
+          "text": "Earnings model disclosed: commission on fees paid through the platform"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller states the tutor pays nothing upfront and no student count is guaranteed"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to pay and asks for the UPI ID again",
+      "legitimate": "Agrees to record the demo this week"
+    },
+    "clarifying": {
+      "fraud": "Asks whether the refund is in writing",
+      "legitimate": "Asks how the commission is calculated and when payouts happen"
+    },
+    "resistant": {
+      "fraud": "Says they will pay only after the first student joins",
+      "legitimate": "Says the commission is too high"
+    },
+    "suspicious": {
+      "fraud": "Says platforms usually earn from commission, not upfront fees, and asks for an official link",
+      "legitimate": "Asks how to confirm the caller is from PadhaiMitra"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "tutor pays (cooperative only)",
+      "caller lowers the fee and tutor declines",
+      "caller refuses payment-after-student and tutor ends the call",
+      "caller hangs up."
+    ],
+    "legitimate": [
+      "demo scheduled",
+      "tutor declines over commission",
+      "caller directs a suspicious tutor to check the app's help section and the official website."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may lower the fee, increase the guaranteed number, or press urgency. They must not switch to OTPs, remote access, or deposits for tasks. The legitimate caller must not ask for any upfront payment after the branch and must not change the commission terms.",
+  "generation_constraints": {
+    "must_preserve": [
+      "subjects, area demand, and hourly rate identical across cases",
+      "_F upfront fee to [UPI_ID_1] with guaranteed students at turn 7",
+      "_L verification first, disclosed commission, no upfront payment, no guarantee"
+    ],
+    "may_vary": [
+      "subjects and school grades",
+      "online vs. home tuition",
+      "fee within range",
+      "commission within range"
+    ],
+    "must_not_emit": [
+      "real tutoring platforms",
+      "working UPI IDs",
+      "narrator text",
+      "scam\" in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "The platform earning money from the tutor appears in _L (commission). The word \"commission\" or \"fee\" is not evidence.",
+    "Some real tutoring marketplaces openly sell paid lead credits to tutors. That would be a legitimate paid service in the style of jr_15; it is not modelled here.",
+    "Distinct from jr_01 (agency fee for a guaranteed job): the recipient is a self-employed provider paying for leads, and the counterpart has a disclosed revenue share. Distinct from jr_14: there the legitimate fee is a fixed onboarding charge; here the legitimate model is a percentage of earnings only.",
+    "[N] is a proposed placeholder for a small integer (3–5)."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Upfront payment and unrealistic earning promises are red flags in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fake recruiters ask for money in advance for \"verification & registration\" (CJ09)",
+      "source_ids": [
+        "SJ06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "family_id": "bp_16",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "\"Guaranteed returns\" paid into a personal account vs. mutual-fund discussion with risk disclosure",
+  "summary": "A caller who says they are the recipient's relationship manager at Kaveri Bank phones about the large idle balance in the recipient's savings account. In the fraud case, the caller pitches an \"exclusive scheme\" with guaranteed monthly returns and asks the recipient to transfer money to the caller's own UPI ID so they can invest it. In the legitimate case, the manager suggests mutual funds, says returns are market-linked and not guaranteed, and says any investment is made in the recipient's own name through the bank's app or branch forms.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "a savings balance of about [AMOUNT_1] (₹1,00,000–₹10,00,000) earning low interest.",
+    "recipient_profile": "an adult customer with some savings but little investing experience; profile sampled at generation.",
+    "other_facts": [
+      "Both callers mention percentage returns and say the balance could \"work harder\"."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_16_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the recipient to send their money to a personal account for the caller to invest, and promises guaranteed returns. Legitimate investments are made in the investor's own name, and returns in market products cannot be guaranteed.",
+      "caller_objective": "Get the recipient to transfer [AMOUNT_2] (₹25,000–₹5,00,000) to [UPI_ID_1].",
+      "stable_facts": [
+        "The caller promises a fixed monthly return, for example \"3% every month, guaranteed\".",
+        "[UPI_ID_1] is described as \"my investment desk ID\" or \"the scheme account\".",
+        "The caller says the scheme is available only to a few \"priority\" customers and closes this week."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are the recipient's relationship manager at Kaveri Bank",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller notes the idle balance of about [AMOUNT_1] and says it earns very little",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they suggest",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller describes an exclusive scheme with guaranteed monthly returns, closing this week",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to join",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller reads out [UPI_ID_1] and asks the recipient to transfer the amount so the caller can invest it for them",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to transfer money to [UPI_ID_1] so the caller can invest it on their behalf",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller promises guaranteed or fixed high returns",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_16_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The manager suggests market-linked products with an explicit risk disclosure and routes any investment through official channels in the recipient's own name. No transfer to the caller is asked.",
+      "caller_objective": "Book a meeting or get the recipient to review mutual-fund options in the app.",
+      "stable_facts": [
+        "The manager mentions mutual funds distributed by the bank and past returns, and says past performance does not guarantee future returns.",
+        "Any investment is made through the Investments section of the Kaveri Bank app or a signed form at the branch, with units held in the recipient's name.",
+        "The manager offers to send the scheme documents through the app's secure inbox and suggests the recipient take time to decide."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are the recipient's relationship manager at Kaveri Bank",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller notes the idle balance of about [AMOUNT_1] and says it earns very little",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they suggest",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller describes mutual-fund options, gives past returns, and says returns are not guaranteed and can go down",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks how to join",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says any investment is made in the recipient's own name through the app or a branch form, and suggests reading the documents first",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Caller says returns are market-linked and not guaranteed"
+        },
+        {
+          "id": "L-M2",
+          "text": "Investment is made in the recipient's own name through the app or branch; money never goes to the manager"
+        },
+        {
+          "id": "L-M3",
+          "text": "Caller encourages the recipient to read documents and decide without hurry"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens their UPI app and asks how much to send first",
+      "legitimate": "Asks for a branch meeting this week"
+    },
+    "clarifying": {
+      "fraud": "Asks how returns can be guaranteed",
+      "legitimate": "Asks how much they could lose in a bad year"
+    },
+    "resistant": {
+      "fraud": "Says they prefer a fixed deposit at the bank",
+      "legitimate": "Says they prefer a fixed deposit at the bank"
+    },
+    "suspicious": {
+      "fraud": "Says the money should go into their own account, not the caller's, and asks for the scheme's registration",
+      "legitimate": "Asks how they can know this caller really is their relationship manager"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient transfers (cooperative only)",
+      "caller offers a \"trial amount\" and recipient hangs up",
+      "caller disconnects",
+      "recipient says they will ask at the branch."
+    ],
+    "legitimate": [
+      "meeting booked",
+      "recipient chooses a fixed deposit",
+      "recipient is told to verify the manager's name with the branch."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may offer a smaller \"trial\" transfer, show fake returns, or pressure. They must not switch to a different mechanism (for example app install, OTP, or link). The legitimate caller must not ask for any transfer to themselves, guarantee returns, or request credentials after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "idle balance in both",
+      "guaranteed returns and transfer to [UPI_ID_1] (_F)",
+      "risk disclosure and investment in the recipient's own name (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "product descriptions (fictional)",
+      "percentages (fictional, not tied to real funds)",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real fund, exchange, or regulator names",
+      "real fund returns presented as fact",
+      "working UPI handles",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "Percentages and \"limited period\" can appear in both cases. The legitimate manager may be enthusiastic. The label depends on the transfer to the caller.",
+    "A genuine relationship manager may push products hard. Mis-selling is not fraud in this dataset's sense and must not be labelled as such.",
+    "Real investment fraud often runs through messaging groups and fake trading apps over weeks. This card keeps one call and the bank pretext. Cross-domain overlap: jr_16 (crypto \"job\" requiring own investment)."
+  ],
+  "evidence_references": [
+    {
+      "claim": "No guarantee of assured returns in the securities market; verify registration (CB22)",
+      "source_ids": [
+        "SB15",
+        "SB14"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Investment advisers must not handle client cash or securities (CB23)",
+      "source_ids": [
+        "SB14"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Mutual fund communications carry a market-risk disclosure",
+      "source_ids": [],
+      "retrieved": "2026-09-25",
+      "status": "VERIFY"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

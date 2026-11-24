@@ -1,0 +1,274 @@
+{
+  "family_id": "bp_08",
+  "domain": "banking_payments",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "test",
+  "channel": "outbound_call",
+  "title": "\"Wrong credit, send it back\" vs. bank-handled reversal of a genuine erroneous credit",
+  "summary": "A caller from Kaveri Bank says an amount was credited to the recipient's account by mistake. In the fraud case, a credit SMS arrives from an ordinary mobile number, and the caller asks the recipient to transfer the amount \"back\" to a UPI ID the caller reads out. In the legitimate case, the credit is real and shows in the official app. The caller says the bank will reverse it through its own process once the recipient gives consent in the app or at the branch, and tells the recipient not to send money to anyone.",
+  "shared_setting": {
+    "organisations": [
+      "Kaveri Bank"
+    ],
+    "pretext": "a credit of [AMOUNT_1] (₹5,000–₹50,000) that the recipient did not expect, said to come from another customer's mistaken transfer.",
+    "recipient_profile": "an adult Kaveri Bank account holder; profile sampled at generation.",
+    "other_facts": [
+      "Both callers ask the recipient to check that the amount has arrived and ask them not to spend it."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "bp_08_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks the recipient to send their own money to a caller-specified payee to \"return\" a credit. The bank would never need the customer to make an outgoing transfer to correct its own entry.",
+      "caller_objective": "Get the recipient to send [AMOUNT_1] to [UPI_ID_1].",
+      "stable_facts": [
+        "A \"credit\" SMS arrives from a ten-digit mobile number [PHONE_1], not from the bank's usual sender. The recipient's actual balance has not changed.",
+        "The caller says the sender is a distressed customer who needs the money urgently.",
+        "[UPI_ID_1] is presented as \"the customer's ID\" or \"the bank's recovery ID\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's transactions team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says [AMOUNT_1] was credited to account [ACCT_LAST4] by another customer's mistake",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says they are not sure, or that they see an SMS",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says the SMS confirms it and there is no need to check the app now",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks what they should do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to send the amount back to [UPI_ID_1] straight away",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller asks the recipient to transfer [AMOUNT_1] to [UPI_ID_1] to return the mistaken credit",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller tells the recipient to rely on the SMS instead of checking the balance in the app",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "bp_08_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The caller informs the recipient of a real erroneous credit, asks them to verify it in the official app, and says the bank will correct it itself. The recipient is never asked to make a payment.",
+      "caller_objective": "Get the recipient's consent for the bank to reverse the erroneous entry.",
+      "stable_facts": [
+        "The credit of [AMOUNT_1] is visible in the Kaveri Bank app statement.",
+        "Reversal is done by the bank after the recipient gives consent through a service request in the app or by signing a form at the branch (fictional Kaveri Bank process).",
+        "The caller says the recipient must not transfer the money to anyone who calls about it."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller greets, gives name, says they are from Kaveri Bank's transactions team",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient acknowledges",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says [AMOUNT_1] was credited to account [ACCT_LAST4] by another customer's mistake",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says they are not sure, or that they see an SMS",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller asks the recipient to check the statement in the Kaveri Bank app",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient confirms the credit is there",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says the bank will reverse it after the recipient consents in the app or at the branch, and that they should not send the money to anyone",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Caller asks the recipient to check the statement in the official app"
+        },
+        {
+          "id": "L-M2",
+          "text": "Caller says the bank reverses the entry itself; the recipient makes no transfer"
+        },
+        {
+          "id": "L-M3",
+          "text": "Consent is given through the app's service-request section or at the branch"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Opens their UPI app and asks the caller to repeat the ID",
+      "legitimate": "Agrees and asks where the consent option is in the app"
+    },
+    "clarifying": {
+      "fraud": "Asks why the bank cannot take it back itself",
+      "legitimate": "Asks what happens if they already spent part of it"
+    },
+    "resistant": {
+      "fraud": "Says they will go to the branch and sort it out there",
+      "legitimate": "Says they will only deal with it in person at the branch"
+    },
+    "suspicious": {
+      "fraud": "Says the balance has not changed and asks whether the SMS is fake",
+      "legitimate": "Asks how they can know this call is really from the bank"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient transfers the money (cooperative only)",
+      "caller pleads or pressures and recipient hangs up",
+      "caller disconnects",
+      "recipient checks the app and finds no credit."
+    ],
+    "legitimate": [
+      "recipient gives consent in the app",
+      "recipient chooses the branch",
+      "recipient is told to verify by calling the number on their passbook or card."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may plead, pressure, or accept a partial amount. They must not switch to a different mechanism (for example OTP, link, or QR code). The legitimate caller must not ask the recipient to send money, share credentials, or open a link after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "credit amount in both",
+      "SMS from a mobile number and transfer request to [UPI_ID_1] (_F)",
+      "app statement check and bank-side reversal (_L)"
+    ],
+    "may_vary": [
+      "caller name",
+      "story of the mistaken sender",
+      "exact amount within range",
+      "recipient profile",
+      "up to 2 filler turns before turn 3"
+    ],
+    "must_not_emit": [
+      "real bank names",
+      "working UPI handles or phone numbers",
+      "real SMS sender IDs",
+      "narrator text",
+      "label words in caller lines"
+    ]
+  },
+  "ambiguities": [
+    "The catalog framed the fraud caller as a private individual. This card makes both callers claim to be from Kaveri Bank so that the organisation is the same in both cases.",
+    "Both callers tell the recipient not to spend the money. That is not evidence either way.",
+    "The fraudulent SMS is a stable fact, not the required evidence. A recipient who never notices the sender number still faces a fraud_attempt.",
+    "The real-world process for reversing erroneous credits was not verified. Cards treat the consent step as a fictional Kaveri Bank process.",
+    "Cross-domain overlap: related to money-mule scripts in jr_08. This family has no commission and no ongoing role."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Fraudsters send fake credit messages and ask the recipient to \"return\" money sent by mistake",
+      "source_ids": [],
+      "retrieved": "2026-09-25",
+      "status": "VERIFY"
+    },
+    {
+      "claim": "Banks reverse erroneous credits through their own process with customer consent",
+      "source_ids": [],
+      "retrieved": "2026-09-25",
+      "status": "VERIFY"
+    },
+    {
+      "claim": "Impostors cite urgency to extract payment (C02)",
+      "source_ids": [
+        "S03"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fraud can be reported on 1930 / cybercrime.gov.in (C12)",
+      "source_ids": [
+        "S09"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

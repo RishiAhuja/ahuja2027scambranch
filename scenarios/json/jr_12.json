@@ -1,0 +1,269 @@
+{
+  "family_id": "jr_12",
+  "domain": "jobs_recruitment",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "chat",
+  "title": "Stipend internship that requires buying a \"starter kit\" vs. stipend internship with a free welcome kit",
+  "summary": "A coordinator for Vistara Infotech's internship programme messages a student who applied through NaukriHub for a paid digital-marketing internship. In the fraud case, the student must first buy an \"internship starter kit\" (course access, certificate, ID card) through a purchase link before the offer is confirmed. In the legitimate case, the coordinator confirms the offer, asks for a college NOC and bank details for the stipend, and says the company couriers a welcome kit free of charge.",
+  "shared_setting": {
+    "organisations": [
+      "Vistara Infotech",
+      "NaukriHub"
+    ],
+    "pretext": "",
+    "recipient_profile": "an undergraduate student; college and year sampled at generation.",
+    "other_facts": [
+      "Role: remote digital-marketing intern, three months, stipend [AMOUNT_1] (₹5,000–₹15,000 per month).",
+      "Both chats mention a \"kit\", learning material, a certificate on completion, and an ID card."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "jr_12_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The student must buy something from the \"employer\" before a paid internship is confirmed.",
+      "caller_objective": "Sell the worthless kit to as many applicants as possible; there is no internship.",
+      "stable_facts": [
+        "Kit price: [AMOUNT_2] (₹999–₹4,999), \"discounted from ₹9,999 for selected interns\".",
+        "Purchase through https://vistara-internkit.invalid.",
+        "Offer letter is issued \"once kit purchase is verified\".",
+        "Coordinator says the stipend in the first month \"covers the kit many times over\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Coordinator messages that the student has been shortlisted for the digital-marketing internship",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Student replies, pleased, and asks about the details",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Coordinator describes the duration, remote work, and stipend",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Student asks what they will learn",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Coordinator says interns get course material, a certificate, and an intern ID card as part of a kit",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Student asks what they need to do to confirm",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Coordinator says the student must buy the kit for [AMOUNT_2] (discounted for selected interns) at the link, and the offer letter follows once the purchase is verified",
+          "evidence_ids": [
+            "F-E1",
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Coordinator says the student must buy the starter kit for [AMOUNT_2] through the link before the offer letter is issued",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Coordinator presents the price as a limited discount for selected interns",
+          "role": "supporting"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "jr_12_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The company confirms a paid internship, provides materials free, and asks only for documents needed to onboard and pay the student.",
+      "caller_objective": "Confirm the internship offer and collect onboarding documents.",
+      "stable_facts": [
+        "Offer letter emailed from Vistara's domain.",
+        "Learning material on the company's learning portal at no cost; a welcome kit (T-shirt, notebook, ID card) couriered free.",
+        "Student uploads a college NOC and bank account number + IFSC for the stipend on https://onboard.vistara-infotech.invalid."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Coordinator messages that the student has been shortlisted for the digital-marketing internship",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Student replies, pleased, and asks about the details",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Coordinator describes the duration, remote work, and stipend",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Student asks what they will learn",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Coordinator says interns get course material, a certificate, and an intern ID card as part of a kit",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Student asks what they need to do to confirm",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Coordinator says the offer letter is coming by email; the student uploads a college NOC and bank details for the stipend on the portal; the kit is couriered free and nothing is to be paid",
+          "evidence_ids": [
+            "L-M1",
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Coordinator states the kit and learning material are free"
+        },
+        {
+          "id": "L-M2",
+          "text": "Offer letter is not conditional on any purchase"
+        },
+        {
+          "id": "L-M3",
+          "text": "Bank details requested only to pay the stipend, through the portal"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Agrees to buy and asks whether UPI works on the link",
+      "legitimate": "Says they will get the NOC from college this week"
+    },
+    "clarifying": {
+      "fraud": "Asks whether the kit cost can be cut from the stipend",
+      "legitimate": "Asks about working hours and whether the certificate mentions the stipend"
+    },
+    "resistant": {
+      "fraud": "Says they do not need the course and only want the internship",
+      "legitimate": "Says their college will take time to issue the NOC"
+    },
+    "suspicious": {
+      "fraud": "Says paid internships should not require buying anything",
+      "legitimate": "Asks why bank details are needed and whether it is safe"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "student buys (cooperative only)",
+      "coordinator offers a bigger discount and student declines",
+      "coordinator says the kit is compulsory and student leaves",
+      "coordinator stops replying."
+    ],
+    "legitimate": [
+      "student accepts",
+      "NOC delayed and coordinator extends the date",
+      "student declines",
+      "coordinator explains account number and IFSC can only be used to send the stipend and no OTP or PIN will be asked."
+    ]
+  },
+  "caller_continuation_limits": "The fraud coordinator may lower the price or add bonuses (\"placement assistance\"). They must not switch to OTPs, deposits for tasks, or remote access. The legitimate coordinator must not introduce any purchase or payment after the branch.",
+  "generation_constraints": {
+    "must_preserve": [
+      "role, duration, and stipend identical across cases",
+      "_F mandatory kit purchase before offer at turn 7",
+      "_L free kit, NOC and stipend bank details only"
+    ],
+    "may_vary": [
+      "internship area (digital marketing, content writing, HR)",
+      "kit contents (generic)",
+      "stipend within range",
+      "price within range"
+    ],
+    "must_not_emit": [
+      "real e-learning or internship platform names",
+      "working links",
+      "narrator text",
+      "scam\" in coordinator lines"
+    ]
+  },
+  "ambiguities": [
+    "Kit\", \"certificate\", and \"ID card\" appear in both cases.",
+    "Bank account details appear only in _L; they are not evidence.",
+    "Distinct from jr_06: that family gates a full-time offer behind a paid third-party course after an interview; here a student pays the \"employer\" directly for goods before a stipend internship. Related mechanism; flagged for deduplication review.",
+    "Some genuine programmes are unpaid or charge for optional courses sold openly; those belong in jr_15 logic and are not modelled here."
+  ],
+  "evidence_references": [
+    {
+      "claim": "A major IT employer warns that fraudulent agencies charge fees to offer internships or training (CJ03)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "The same employer never asks candidates for payment at any stage (CJ01)",
+      "source_ids": [
+        "SJ01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Upfront payment is a red flag in fake job schemes (C11)",
+      "source_ids": [
+        "S08"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

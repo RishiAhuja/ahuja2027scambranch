@@ -1,0 +1,60 @@
+#!/bin/bash
+#PBS -N scftrest
+#PBS -q workq
+#PBS -l select=1:ncpus=1:ngpus=1
+#PBS -l walltime=06:00:00
+#PBS -j oe
+#PBS -o scftrest.log
+# Score the adapters that were not finished before the split was cancelled.
+# The eight completed 0.5B adapters stay in results/eval_hpc_ft.
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?qsub from the repository root}"
+if [[ -z "${CUDA_VISIBLE_DEVICES:-}" ]]; then
+  echo "ERROR: CUDA_VISIBLE_DEVICES is empty" >&2
+  exit 1
+fi
+export PYTHONNOUSERSITE=1
+if [[ -f "$PBS_O_WORKDIR/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$PBS_O_WORKDIR/.env"
+  set +a
+fi
+export HF_HOME="$PBS_O_WORKDIR/hf_cache"
+export TRANSFORMERS_CACHE="$HF_HOME"
+export HUGGING_FACE_HUB_TOKEN="${HUGGING_FACE_HUB_TOKEN:-${HF_TOKEN:-}}"
+OUT="results/eval_hpc_ft_rest"
+mkdir -p "$HF_HOME" "$OUT"
+echo "=== scftrest start $(date -Is) host=$(hostname) ==="
+echo "CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES"
+nvidia-smi -L || true
+source .venv/bin/activate
+python -c 'import torch, peft; print(torch.cuda.get_device_name(0), peft.__version__); assert torch.cuda.is_available()'
+export PYTHONPATH="$PBS_O_WORKDIR/src"
+
+MODELS=(
+  "qwen2.5-0.5b@outputs/ft/qwen2.5-0.5b/unbranched/seed2/adapter"
+  "qwen2.5-1.5b@outputs/ft/qwen2.5-1.5b/branched/seed0/adapter"
+  "qwen2.5-1.5b@outputs/ft/qwen2.5-1.5b/branched/seed1/adapter"
+  "qwen2.5-1.5b@outputs/ft/qwen2.5-1.5b/branched/seed2/adapter"
+  "qwen2.5-1.5b@outputs/ft/qwen2.5-1.5b/branched_consistency/seed0/adapter"
+  "qwen2.5-1.5b@outputs/ft/qwen2.5-1.5b/branched_consistency/seed1/adapter"
+  "qwen2.5-1.5b@outputs/ft/qwen2.5-1.5b/branched_consistency/seed2/adapter"
+  "qwen2.5-1.5b@outputs/ft/qwen2.5-1.5b/unbranched/seed0/adapter"
+  "qwen2.5-1.5b@outputs/ft/qwen2.5-1.5b/unbranched/seed1/adapter"
+  "qwen2.5-1.5b@outputs/ft/qwen2.5-1.5b/unbranched/seed2/adapter"
+)
+
+echo "Evaluating ${#MODELS[@]} adapters:"
+printf '  %s\n' "${MODELS[@]}"
+
+python scripts/eval_detectors.py \
+  --eval-run-id eval_hpc_ft_rest \
+  --run-dir runs/full_v1 \
+  --out-dir "$OUT" \
+  --device cuda \
+  --dtype bf16 \
+  --views FULL PREFIX_ONLY PREFIX_PLUS_REACTION CALLER_ONLY \
+  --models "${MODELS[@]}"
+
+echo "=== scftrest done $(date -Is) ==="

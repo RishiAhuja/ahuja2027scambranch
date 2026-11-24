@@ -1,0 +1,206 @@
+{
+  "version": "v1",
+  "seed": 20260925,
+  "created": "2026-09-25",
+  "clusters": {
+    "C1": [
+      "bp_12",
+      "ec_09",
+      "ec_14"
+    ],
+    "C2": [
+      "bp_13",
+      "ec_06",
+      "bp_10",
+      "bp_19"
+    ],
+    "C3": [
+      "bp_03",
+      "ec_05"
+    ],
+    "C4": [
+      "bp_04",
+      "ec_11",
+      "ec_13"
+    ],
+    "C5": [
+      "bp_09",
+      "ec_04"
+    ],
+    "C6": [
+      "bp_16",
+      "jr_16"
+    ],
+    "C7": [
+      "jr_13",
+      "jr_18"
+    ],
+    "C8": [
+      "jr_06",
+      "jr_12"
+    ],
+    "C9": [
+      "jr_07",
+      "jr_19"
+    ],
+    "C10": [
+      "jr_01",
+      "jr_10"
+    ],
+    "C11": [
+      "ec_07",
+      "ec_20"
+    ],
+    "C12": [
+      "bp_02",
+      "bp_07",
+      "bp_11",
+      "bp_20"
+    ]
+  },
+  "assignment": {
+    "bp_01": "dev",
+    "bp_02": "train",
+    "bp_03": "train",
+    "bp_04": "train",
+    "bp_05": "test",
+    "bp_06": "dev",
+    "bp_07": "train",
+    "bp_08": "test",
+    "bp_09": "train",
+    "bp_10": "train",
+    "bp_11": "train",
+    "bp_12": "train",
+    "bp_13": "train",
+    "bp_14": "test",
+    "bp_15": "test",
+    "bp_16": "train",
+    "bp_17": "dev",
+    "bp_18": "dev",
+    "bp_19": "train",
+    "bp_20": "train",
+    "ec_01": "dev",
+    "ec_02": "dev",
+    "ec_03": "dev",
+    "ec_04": "train",
+    "ec_05": "train",
+    "ec_06": "train",
+    "ec_07": "train",
+    "ec_08": "test",
+    "ec_09": "train",
+    "ec_10": "test",
+    "ec_11": "train",
+    "ec_12": "dev",
+    "ec_13": "train",
+    "ec_14": "train",
+    "ec_15": "train",
+    "ec_16": "train",
+    "ec_17": "train",
+    "ec_18": "test",
+    "ec_19": "test",
+    "ec_20": "train",
+    "jr_01": "train",
+    "jr_02": "dev",
+    "jr_03": "test",
+    "jr_04": "dev",
+    "jr_05": "dev",
+    "jr_06": "train",
+    "jr_07": "train",
+    "jr_08": "test",
+    "jr_09": "dev",
+    "jr_10": "train",
+    "jr_11": "train",
+    "jr_12": "train",
+    "jr_13": "train",
+    "jr_14": "test",
+    "jr_15": "train",
+    "jr_16": "train",
+    "jr_17": "test",
+    "jr_18": "train",
+    "jr_19": "train",
+    "jr_20": "train"
+  },
+  "counts": {
+    "train": {
+      "banking_payments": 12,
+      "jobs_recruitment": 12,
+      "ecommerce_delivery": 12
+    },
+    "dev": {
+      "banking_payments": 4,
+      "jobs_recruitment": 4,
+      "ecommerce_delivery": 4
+    },
+    "test": {
+      "banking_payments": 4,
+      "jobs_recruitment": 4,
+      "ecommerce_delivery": 4
+    }
+  },
+  "notes": {
+    "policy": "All multi-family clusters go to train. Test and development are singleton-only, 4 families per domain. Seed 20260925 breaks equal ranks.",
+    "added_clusters": {},
+    "considered_not_clustered": [
+      "OTP-disclosure families bp_01, bp_14, bp_18, and ec_15 share a credential surface but differ in pretext (card block, pension, dormancy, seller KYC); not clustered.",
+      "bp_06 and bp_17 both demand an unofficial fee to unlock a credit product (origination vs restructuring); kept separate from each other and from C2 (prize/payout/release).",
+      "ec_03, ec_12, and ec_17 are small unofficial e-commerce fees for different actions (redelivery, compensation, warranty); not clustered.",
+      "ec_16 is an unofficial advance for a new-phone pre-order, not a classifieds hold, so it was not added to C11.",
+      "jr_04 and jr_09 are both deposits (equipment vs accuracy collateral); cards treat them as distinct.",
+      "jr_11 (post-selection uniform/training) and jr_20 (tutor leads) were not merged into C8 or C10."
+    ],
+    "domain_target": "12 train / 4 dev / 4 test per domain",
+    "domain_deviation": {
+      "train": {
+        "banking_payments": 0,
+        "jobs_recruitment": 0,
+        "ecommerce_delivery": 0
+      },
+      "dev": {
+        "banking_payments": 0,
+        "jobs_recruitment": 0,
+        "ecommerce_delivery": 0
+      },
+      "test": {
+        "banking_payments": 0,
+        "jobs_recruitment": 0,
+        "ecommerce_delivery": 0
+      }
+    },
+    "pilots": {
+      "never_test": [
+        "bp_01",
+        "bp_02",
+        "jr_01",
+        "jr_02",
+        "ec_01",
+        "ec_02"
+      ],
+      "clusters_pulled_from_test": {
+        "C12": [
+          "bp_02",
+          "bp_07",
+          "bp_11",
+          "bp_20"
+        ],
+        "C10": [
+          "jr_01",
+          "jr_10"
+        ]
+      }
+    },
+    "test_confounds": {
+      "otp_in_legitimate_case": {
+        "family": "ec_08",
+        "note": "Only ec_01_L actually requests a delivery OTP; it is a pilot so it cannot be test (placed in dev). ec_08_L discusses the delivery OTP (recipient asks; agent says it is only for accepting a parcel). bp_14_L also contains the OTP keyword."
+      },
+      "fee_disclosed_legitimately": {
+        "family": "jr_14",
+        "note": "jr_14_L discloses an onboarding fee shown in the app and deducted from weekly earnings. bp_06_L (fee in the KFS, dev) is the banking counterpart."
+      },
+      "account_number_requested_legitimately": {
+        "family": "jr_08",
+        "note": "jr_18_L is the strongest live payroll request (account number, IFSC, name) but sits in C7, which is train. jr_02_L also requests account number and IFSC on the call but is a pilot (dev). jr_08_L states that account number and IFSC are needed for salary after an offer. jr_14_L also has bank account number and IFSC entered in the app."
+      }
+    }
+  }
+}

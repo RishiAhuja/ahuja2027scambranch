@@ -1,0 +1,275 @@
+{
+  "family_id": "ec_15",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Seller account \"suspended\" with KYC link and OTP vs. document request on the seller portal",
+  "summary": "The recipient runs a small shop that sells on ShopKart. A caller from \"ShopKart Seller Support\" phones to say the seller's payouts are on hold because of a KYC or document issue. In the legitimate case, the agent says a GST certificate has expired and asks the seller to log in to ShopKart Seller Hub themselves and upload the new one under Documents. In the fraud case, the caller says the account is suspended, sends a KYC link by SMS, and asks the seller to read out the OTP that arrives after filling it. Both cases mention KYC or documents, a hold on payouts, and an OTP.",
+  "shared_setting": {
+    "organisations": [
+      "ShopKart Seller Hub",
+      "ShopKart"
+    ],
+    "pretext": "",
+    "recipient_profile": "a small seller (for example home décor or clothing); profile sampled at generation.",
+    "other_facts": [
+      "The seller has a pending payout of [AMOUNT_19] (₹5,000–₹80,000).",
+      "Both callers know the shop name and the pending payout."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_15_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller directs the seller to a KYC link sent by SMS, outside Seller Hub, and then asks for the OTP that arrives. Sharing it hands over the seller's account or a payment authorisation.",
+      "caller_objective": "Take over the seller account (and change the payout bank account) or authorise a payment.",
+      "stable_facts": [
+        "The caller says the account will be \"permanently deactivated\" today if KYC is not completed.",
+        "The link arrives from a mobile number as https://shopkart-seller-kyc.invalid/verify.",
+        "The page asks for the seller's login ID, password, and bank details; then an OTP arrives."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart Seller Support, calling about the seller's account",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient asks what the issue is",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says payouts of [AMOUNT_19] are on hold and the account is suspended because KYC is pending",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says they have sent a KYC link by SMS and the seller should fill it now",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says they have filled it and a code has arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller asks them to read out the OTP to complete verification",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the seller to complete KYC on a link sent by SMS rather than in Seller Hub",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller asks the seller to read out the OTP that arrives",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_15_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent names a specific expired document and asks the seller to upload it themselves in Seller Hub. No link or code is shared with the caller.",
+      "caller_objective": "Get the updated document uploaded so payouts can resume.",
+      "stable_facts": [
+        "The seller's GST certificate on file has expired; payouts pause until a current one is uploaded.",
+        "Upload path: Seller Hub, Account, Documents.",
+        "The seller will get Seller Hub's usual login OTP on their own phone when they log in; the agent does not ask for it."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart Seller Support, calling about the seller's account",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient asks what the issue is",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says payouts of [AMOUNT_19] are on hold because the GST certificate on file has expired",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller asks them to upload the current certificate under Account, Documents in Seller Hub",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says they will log in now and a login code has arrived",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says that code is for their own login only and not to share it; once uploaded, payouts resume in a day or two",
+          "evidence_ids": [
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "A specific document is named"
+        },
+        {
+          "id": "L-M2",
+          "text": "Seller uploads it themselves in Seller Hub"
+        },
+        {
+          "id": "L-M3",
+          "text": "Agent tells the seller the login OTP is for them only"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Reads out the OTP",
+      "legitimate": "Says the certificate is uploaded"
+    },
+    "clarifying": {
+      "fraud": "Asks why KYC is not done in Seller Hub",
+      "legitimate": "Asks how long the review will take"
+    },
+    "resistant": {
+      "fraud": "Says they will log in to Seller Hub and check themselves",
+      "legitimate": "Says they do not have the new certificate yet"
+    },
+    "suspicious": {
+      "fraud": "Says they will not share any OTP and asks for a ticket number",
+      "legitimate": "Asks how to verify the caller is from ShopKart"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "seller shares the OTP (cooperative only)",
+      "caller insists on deactivation and seller hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "document uploaded",
+      "agent notes a date for the upload",
+      "agent says the notice is visible in Seller Hub's notifications when the seller is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may escalate the deactivation threat or resend the link. They must not switch to asking for a payment, app installation, or card details. The legitimate agent must not send any link or ask for any code, password, or payment.",
+  "generation_constraints": {
+    "must_preserve": [
+      "payout hold, KYC/document wording, and an OTP in both cases",
+      "SMS link and OTP request in _F",
+      "named document and self-upload in _L"
+    ],
+    "may_vary": [
+      "product category",
+      "payout amount",
+      "which document has expired in _L (GST certificate, bank proof)",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real marketplace or portal names",
+      "working URLs",
+      "real GST numbers",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Genuine marketplaces do pause payouts and ask for documents; \"KYC\" and \"on hold\" are not evidence.",
+    "The OTP appears in both cases; in _L the agent explicitly tells the seller not to share it. That line is a marker, not the label rule.",
+    "That ShopKart Seller Hub handles document uploads only through the portal is a fictional fact of this card."
+  ],
+  "evidence_references": [
+    {
+      "claim": "Calls threatening account blocking over KYC with a link are a common fraud (C04)",
+      "source_ids": [
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Account-suspension scams use fraudulent links and credential requests; a major marketplace never asks for passwords over the phone (CE13)",
+      "source_ids": [
+        "SE13"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "OTPs must not be shared with anyone (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Marketplaces verify seller documents through uploads on the seller portal",
+      "source_ids": [],
+      "retrieved": "",
+      "status": "VERIFY"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

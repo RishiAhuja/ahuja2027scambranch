@@ -1,0 +1,255 @@
+{
+  "family_id": "ec_01",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": true,
+  "split": "dev",
+  "channel": "outbound_call",
+  "title": "Bank OTP disguised as delivery code vs. genuine delivery OTP",
+  "summary": "A SwiftShip Couriers delivery agent calls about a ShopKart parcel and asks the recipient for a code. In the legitimate case, the agent is at the door and asks for the delivery OTP that ShopKart sent to confirm handover. In the fraud case, the caller has no parcel with them; the \"code\" they ask for arrives in a message from the recipient's bank or payment app and authorises a payment or account change. This family is a deliberate keyword confound: both callers ask for an OTP.",
+  "shared_setting": {
+    "organisations": [
+      "SwiftShip Couriers",
+      "ShopKart"
+    ],
+    "pretext": "",
+    "recipient_profile": "a ShopKart customer who is expecting a delivery; profile sampled at generation.",
+    "other_facts": [
+      "Both callers give an agent name and mention the order."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_01_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller asks for a code that the recipient's message identifies as coming from their bank or payment app. Sharing it would authorise a transaction or account change, not a delivery.",
+      "caller_objective": "Obtain a payment-authorisation OTP.",
+      "stable_facts": [
+        "The caller says the parcel is \"on hold at the hub\" and they need a code to \"release\" it for delivery.",
+        "The message that arrives is from Kaveri Bank or PaySetu, not from ShopKart. It mentions an amount [AMOUNT_6] (₹2,000–₹15,000). The recipient reads its sender or content aloud, or says it mentions an amount.",
+        "The caller is not at the door."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, calling about ShopKart order [ORDER_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they are expecting it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the parcel is on hold at the hub and a code will come to release it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says a message has come",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller asks for the code",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says the message is from their bank / PaySetu and mentions an amount",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says that is the release code and asks the recipient to read it out",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Recipient says the code came from their bank / payment app, or mentions an amount",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "After F-E1, caller still asks the recipient to share that code",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_01_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent is at the recipient's address and asks for the ShopKart delivery OTP, which confirms handover only and does not authorise any payment.",
+      "caller_objective": "Complete the delivery.",
+      "stable_facts": [
+        "The agent is outside the recipient's building or at the door.",
+        "The message is from ShopKart and contains the order number, with no amount.",
+        "The OTP is given at handover."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, calling about ShopKart order [ORDER_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they are expecting it",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says they are outside with the parcel and asks the recipient to come down or open the door",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient says they are coming",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says they will need the delivery OTP ShopKart sent",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says the message from ShopKart has the order number",
+          "evidence_ids": [
+            "L-M2"
+          ]
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says yes, that is the delivery OTP, please share it at handover",
+          "evidence_ids": []
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Agent is physically present and delivering"
+        },
+        {
+          "id": "L-M2",
+          "text": "Recipient says the message is from ShopKart with the order number"
+        },
+        {
+          "id": "L-M3",
+          "text": "No money is involved (prepaid order)"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Starts to read the code",
+      "legitimate": "Reads the code or says they will give it at the door"
+    },
+    "clarifying": {
+      "fraud": "Asks why a bank message is needed for delivery",
+      "legitimate": "Asks whether they need to pay anything"
+    },
+    "resistant": {
+      "fraud": "Says they will collect the parcel from the hub instead",
+      "legitimate": "Says they will give the code only when they see the parcel"
+    },
+    "suspicious": {
+      "fraud": "Says a bank OTP cannot be a delivery code and asks if this is fraud",
+      "legitimate": "Asks how they know the caller is really the delivery agent"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient shares the code (cooperative only)",
+      "caller insists and recipient hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "parcel handed over",
+      "recipient checks parcel, then shares OTP",
+      "agent suggests checking agent name in the ShopKart app when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may insist the bank code is the release code or add urgency (\"parcel will be returned\"). They must not switch to asking for a link or a fee. The legitimate agent must not mention any payment or second code.",
+  "generation_constraints": {
+    "must_preserve": [
+      "OTP request in both cases",
+      "sender of the message (bank/app vs. ShopKart) stated by the recipient",
+      "physical presence in _L only"
+    ],
+    "may_vary": [
+      "product type",
+      "agent name",
+      "time of day",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real OTP-like numbers",
+      "real app names",
+      "narrator explanations of what the code is"
+    ]
+  },
+  "ambiguities": [
+    "The word \"OTP\" and a request to share it appear in both cases. The label depends on what the code is, which must be made visible by the recipient's turn.",
+    "If generation fails to include F-E1, the prefix must be rejected, not relabelled.",
+    "A real delivery agent who happens to call while not yet at the door is plausible. In this family the legitimate agent is always present, so presence is a supporting cue, not a label rule."
+  ],
+  "evidence_references": [
+    {
+      "claim": "A major Indian marketplace uses a delivery OTP shared with the delivery executive at handover (C15)",
+      "source_ids": [
+        "S12"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Bank OTPs must not be shared with anyone (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-24",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

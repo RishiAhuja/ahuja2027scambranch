@@ -1,0 +1,277 @@
+{
+  "family_id": "ec_03",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "dev",
+  "channel": "outbound_call",
+  "title": "Redelivery fee through a link vs. free rescheduling call",
+  "summary": "A caller from SwiftShip Couriers phones about a prepaid ShopKart parcel after a missed delivery attempt. In the legitimate case, the agent confirms the address and landmark and reschedules the delivery for free. In the fraud case, the caller says the parcel will be returned unless a small \"redelivery charge\" is paid on a link they have just sent from a mobile number, and tells the recipient to enter full card details on that page. Both callers talk about a failed attempt, redelivery, and a message the recipient will receive. The word \"redelivery\" and the mention of a charge appear in both cases.",
+  "shared_setting": {
+    "organisations": [
+      "SwiftShip Couriers",
+      "ShopKart"
+    ],
+    "pretext": "",
+    "recipient_profile": "a ShopKart customer who was not at home when delivery was attempted; profile sampled at generation.",
+    "other_facts": [
+      "Order is prepaid; product is a small household item or clothing worth [AMOUNT_1] (₹400–₹3,000).",
+      "Both callers give an agent name, the order, and say an attempt failed earlier that day."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_03_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller demands payment of a redelivery charge through a link sent from a personal mobile number, outside the ShopKart app, and tells the recipient to type full card details, including CVV, into that page. The small charge is a pretext to capture card details.",
+      "caller_objective": "Obtain card details (and any follow-up OTP) through the linked page.",
+      "stable_facts": [
+        "The caller says the address was \"incomplete\" and the parcel will be sent back today unless a redelivery charge [AMOUNT_2] (₹20–₹60) is paid.",
+        "The link arrives by SMS or chat from a 10-digit mobile number, as https://swiftship-redeliver.invalid/[AWB_ID].",
+        "The caller does not ask for the address itself; the page is where \"everything will be updated\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, calling about ShopKart order [ORDER_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms it is their order and says they were out",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says delivery failed because the address was incomplete",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says they have sent a link by SMS and the parcel will go back today unless a small redelivery charge is paid there",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says the link has come and asks what to fill",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller tells them to enter their card number, expiry, and CVV on the page to pay the charge",
+          "evidence_ids": [
+            "F-E2"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller says the parcel will be returned unless the redelivery charge is paid on the link they sent from a mobile number",
+          "role": "required"
+        },
+        {
+          "id": "F-E2",
+          "text": "Caller tells the recipient to enter card number, expiry date, and CVV on that page",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_03_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent confirms the address verbally and reschedules delivery at no cost. No link, payment, or credential is involved.",
+      "caller_objective": "Confirm the address and deliver the parcel on the next attempt.",
+      "stable_facts": [
+        "The agent has the address but is missing a landmark or flat number.",
+        "The agent says there is no charge for redelivery on a prepaid order.",
+        "The recipient will get a SwiftShip SMS with the new delivery slot; it contains no link to pay."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from SwiftShip, calling about ShopKart order [ORDER_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms it is their order and says they were out",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says delivery failed because the address was missing a landmark",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller asks for the flat number or a nearby landmark",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient gives the landmark and asks if there is any redelivery charge",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says there is no charge, the parcel will come tomorrow, and an SMS will confirm the slot",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Agent asks for the missing landmark or flat number verbally"
+        },
+        {
+          "id": "L-M2",
+          "text": "Agent states that redelivery is free"
+        },
+        {
+          "id": "L-M3",
+          "text": "The follow-up message only confirms the slot"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are typing the card details",
+      "legitimate": "Thanks the agent and confirms a time window"
+    },
+    "clarifying": {
+      "fraud": "Asks why a prepaid order needs a payment",
+      "legitimate": "Asks whether someone else at home can receive it"
+    },
+    "resistant": {
+      "fraud": "Says they will pay only in the ShopKart app or let it be returned",
+      "legitimate": "Asks to pick it up from the SwiftShip hub instead"
+    },
+    "suspicious": {
+      "fraud": "Says the link came from a normal mobile number and asks if this is a scam",
+      "legitimate": "Asks how they can confirm the caller is from SwiftShip"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient enters details (cooperative only)",
+      "caller insists the parcel will be returned and recipient hangs up",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "slot confirmed",
+      "hub pickup arranged",
+      "agent suggests checking the tracking page in the ShopKart app when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may repeat the return threat, say the charge is \"only ₹[AMOUNT_2]\", or resend the link. They must not switch to asking the recipient to read out an OTP, install an app, or pay to a UPI ID. The legitimate agent must not send any link or mention any payment.",
+  "generation_constraints": {
+    "must_preserve": [
+      "failed attempt and redelivery wording in both cases",
+      "payment link and card-detail instruction in _F",
+      "verbal landmark and \"no charge\" in _L",
+      "prepaid order in both"
+    ],
+    "may_vary": [
+      "product",
+      "reason the address was \"incomplete\" / missing",
+      "time of the next slot",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real courier or marketplace names",
+      "working URLs",
+      "real card numbers",
+      "narrator explanations"
+    ]
+  },
+  "ambiguities": [
+    "A request to \"update the address\" is not evidence on its own; the legitimate agent also collects address detail.",
+    "Some real services do charge small fees; the label rests on payment through a link from a mobile number plus the card-detail instruction, not on the existence of a fee.",
+    "If generation drops F-E2, the prefix must be rejected, not relabelled.",
+    "That SwiftShip does not charge for redelivery is a fictional fact of this card, not a real-world claim."
+  ],
+  "evidence_references": [
+    {
+      "claim": "A postal service does not send SMS links asking customers to update addresses or pay to avoid parcel return (CE01)",
+      "source_ids": [
+        "SE01",
+        "SE02"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Fake redelivery links ask for a small charge and then card details, CVV, or OTP (CE02)",
+      "source_ids": [
+        "SE21"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Genuine entities never ask for card details or CVV (C01)",
+      "source_ids": [
+        "S03",
+        "S01"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Couriers normally reattempt delivery without charge",
+      "source_ids": [],
+      "retrieved": "",
+      "status": "VERIFY"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}

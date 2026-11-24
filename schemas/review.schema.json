@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aaai-icfd.invalid/schemas/review.schema.json",
+  "title": "Human review record",
+  "description": "Independent bilingual review of a generated conversation (plan §10.3).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_id",
+    "conversation_id",
+    "reviewer_id",
+    "language_pair",
+    "blinded",
+    "switching_naturalness",
+    "grammatical_acceptability",
+    "conversational_plausibility",
+    "semantic_fidelity",
+    "evidence_label_validity",
+    "earliest_evidence_turn",
+    "evidence_interval",
+    "branch_invariant_valid",
+    "comments",
+    "timestamp"
+  ],
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conversation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewer_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language_pair": {
+      "type": "string",
+      "enum": ["hi_en", "ta_en", "te_en", "en"]
+    },
+    "blinded": {
+      "type": "boolean"
+    },
+    "switching_naturalness": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "grammatical_acceptability": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "conversational_plausibility": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "semantic_fidelity": {
+      "type": "string",
+      "enum": ["pass", "fail", "uncertain"]
+    },
+    "evidence_label_validity": {
+      "type": "string",
+      "enum": ["pass", "fail", "uncertain"]
+    },
+    "earliest_evidence_turn": {
+      "type": ["integer", "null"]
+    },
+    "evidence_interval": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "items": false
+        }
+      ]
+    },
+    "branch_invariant_valid": {
+      "type": "string",
+      "enum": ["yes", "no", "uncertain"]
+    },
+    "comments": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

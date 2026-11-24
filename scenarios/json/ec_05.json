@@ -1,0 +1,261 @@
+{
+  "family_id": "ec_05",
+  "domain": "ecommerce_delivery",
+  "version": "0.1",
+  "status": "draft",
+  "pilot": false,
+  "split": "train",
+  "channel": "outbound_call",
+  "title": "Refund \"collect request\" needing UPI PIN vs. refund to original payment method",
+  "summary": "The recipient recently cancelled a ShopKart order that was paid through PaySetu (UPI). A caller from \"ShopKart support\" phones about the refund. In the legitimate case, the agent confirms the cancellation and says the refund will go back automatically to the original PaySetu-linked account within a few working days; the recipient has nothing to approve. In the fraud case, the caller says they have sent a PaySetu request for the refund and tells the recipient to approve it and enter their UPI PIN to receive the money; approving a collect request pays the requester. This differs from `ec_02` in who calls (a support impersonator, not a classifieds buyer), the pretext (a real cancelled order), and the instrument (a UPI collect request, not a QR code). Both cases mention refund, PaySetu, UPI, and a notification.",
+  "shared_setting": {
+    "organisations": [
+      "ShopKart",
+      "PaySetu"
+    ],
+    "pretext": "",
+    "recipient_profile": "a ShopKart customer waiting for the refund; profile sampled at generation.",
+    "other_facts": [
+      "The order was genuinely cancelled by the recipient the day before; amount [AMOUNT_4] (₹800–₹12,000), paid by UPI through PaySetu.",
+      "Both callers state the order number, the product, and the amount correctly."
+    ]
+  },
+  "cases": {
+    "fraud": {
+      "case_id": "ec_05_F",
+      "scenario_label": "fraud_attempt",
+      "label_rationale": "The caller tells the recipient to approve a PaySetu request and enter their UPI PIN in order to receive a refund. Receiving money over UPI never needs the receiver's PIN; approving a collect request with the PIN pays the requester.",
+      "caller_objective": "Get the recipient to approve a collect request for [AMOUNT_4] or more.",
+      "stable_facts": [
+        "The caller says the \"automatic refund failed\" and must be done \"manually\" through PaySetu.",
+        "A collect request from [UPI_ID_5] appears in the recipient's PaySetu app while on the call.",
+        "The caller says \"approve it and enter your PIN, then the refund will be credited\"."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart support, calling about the refund for cancelled order [ORDER_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they cancelled it and are waiting for the money",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the automatic refund did not go through, so they will send it through PaySetu",
+          "evidence_ids": []
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says a PaySetu request will appear now",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient says they can see a request for the amount",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller tells them to approve it and enter their UPI PIN so the refund reaches their account",
+          "evidence_ids": [
+            "F-E1"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "evidence": [
+        {
+          "id": "F-E1",
+          "text": "Caller tells the recipient to approve the PaySetu request and enter their UPI PIN to receive the refund",
+          "role": "required"
+        }
+      ]
+    },
+    "legitimate": {
+      "case_id": "ec_05_L",
+      "scenario_label": "legitimate",
+      "label_rationale": "The agent confirms the refund is being returned to the original payment method. The recipient is asked only to wait and check their account or the order page; no request, PIN, or code is involved.",
+      "caller_objective": "Confirm the cancellation and set expectations for the refund.",
+      "stable_facts": [
+        "The refund has been initiated to the PaySetu-linked bank account used for the order.",
+        "The agent gives a refund reference [TICKET_ID] and says the credit may take a few working days.",
+        "The recipient will get a PaySetu credit notification when the money arrives."
+      ],
+      "dialogue_plan": [
+        {
+          "turn": 1,
+          "speaker": "caller",
+          "act": "Caller says they are from ShopKart support, calling about the refund for cancelled order [ORDER_ID]",
+          "evidence_ids": []
+        },
+        {
+          "turn": 2,
+          "speaker": "recipient",
+          "act": "Recipient confirms they cancelled it and are waiting for the money",
+          "evidence_ids": []
+        },
+        {
+          "turn": 3,
+          "speaker": "caller",
+          "act": "Caller says the refund has been initiated to the original PaySetu-linked account",
+          "evidence_ids": [
+            "L-M1"
+          ]
+        },
+        {
+          "turn": 4,
+          "speaker": "recipient",
+          "act": "Recipient asks what they need to do",
+          "evidence_ids": []
+        },
+        {
+          "turn": 5,
+          "speaker": "caller",
+          "act": "Caller says nothing; they will get a PaySetu notification when it is credited",
+          "evidence_ids": []
+        },
+        {
+          "turn": 6,
+          "speaker": "recipient",
+          "act": "Recipient asks if they need to accept anything in PaySetu",
+          "evidence_ids": []
+        },
+        {
+          "turn": 7,
+          "speaker": "caller",
+          "act": "Caller says no, there is nothing to approve, and gives the refund reference shown on the order page",
+          "evidence_ids": [
+            "L-M2",
+            "L-M3"
+          ]
+        }
+      ],
+      "branch_after": 7,
+      "markers": [
+        {
+          "id": "L-M1",
+          "text": "Refund goes to the original payment method automatically"
+        },
+        {
+          "id": "L-M2",
+          "text": "Recipient is told nothing needs to be approved or entered"
+        },
+        {
+          "id": "L-M3",
+          "text": "Refund reference visible on the order page"
+        }
+      ]
+    }
+  },
+  "continuations": {
+    "cooperative": {
+      "fraud": "Says they are opening the request and entering the PIN",
+      "legitimate": "Notes the reference and thanks the agent"
+    },
+    "clarifying": {
+      "fraud": "Asks why the request says \"pay\" if it is a refund",
+      "legitimate": "Asks how many days the refund will take"
+    },
+    "resistant": {
+      "fraud": "Says they will wait for the automatic refund instead",
+      "legitimate": "Says they want the refund as ShopKart credit instead"
+    },
+    "suspicious": {
+      "fraud": "Says a PIN is never needed to receive money",
+      "legitimate": "Asks how they know the caller is from ShopKart"
+    }
+  },
+  "allowed_endings": {
+    "fraud": [
+      "recipient approves (cooperative only)",
+      "caller sends a second request \"because the first failed\" and recipient declines",
+      "caller disconnects."
+    ],
+    "legitimate": [
+      "reference noted",
+      "agent explains the credit option is available in the app",
+      "agent suggests checking the refund status on the order page when the recipient is suspicious."
+    ]
+  },
+  "caller_continuation_limits": "The fraud caller may resend a collect request or claim the first attempt failed; a repeat collect request is the same mechanism and is allowed. They must not switch to QR codes, card details, OTPs, or app installation. The legitimate agent must not send any request or ask for any PIN, OTP, or card detail.",
+  "generation_constraints": {
+    "must_preserve": [
+      "refund, PaySetu, and notification wording in both cases",
+      "collect request plus PIN instruction in _F",
+      "automatic refund to original method in _L",
+      "identical order and amount"
+    ],
+    "may_vary": [
+      "product",
+      "reason for cancellation",
+      "number of working days quoted",
+      "recipient profile"
+    ],
+    "must_not_emit": [
+      "real UPI handles",
+      "real app names",
+      "real reference numbers",
+      "narrator text"
+    ]
+  },
+  "ambiguities": [
+    "Refund\" and \"PaySetu\" appear in both cases; neither decides the label.",
+    "A caller knowing the correct order and amount is not evidence of legitimacy; both callers know it.",
+    "If the fraud caller only mentions a request without telling the recipient to approve it with the PIN, the prefix is not eligible."
+  ],
+  "evidence_references": [
+    {
+      "claim": "UPI PIN is never required to receive money (C08)",
+      "source_ids": [
+        "S06"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Refunds for cancelled prepaid orders go back to the original payment method on at least one major marketplace (CE15)",
+      "source_ids": [
+        "SE15"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    },
+    {
+      "claim": "Refund scams ask victims to approve \"verification\" transactions or share PINs (CE22)",
+      "source_ids": [
+        "SE23"
+      ],
+      "retrieved": "2026-09-25",
+      "status": "verified"
+    }
+  ],
+  "signoff": [
+    {
+      "role": "Author",
+      "name": "AI draft",
+      "date": "2026-09-25",
+      "notes": "Needs human author review"
+    },
+    {
+      "role": "Reviewer",
+      "name": "",
+      "date": "",
+      "notes": ""
+    }
+  ]
+}
